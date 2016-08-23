@@ -1,0 +1,18 @@
+﻿<windows:BlurryTrayBase x:Class="BlurryWindowInvoker.Control.InvokedTrayWindow"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:windows="clr-namespace:BlurryControls.Windows;assembly=BlurryControls"
+                        mc:Ignorable="d"
+                        Title="InvokedTrayIcon"
+                        Loaded="InvokedTrayIcon_OnLoaded"
+                        Duration="5">
+    <Grid>
+        <TextBlock x:Name="TrayTextBlock"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextWrapping="Wrap"/>
+    </Grid>
+</windows:BlurryTrayBase>
+
