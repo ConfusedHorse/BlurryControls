@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -175,7 +176,14 @@ namespace BlurryControls.Windows
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             Window_StateChanged(this, null);
 
+            SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
             //use system accent color for window (is overwritten if Background is set)
+            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
+        }
+
+        // apply system color when changed
+        private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
             Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
         }
 

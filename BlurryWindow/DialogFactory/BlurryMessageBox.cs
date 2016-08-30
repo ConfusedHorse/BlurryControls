@@ -10,7 +10,7 @@ namespace BlurryControls.DialogFactory
     /// </summary>
     public static class BlurryMessageBox
     {
-        private const double Strength = 0.3;
+        private const double Strength = 0.5;
 
         /// <summary>
         /// Displays a message box that has a message; and returns a result.

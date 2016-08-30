@@ -6,7 +6,6 @@
         xmlns:p="clr-namespace:BlurryControls.Properties"
         mc:Ignorable="d"
         Height="250" Width="500"
-        Background="#AF000000"
         Foreground="#FFFFFFFF"
         AllowsTransparency="True"
         WindowStyle="None"

@@ -126,6 +126,7 @@ namespace BlurryControls.Windows
         // the window flows from right to left to its terminal position and gains opacity
         private void InitializeTraySpecificVisualBehaviour(object sender, RoutedEventArgs args)
         {
+            SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
             Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
 
             MaxWidth = SystemParameters.WorkArea.Width;
@@ -163,6 +164,12 @@ namespace BlurryControls.Windows
             BeginAnimation(LeftProperty, easeAnimation);
             BeginAnimation(OpacityProperty, opacityAnimation);
             //BeginAnimation(WidthProperty, compensateEase);
+        }
+
+        // apply system color when changed
+        private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
         }
 
         // termination animation

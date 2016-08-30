@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -142,6 +143,18 @@ namespace BlurryControls.Control
         public BlurryDialogWindow()
         {
             InitializeComponent();
+            Loaded += InitializeDialogSpecificVisualBehaviour;
+        }
+
+        private void InitializeDialogSpecificVisualBehaviour(object sender, RoutedEventArgs e)
+        {
+            SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
+            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
+        }
+
+        private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
         }
 
         #region blurry internals
