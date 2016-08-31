@@ -7,7 +7,8 @@
                         mc:Ignorable="d"
                         Title="InvokedTrayIcon"
                         Loaded="InvokedTrayIcon_OnLoaded"
-                        Duration="5">
+                        Duration="5"
+                        DeactivationDuration="500">
     <Grid>
         <TextBlock x:Name="TrayTextBlock"
                    VerticalAlignment="Center"

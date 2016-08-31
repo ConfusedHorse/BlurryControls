@@ -30,7 +30,6 @@ namespace BlurryControls.Windows
         #region fields
 
         private bool _canClose = false;
-        private const int AnimationTime = 2;
         private readonly DispatcherTimer _durationDispatcherTimer = new DispatcherTimer();
 
         #endregion
@@ -83,6 +82,24 @@ namespace BlurryControls.Windows
         {
             get { return (uint) GetValue(DurationProperty); }
             set { SetValue(DurationProperty, value); }
+        }
+
+        public static readonly DependencyProperty ActivationDurationProperty = DependencyProperty.Register(
+            "ActivationDuration", typeof(int), typeof(BlurryTrayBase), new PropertyMetadata(2000));
+
+        public int ActivationDuration
+        {
+            get { return (int) GetValue(ActivationDurationProperty); }
+            set { SetValue(ActivationDurationProperty, value); }
+        }
+
+        public static readonly DependencyProperty DeactivationDurationProperty = DependencyProperty.Register(
+            "DeactivationDuration", typeof(int), typeof(BlurryTrayBase), new PropertyMetadata(2000));
+
+        public int DeactivationDuration
+        {
+            get { return (int) GetValue(DeactivationDurationProperty); }
+            set { SetValue(DeactivationDurationProperty, value); }
         }
 
         #endregion
@@ -141,7 +158,7 @@ namespace BlurryControls.Windows
             {
                 From = MaxWidth,
                 To = left,
-                Duration = new Duration(new TimeSpan(0, 0, 0, AnimationTime)),
+                Duration = new Duration(new TimeSpan(0, 0, 0, 0, ActivationDuration)),
                 EasingFunction = new ExponentialEase { Exponent = 15 }
             };
 
@@ -149,21 +166,12 @@ namespace BlurryControls.Windows
             {
                 From = 0,
                 To = 1,
-                Duration = new Duration(new TimeSpan(0, 0, 0, AnimationTime)),
+                Duration = new Duration(new TimeSpan(0, 0, 0, 0, ActivationDuration)),
                 EasingFunction = new ExponentialEase { Exponent = 15 }
             };
 
-            //var compensateEase = new DoubleAnimation
-            //{
-            //    From = 0,
-            //    To = Width,
-            //    Duration = new Duration(new TimeSpan(0, 0, 0, AnimationTime)),
-            //    EasingFunction = new ExponentialEase { Exponent = 15 }
-            //};
-
             BeginAnimation(LeftProperty, easeAnimation);
             BeginAnimation(OpacityProperty, opacityAnimation);
-            //BeginAnimation(WidthProperty, compensateEase);
         }
 
         // apply system color when changed
@@ -188,7 +196,7 @@ namespace BlurryControls.Windows
             {
                 From = left,
                 To = MaxWidth,
-                Duration = new Duration(new TimeSpan(0, 0, 0, AnimationTime)),
+                Duration = new Duration(new TimeSpan(0, 0, 0, 0, DeactivationDuration)),
                 EasingFunction = new ExponentialEase { Exponent = 15 }
             };
 
@@ -196,23 +204,14 @@ namespace BlurryControls.Windows
             {
                 From = 1,
                 To = 0,
-                Duration = new Duration(new TimeSpan(0, 0, 0, AnimationTime)),
+                Duration = new Duration(new TimeSpan(0, 0, 0, 0, DeactivationDuration)),
                 EasingFunction = new ExponentialEase { Exponent = 15 }
             };
-
-            //var compensateEase = new DoubleAnimation
-            //{
-            //    From = Width,
-            //    To = 0,
-            //    Duration = new Duration(new TimeSpan(0, 0, 0, 2)),
-            //    EasingFunction = new ExponentialEase { Exponent = 15 }
-            //};
 
             DisableBlur();
             easeAnimation.Completed += delegate { Close(); };
             BeginAnimation(LeftProperty, easeAnimation);
             BeginAnimation(OpacityProperty, opacityAnimation);
-            //BeginAnimation(WidthProperty, compensateEase);
 
             _canClose = true;
         }
