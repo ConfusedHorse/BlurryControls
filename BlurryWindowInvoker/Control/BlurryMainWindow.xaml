@@ -10,6 +10,9 @@
                           Title="This is a caption">
     <windows:BlurryWindowBase.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/Themes/Themes.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="SolidBorderBrush" Color="#FFFFFFFF" />
 
             <SolidColorBrush x:Key="DisabledBorderBrush" Color="#FFAAAAAA" />

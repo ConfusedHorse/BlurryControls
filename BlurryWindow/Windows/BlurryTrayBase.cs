@@ -24,6 +24,8 @@ namespace BlurryControls.Windows
     /// <para><see cref="Strength"/></para>
     /// <para><see cref="DeactivatesOnLostFocus"/></para>
     /// <para><see cref="Duration"/></para>
+    /// <para><see cref="ActivationDuration"/></para>
+    /// <para><see cref="DeactivationDuration"/></para>
     /// </summary>
     public class BlurryTrayBase : Window
     {
