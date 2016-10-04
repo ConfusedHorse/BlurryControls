@@ -34,12 +34,12 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -47,7 +47,9 @@
     <Compile Include="Control\BlurryDialogWindow.xaml.cs">
       <DependentUpon>BlurryDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\BlurryImage.cs" />
     <Compile Include="DialogFactory\BlurryMessageBox.cs" />
+    <Compile Include="Extentions\BlurryExtentions.cs" />
     <Compile Include="Helper\ColorHelper.cs" />
     <Compile Include="Helper\IconHelper.cs" />
     <Compile Include="Internals\BlurryDialogEnums.cs" />
@@ -106,6 +108,7 @@
     <Resource Include="Resources\Icons\064\question.png" />
     <Resource Include="Resources\Icons\064\warning.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

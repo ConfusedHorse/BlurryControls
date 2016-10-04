@@ -87,6 +87,9 @@ namespace BlurryControls.Windows
         public static readonly DependencyProperty ActivationDurationProperty = DependencyProperty.Register(
             "ActivationDuration", typeof(int), typeof(BlurryTrayBase), new PropertyMetadata(2000));
 
+        /// <summary>
+        /// Milliseconds the activation animation takes
+        /// </summary>
         public int ActivationDuration
         {
             get { return (int) GetValue(ActivationDurationProperty); }
@@ -96,6 +99,9 @@ namespace BlurryControls.Windows
         public static readonly DependencyProperty DeactivationDurationProperty = DependencyProperty.Register(
             "DeactivationDuration", typeof(int), typeof(BlurryTrayBase), new PropertyMetadata(2000));
 
+        /// <summary>
+        /// Milliseconds the deactivation animation takes
+        /// </summary>
         public int DeactivationDuration
         {
             get { return (int) GetValue(DeactivationDurationProperty); }

@@ -1,4 +1,5 @@
-﻿using BlurryControls.Windows;
+﻿using System.Windows;
+using BlurryControls.Windows;
 
 namespace BlurryWindowInvoker.Control
 {
