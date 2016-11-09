@@ -124,6 +124,15 @@ namespace BlurryControls.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operating Systems older than Windows 6.1 are not supported.
+        /// </summary>
+        public static string VersionNotSupported {
+            get {
+                return ResourceManager.GetString("VersionNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Yes {

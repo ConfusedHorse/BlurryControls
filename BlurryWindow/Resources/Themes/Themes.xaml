@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary.MergedDictionaries>
 
     <!-- blurry ToolTip -->
     <Style TargetType="ToolTip">
@@ -11,6 +9,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
                     <Grid>
+                        <!-- actually this is not even working ... -->
                         <Grid Background="#7F000000">
                             <Grid.Effect>
                                 <BlurEffect Radius="5"/>

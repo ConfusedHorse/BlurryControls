@@ -50,4 +50,15 @@ namespace BlurryControls.Internals
         WCA_ACCENT_POLICY = 19
         // ...
     }
+
+    //following (partial) enums are used to enable the aeroglass effect using Windows7/8 
+    //see https://coldjackle.wordpress.com/2012/07/17/c-aero-glass/ (2016/10)
+    [StructLayout(LayoutKind.Sequential)]
+    public struct MARGINS
+    {
+        public int cxLeftWidth;      // width of left border that retains its size
+        public int cxRightWidth;     // width of right border that retains its size
+        public int cyTopHeight;      // height of top border that retains its size
+        public int cyBottomHeight;   // height of bottom border that retains its size
+    }
 }

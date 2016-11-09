@@ -20,7 +20,7 @@ namespace BlurryControls.Windows
     /// <para><see cref="Strength"/></para>
     /// <para><see cref="CloseOnIconDoubleClick"/></para>
     /// </summary>
-    public class BlurryWindowBase : Window
+    public class BlurryWindow : Window
     {
         #region fields
 
@@ -32,7 +32,7 @@ namespace BlurryControls.Windows
         #region dependency properties
 
         public static readonly DependencyProperty IsResizableProperty = DependencyProperty.Register(
-            "IsResizable", typeof(bool), typeof(BlurryWindowBase), new PropertyMetadata(true));
+            "IsResizable", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// gets or sets the IsResizableProperty
@@ -45,7 +45,7 @@ namespace BlurryControls.Windows
         }
 
         public static readonly DependencyProperty IsMenuBarVisibleProperty = DependencyProperty.Register(
-            "IsMenuBarVisible", typeof(bool), typeof(BlurryWindowBase), new PropertyMetadata(true));
+            "IsMenuBarVisible", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(true));
 
         /// <summary>
         /// gets or sets the IsMenuBarVisibleProperty
@@ -64,7 +64,7 @@ namespace BlurryControls.Windows
         }
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
-            "Strength", typeof(double), typeof(BlurryWindowBase), new PropertyMetadata(0.5));
+            "Strength", typeof(double), typeof(BlurryWindow), new PropertyMetadata(0.5));
         
         /// <summary>
         /// gets or sets the StrengthProperty
@@ -86,7 +86,7 @@ namespace BlurryControls.Windows
         }
 
         public static readonly DependencyProperty CloseOnIconDoubleClickProperty = DependencyProperty.Register(
-            "CloseOnIconDoubleClick", typeof(bool), typeof(BlurryWindowBase), new PropertyMetadata(default(bool)));
+            "CloseOnIconDoubleClick", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// gets or sets the CloseOnIconDoubleClickProperty
@@ -102,14 +102,14 @@ namespace BlurryControls.Windows
 
         #region constructor
         
-        static BlurryWindowBase()
+        static BlurryWindow()
         {
             //ensure loading template of BlurryWindowBase defined in Themes/Generic.xaml
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BlurryWindowBase),
-                new FrameworkPropertyMetadata(typeof(BlurryWindowBase)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BlurryWindow),
+                new FrameworkPropertyMetadata(typeof(BlurryWindow)));
         }
 
-        public BlurryWindowBase()
+        public BlurryWindow()
         {
             Loaded += Window_Loaded;
             StateChanged += Window_StateChanged;
@@ -175,7 +175,7 @@ namespace BlurryControls.Windows
             MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             Window_StateChanged(this, null);
-
+            
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
             //use system accent color for window (is overwritten if Background is set)
             Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
@@ -191,13 +191,10 @@ namespace BlurryControls.Windows
 
         #region blurry internals
 
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //apply blurry filter to the window
-            EnableBlur();
+            this.Blur();
 
             //set matching button style for maximize/restore
             var maximizeContextMenuItem = GetTemplateChild("MaximizeContextMenuItem") as MenuItem;
@@ -205,38 +202,6 @@ namespace BlurryControls.Windows
             if (maximizeContextMenuItem == null || restoreContextMenuItem == null) return;
             restoreContextMenuItem.IsEnabled = WindowState == WindowState.Maximized;
             maximizeContextMenuItem.IsEnabled = !restoreContextMenuItem.IsEnabled;
-        }
-
-        /// <summary>
-        /// this method uses the SetWindowCompositionAttribute to apply an AeroGlass effect to the window
-        /// </summary>
-        private void EnableBlur()
-        {
-            //this code is taken from a sample application provided by Rafael Rivera
-            //see the full code sample here: (2015/07)
-            // https://github.com/riverar/sample-win10-aeroglass (2016/08)
-            var windowHelper = new WindowInteropHelper(this);
-
-            var accent = new AccentPolicy
-            {
-                AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND
-            };
-
-            var accentStructSize = Marshal.SizeOf(accent);
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                SizeOfData = accentStructSize,
-                Data = accentPtr
-            };
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
         }
 
         #endregion
@@ -260,8 +225,7 @@ namespace BlurryControls.Windows
             //this also enables native Windows10 gestures
             //such as Aero Snap and Aero Shake
             ReleaseCapture();
-            SendMessage(new WindowInteropHelper(this).Handle,
-                0xA1, (IntPtr)0x2, (IntPtr)0);
+            SendMessage(new WindowInteropHelper(this).Handle, 0xA1, (IntPtr) 0x2, (IntPtr) 0);
         }
 
         private void TitleImage_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -280,18 +244,18 @@ namespace BlurryControls.Windows
 
             // performing Interop call depending on the Rectangle tag which raised the event
             // see http://stackoverflow.com/a/25095026 (2016/08)
-            var type = (int)frameworkElement.Tag.ToString().ToEnum<ResizeDirection>();
-            var hwndSource = PresentationSource.FromVisual((Visual)sender) as HwndSource;
-            if (hwndSource != null) SendMessage(hwndSource.Handle, 0x112, (IntPtr)type, IntPtr.Zero);
+            var type = (int) frameworkElement.Tag.ToString().ToEnum<ResizeDirection>();
+            var hwndSource = PresentationSource.FromVisual((Visual) sender) as HwndSource;
+            if (hwndSource != null) SendMessage(hwndSource.Handle, 0x112, (IntPtr) type, IntPtr.Zero);
         }
-        
+
         private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)
         {
             _windowIsMaximized = false;
             _lastNonMinimizedState = WindowState;
             WindowState = WindowState.Minimized;
         }
-        
+
         private void Window_StateChanged(object sender, EventArgs e)
         {
             if (!_windowIsMaximized && WindowState != WindowState.Minimized)

@@ -103,13 +103,13 @@
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
     <!-- style for the graphical representation of a custom window base -->
-    <Style TargetType="{x:Type windows:BlurryWindowBase}">
+    <Style TargetType="{x:Type windows:BlurryWindow}">
         <Setter Property="AllowsTransparency" Value="True" />
         <Setter Property="WindowStyle" Value="None" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type windows:BlurryWindowBase}">
+                <ControlTemplate TargetType="{x:Type windows:BlurryWindow}">
                     <!-- 
                     setting the Template property overwrites all window elements which have to be redefined
                     
@@ -268,7 +268,7 @@
                                             <Setter Property="ToolTip" Value="{x:Static p:Resources.Maximize}" />
                                             <Style.Triggers>
                                                 <DataTrigger
-                                                    Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindowBase}}}"
+                                                    Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindow}}}"
                                                     Value="Normal">
                                                     <Setter Property="ToolTip" Value="{x:Static p:Resources.Maximize}" />
                                                     <Setter Property="Content">
@@ -278,7 +278,7 @@
                                                     </Setter>
                                                 </DataTrigger>
                                                 <DataTrigger
-                                                    Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindowBase}}}"
+                                                    Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindow}}}"
                                                     Value="Maximized">
                                                     <Setter Property="ToolTip" Value="{x:Static p:Resources.Restore}" />
                                                     <Setter Property="Content">
@@ -387,7 +387,7 @@
     for information purposes a Duration may be set
     or as a tray control Duration be set to 0 which disables automatic closing
     -->
-    <Style TargetType="{x:Type windows:BlurryTrayBase}">
+    <Style TargetType="{x:Type windows:BlurryTray}">
         <Setter Property="Width" Value="300" /> <!-- default -->
         <Setter Property="Height" Value="500" /> <!-- default -->
         <Setter Property="AllowsTransparency" Value="True" />
@@ -397,7 +397,7 @@
         <Setter Property="Topmost" Value="True" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type windows:BlurryTrayBase}">
+                <ControlTemplate TargetType="{x:Type windows:BlurryTray}">
                     <Grid Background="{TemplateBinding Background}">
                         <!-- content goes here -->
                         <AdornerDecorator>

@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using BlurryControls.Helper;
 using BlurryControls.Windows;
 
 namespace BlurryWindowInvoker.Control
@@ -7,11 +7,12 @@ namespace BlurryWindowInvoker.Control
     /// Interaction logic for BlurryMainWindow.xaml
     /// Contains some simple logic to demonstrate the BlurryWindow control
     /// </summary>
-    public partial class BlurryMainWindow : BlurryWindowBase
+    public partial class BlurryMainWindow : BlurryWindow
     {
         public BlurryMainWindow()
         {
             InitializeComponent();
+            Title = Title + " (" + VersionHelper.OperatingSystem + ")";
         }
     }
 }

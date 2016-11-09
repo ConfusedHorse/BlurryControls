@@ -159,45 +159,10 @@ namespace BlurryControls.Control
 
         #region blurry internals
 
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //apply blurry filter to the window
-            EnableBlur();
-        }
-
-        /// <summary>
-        /// this method uses the SetWindowCompositionAttribute to apply an AeroGlass effect to the window
-        /// </summary>
-        internal void EnableBlur()
-        {
-            //this code is taken from a sample application provided by Rafael Rivera
-            //see the full code sample here: (2015/07)
-            // https://github.com/riverar/sample-win10-aeroglass (2016/08)
-            var windowHelper = new WindowInteropHelper(this);
-
-            var accent = new AccentPolicy
-            {
-                AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND
-            };
-
-            var accentStructSize = Marshal.SizeOf(accent);
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                SizeOfData = accentStructSize,
-                Data = accentPtr
-            };
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
+            this.Blur();
         }
 
         #endregion

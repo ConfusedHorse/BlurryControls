@@ -27,7 +27,7 @@ namespace BlurryControls.Windows
     /// <para><see cref="ActivationDuration"/></para>
     /// <para><see cref="DeactivationDuration"/></para>
     /// </summary>
-    public class BlurryTrayBase : Window
+    public class BlurryTray : Window
     {
         #region fields
 
@@ -39,7 +39,7 @@ namespace BlurryControls.Windows
         #region dependency properties
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
-            "Strength", typeof(double), typeof(BlurryTrayBase), new PropertyMetadata(0.75));
+            "Strength", typeof(double), typeof(BlurryTray), new PropertyMetadata(0.75));
 
         /// <summary>
         /// gets or sets the StrengthProperty
@@ -61,7 +61,7 @@ namespace BlurryControls.Windows
         }
 
         public static readonly DependencyProperty DeactivatesOnLostFocusProperty = DependencyProperty.Register(
-            "DeactivatesOnLostFocus", typeof(bool), typeof(BlurryTrayBase), new PropertyMetadata(true));
+            "DeactivatesOnLostFocus", typeof(bool), typeof(BlurryTray), new PropertyMetadata(true));
 
         /// <summary>
         /// gets or sets the DeactivatesOnLostFocusProperty
@@ -74,7 +74,7 @@ namespace BlurryControls.Windows
         }
 
         public static readonly DependencyProperty DurationProperty = DependencyProperty.Register(
-            "Duration", typeof(uint), typeof(BlurryTrayBase), new PropertyMetadata(default(uint)));
+            "Duration", typeof(uint), typeof(BlurryTray), new PropertyMetadata(default(uint)));
 
         /// <summary>
         /// gets or sets the DurationProperty
@@ -87,7 +87,7 @@ namespace BlurryControls.Windows
         }
 
         public static readonly DependencyProperty ActivationDurationProperty = DependencyProperty.Register(
-            "ActivationDuration", typeof(int), typeof(BlurryTrayBase), new PropertyMetadata(2000));
+            "ActivationDuration", typeof(int), typeof(BlurryTray), new PropertyMetadata(2000));
 
         /// <summary>
         /// Milliseconds the activation animation takes
@@ -99,7 +99,7 @@ namespace BlurryControls.Windows
         }
 
         public static readonly DependencyProperty DeactivationDurationProperty = DependencyProperty.Register(
-            "DeactivationDuration", typeof(int), typeof(BlurryTrayBase), new PropertyMetadata(2000));
+            "DeactivationDuration", typeof(int), typeof(BlurryTray), new PropertyMetadata(2000));
 
         /// <summary>
         /// Milliseconds the deactivation animation takes
@@ -114,14 +114,14 @@ namespace BlurryControls.Windows
 
         #region constructor
 
-        static BlurryTrayBase()
+        static BlurryTray()
         {
             //ensure loading template of BlurryWindowBase defined in Themes/Generic.xaml
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(BlurryTrayBase),
-                new FrameworkPropertyMetadata(typeof(BlurryTrayBase)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(BlurryTray),
+                new FrameworkPropertyMetadata(typeof(BlurryTray)));
         }
 
-        public BlurryTrayBase()
+        public BlurryTray()
         {
             WindowStartupLocation = WindowStartupLocation.Manual;
 
@@ -216,7 +216,7 @@ namespace BlurryControls.Windows
                 EasingFunction = new ExponentialEase { Exponent = 15 }
             };
 
-            DisableBlur();
+            this.UnBlur();
             easeAnimation.Completed += delegate { Close(); };
             BeginAnimation(LeftProperty, easeAnimation);
             BeginAnimation(OpacityProperty, opacityAnimation);
@@ -228,77 +228,10 @@ namespace BlurryControls.Windows
 
         #region blurry internals
 
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //apply blurry filter to the window
-            EnableBlur();
-        }
-
-        /// <summary>
-        /// this method uses the SetWindowCompositionAttribute to apply an AeroGlass effect to the window
-        /// </summary>
-        private void EnableBlur()
-        {
-            //this code is taken from a sample application provided by Rafael Rivera
-            //see the full code sample here: (2015/07)
-            // https://github.com/riverar/sample-win10-aeroglass (2016/08)
-            var windowHelper = new WindowInteropHelper(this);
-
-            var accent = new AccentPolicy
-            {
-                AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND
-            };
-
-            var accentStructSize = Marshal.SizeOf(accent);
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                SizeOfData = accentStructSize,
-                Data = accentPtr
-            };
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
-        }
-
-        /// <summary>
-        /// this method uses the SetWindowCompositionAttribute to remove the AeroGlass effect from the window
-        /// </summary>
-        private void DisableBlur()
-        {
-            //this code is an altered version of a sample application provided by Rafael Rivera
-            //see the full code sample here: (2015/07)
-            // https://github.com/riverar/sample-win10-aeroglass (2016/08)
-            var windowHelper = new WindowInteropHelper(this);
-
-            var accent = new AccentPolicy
-            {
-                AccentState = AccentState.ACCENT_DISABLED
-            };
-
-            var accentStructSize = Marshal.SizeOf(accent);
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                SizeOfData = accentStructSize,
-                Data = accentPtr
-            };
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
+            this.Blur();
         }
 
         #endregion

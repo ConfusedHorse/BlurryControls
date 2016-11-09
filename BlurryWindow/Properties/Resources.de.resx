@@ -138,6 +138,9 @@
   <data name="Restore" xml:space="preserve">
     <value>Verkleinern</value>
   </data>
+  <data name="VersionNotSupported" xml:space="preserve">
+    <value>Betriebssysteme vor Windows 6.1 werden nicht unterstützt</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
