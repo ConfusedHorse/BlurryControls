@@ -4,8 +4,8 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using BlurryControls.Internals;
-using BlurryControls.Properties;
-using OperatingSystem = BlurryControls.Internals.OperatingSystem;
+//using BlurryControls.Properties;
+//using OperatingSystem = BlurryControls.Internals.OperatingSystem;
 
 namespace BlurryControls.Helper
 {
@@ -13,35 +13,39 @@ namespace BlurryControls.Helper
     {
         public static void Blur(this Window win)
         {
-            switch (VersionHelper.OperatingSystem)
-            {
-                case OperatingSystem.Windows78:
-                    EnableBlur78(win, true);
-                    break;
-                case OperatingSystem.Windows10:
-                    EnableBlur10(win, true);
-                    break;
-                case OperatingSystem.NotSupported:
-                    throw new NotSupportedException(Resources.VersionNotSupported);
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            EnableBlur10(win, true);
+
+            //switch (VersionHelper.OperatingSystem)
+            //{
+            //    case OperatingSystem.Windows78:
+            //        EnableBlur78(win, true);
+            //        break;
+            //    case OperatingSystem.Windows10:
+            //        EnableBlur10(win, true);
+            //        break;
+            //    case OperatingSystem.NotSupported:
+            //        throw new NotSupportedException(Resources.VersionNotSupported);
+            //    default:
+            //        throw new ArgumentOutOfRangeException();
+            //}
         }
         public static void UnBlur(this Window win)
         {
-            switch (VersionHelper.OperatingSystem)
-            {
-                case OperatingSystem.Windows78:
-                    EnableBlur78(win, false);
-                    break;
-                case OperatingSystem.Windows10:
-                    EnableBlur10(win, false);
-                    break;
-                case OperatingSystem.NotSupported:
-                    throw new NotSupportedException(Resources.VersionNotSupported);
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            EnableBlur10(win, false);
+
+            //switch (VersionHelper.OperatingSystem)
+            //{
+            //    case OperatingSystem.Windows78:
+            //        EnableBlur78(win, false);
+            //        break;
+            //    case OperatingSystem.Windows10:
+            //        EnableBlur10(win, false);
+            //        break;
+            //    case OperatingSystem.NotSupported:
+            //        throw new NotSupportedException(Resources.VersionNotSupported);
+            //    default:
+            //        throw new ArgumentOutOfRangeException();
+            //}
         }
 
         #region Windows10
@@ -91,6 +95,7 @@ namespace BlurryControls.Helper
         /// <summary>
         /// this method uses DwmEnableBlurBehindWindow to apply an AeroGlass effect to the window
         /// </summary>
+        [Obsolete("not working without a window style and as such redundant")]
         private static void EnableBlur78(Window win, bool enable)
         {
             //this code is taken from a sample provided by MSDN

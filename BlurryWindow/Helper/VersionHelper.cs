@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Management;
 using OperatingSystem = BlurryControls.Internals.OperatingSystem;
 
 namespace BlurryControls.Helper
 {
+    [Obsolete("Was meant to determine the current system version")]
     public class VersionHelper
     {
         private static OperatingSystem _operatingSystem = OperatingSystem.NotSupported;

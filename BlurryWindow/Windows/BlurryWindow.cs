@@ -177,8 +177,6 @@ namespace BlurryControls.Windows
             Window_StateChanged(this, null);
             
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
-            //use system accent color for window (is overwritten if Background is set)
-            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
         }
 
         // apply system color when changed
@@ -202,6 +200,9 @@ namespace BlurryControls.Windows
             if (maximizeContextMenuItem == null || restoreContextMenuItem == null) return;
             restoreContextMenuItem.IsEnabled = WindowState == WindowState.Maximized;
             maximizeContextMenuItem.IsEnabled = !restoreContextMenuItem.IsEnabled;
+
+            //use system accent color for window (is overwritten if Background is set)
+            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
         }
 
         #endregion

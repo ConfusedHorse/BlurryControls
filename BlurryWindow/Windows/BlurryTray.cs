@@ -152,7 +152,6 @@ namespace BlurryControls.Windows
         private void InitializeTraySpecificVisualBehaviour(object sender, RoutedEventArgs args)
         {
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
-            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
 
             MaxWidth = SystemParameters.WorkArea.Width;
             MaxHeight = SystemParameters.WorkArea.Height;
@@ -232,6 +231,9 @@ namespace BlurryControls.Windows
         {
             //apply blurry filter to the window
             this.Blur();
+
+            //use system accent color for window (is overwritten if Background is set)
+            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
         }
 
         #endregion

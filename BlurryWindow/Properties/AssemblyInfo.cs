@@ -6,7 +6,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BlurryControls")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Provides basic functionality for bluring windows and images")]
 [assembly: AssemblyConfiguration("Windows10 only")]
 [assembly: AssemblyCompany("Jörg Flechsig")]
 [assembly: AssemblyProduct("BlurryControls")]

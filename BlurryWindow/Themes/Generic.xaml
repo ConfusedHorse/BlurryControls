@@ -4,8 +4,8 @@
                     xmlns:windows="clr-namespace:BlurryControls.Windows"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/Icons/IconResources.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/Themes/Themes.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/Icons/IconResources.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/Themes/Themes.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <!-- 
     this ResourceDictionary includes styles to achieve a basic visual and functional Window 
@@ -22,7 +22,7 @@
     you can read more about that on: (2016/08)
     https://blog.magnusmontin.net/2013/03/16/how-to-create-a-custom-window-in-wpf/
     -->
-    
+
     <!-- style for a button which slowly turns white when hovering the cursor over it -->
     <Style x:Key="WindowButtonGeneralStyle"
            TargetType="{x:Type Button}"
@@ -49,6 +49,7 @@
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         FillBehavior="HoldEnd"
                                         Duration="0:0:0.5" />
+
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -57,8 +58,9 @@
                     <Storyboard>
                         <ColorAnimation To="#00000000"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                        FillBehavior="Stop"
-                                        Duration="0:0:1" />
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.5" />
+
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -97,7 +99,7 @@
         <Setter Property="Fill" Value="Transparent" />
     </Style>
 
-    <!-- size of the grabable area of transparent border rectangles --> 
+    <!-- size of the grabable area of transparent border rectangles -->
     <system:Double x:Key="BorderWeight">5</system:Double>
 
     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -162,28 +164,28 @@
                                     <MenuItem x:Name="MinimizeContextMenuItem"
                                               Header="{x:Static p:Resources.Minimize}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Minimize016B}"/>
+                                            <ContentControl Template="{StaticResource Minimize016B}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!-- Restore -->
                                     <MenuItem x:Name="RestoreContextMenuItem"
                                               Header="{x:Static p:Resources.Restore}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Restore016B}"/>
+                                            <ContentControl Template="{StaticResource Restore016B}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!-- Maximize -->
                                     <MenuItem x:Name="MaximizeContextMenuItem"
                                               Header="{x:Static p:Resources.Maximize}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Maximize016B}"/>
+                                            <ContentControl Template="{StaticResource Maximize016B}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!-- Close -->
                                     <MenuItem x:Name="CloseContextMenuItem"
                                               Header="{x:Static p:Resources.Close}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Close016B}"/>
+                                            <ContentControl Template="{StaticResource Close016B}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                 </ContextMenu>
@@ -191,15 +193,15 @@
                             <Grid.Triggers>
                                 <!-- 
                                 this is not part of the standard window 
-                                following triggers control the visual (calming) behaviour for the ManuBar
+                                following triggers control the visual (calming) behaviour of the MenuBar
                                 -->
                                 <EventTrigger RoutedEvent="Grid.MouseEnter">
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <ColorAnimation To="#66000000"
+                                            <ColorAnimation To="#33000000"
                                                             Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
                                                             FillBehavior="HoldEnd"
-                                                            Duration="0:0:1" />
+                                                            Duration="0:0:0.5" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
@@ -209,7 +211,7 @@
                                             <ColorAnimation To="#00000000"
                                                             Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
                                                             FillBehavior="Stop"
-                                                            Duration="0:0:1" />
+                                                            Duration="0:0:0.5" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </EventTrigger>
@@ -258,7 +260,7 @@
                                 <Button x:Name="MinimizeButton"
                                         Style="{StaticResource WindowButtonGeneralStyle}"
                                         ToolTip="{x:Static p:Resources.Minimize}">
-                                    <ContentControl Template="{StaticResource Minimize032W}"/>
+                                    <ContentControl Template="{StaticResource Minimize032W}" />
                                 </Button>
 
                                 <!-- Maximize / Restore -->
@@ -273,7 +275,7 @@
                                                     <Setter Property="ToolTip" Value="{x:Static p:Resources.Maximize}" />
                                                     <Setter Property="Content">
                                                         <Setter.Value>
-                                                            <ContentControl Template="{StaticResource Maximize032W}"/>
+                                                            <ContentControl Template="{StaticResource Maximize032W}" />
                                                         </Setter.Value>
                                                     </Setter>
                                                 </DataTrigger>
@@ -283,7 +285,7 @@
                                                     <Setter Property="ToolTip" Value="{x:Static p:Resources.Restore}" />
                                                     <Setter Property="Content">
                                                         <Setter.Value>
-                                                            <ContentControl Template="{StaticResource Restore032W}"/>
+                                                            <ContentControl Template="{StaticResource Restore032W}" />
                                                         </Setter.Value>
                                                     </Setter>
                                                 </DataTrigger>
@@ -296,7 +298,7 @@
                                 <Button x:Name="CloseButton"
                                         Style="{StaticResource WindowButtonExitStyle}"
                                         ToolTip="{x:Static p:Resources.Close}">
-                                    <ContentControl Template="{StaticResource Close032W}"/>
+                                    <ContentControl Template="{StaticResource Close032W}" />
                                 </Button>
                             </StackPanel>
                         </Grid>

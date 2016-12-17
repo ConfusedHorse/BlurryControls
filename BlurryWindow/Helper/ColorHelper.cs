@@ -9,8 +9,7 @@ namespace BlurryControls.Helper
     internal static class ColorHelper
     {
         /// <summary>
-        /// returns either the currently selected <see cref="SystemParameters.WindowGlassColor"/> with chosen opacity
-        /// or 
+        /// returns the currently selected <see cref="SystemParameters.WindowGlassColor"/> with chosen opacity
         /// </summary>
         /// <param name="strength">opacity weight from 0.0 to 1.0 and is set to 0.75 if no value is provided</param>
         /// <returns>the currently selected <see cref="SystemParameters.WindowGlassColor"/> with chosen opacity</returns>
