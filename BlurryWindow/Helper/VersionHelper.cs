@@ -6,7 +6,7 @@ using OperatingSystem = BlurryControls.Internals.OperatingSystem;
 namespace BlurryControls.Helper
 {
     [Obsolete("Was meant to determine the current system version")]
-    public class VersionHelper
+    public static class VersionHelper
     {
         private static OperatingSystem _operatingSystem = OperatingSystem.NotSupported;
 

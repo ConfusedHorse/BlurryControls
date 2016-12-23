@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,8 +24,7 @@ namespace BlurryControls.Windows
     public class BlurryWindow : Window
     {
         #region fields
-
-        private bool _windowIsMaximized = false;
+        
         private WindowState _lastNonMinimizedState = WindowState.Normal;
 
         #endregion
@@ -112,8 +112,13 @@ namespace BlurryControls.Windows
         public BlurryWindow()
         {
             Loaded += Window_Loaded;
-            StateChanged += Window_StateChanged;
+            SourceInitialized += OnSourceInitialized;
             InitializeParameters();
+        }
+
+        private void OnSourceInitialized(object sender, EventArgs eventArgs)
+        {
+            SizeHelper.WindowInitialized(this);
         }
 
         public override void OnApplyTemplate()
@@ -171,11 +176,6 @@ namespace BlurryControls.Windows
 
         private void InitializeParameters()
         {
-            //exclude TaskBar from maximized state by setting Max* properties to work space sizes
-            MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
-            MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            Window_StateChanged(this, null);
-            
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
         }
 
@@ -252,23 +252,8 @@ namespace BlurryControls.Windows
 
         private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _windowIsMaximized = false;
             _lastNonMinimizedState = WindowState;
             WindowState = WindowState.Minimized;
-        }
-
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            if (!_windowIsMaximized && WindowState != WindowState.Minimized)
-            {
-                _windowIsMaximized = true;
-                WindowState = WindowState.Normal;
-                WindowState = _lastNonMinimizedState;
-            }
-            else if (WindowState == WindowState.Minimized)
-            {
-                _windowIsMaximized = false;
-            }
         }
 
         // MenuBar context menu handling depending on the calling element's name
@@ -344,7 +329,6 @@ namespace BlurryControls.Windows
         {
             _lastNonMinimizedState = WindowState;
             WindowState = WindowState.Normal;
-            _windowIsMaximized = false;
         }
 
         private void Window_MaximizeRestoreButtonClicked()
