@@ -32,6 +32,7 @@ namespace BlurryControls.Windows
         #region fields
 
         private bool _canClose = false;
+        private bool _customBackground;
         private readonly DispatcherTimer _durationDispatcherTimer = new DispatcherTimer();
 
         #endregion
@@ -232,8 +233,11 @@ namespace BlurryControls.Windows
             //apply blurry filter to the window
             this.Blur();
 
+            _customBackground = Background != null;
             //use system accent color for window (is overwritten if Background is set)
-            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
+            Background = !_customBackground
+                ? ColorHelper.TransparentSystemWindowGlassBrush(Strength)
+                : Background.ApplyStrength(Strength);
         }
 
         #endregion

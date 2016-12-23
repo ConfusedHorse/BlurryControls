@@ -202,7 +202,6 @@ namespace BlurryControls.Windows
             maximizeContextMenuItem.IsEnabled = !restoreContextMenuItem.IsEnabled;
 
             _customBackground = Background != null;
-
             //use system accent color for window (is overwritten if Background is set)
             Background = !_customBackground
                 ? ColorHelper.TransparentSystemWindowGlassBrush(Strength)
