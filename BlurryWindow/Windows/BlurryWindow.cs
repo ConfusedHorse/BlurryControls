@@ -199,6 +199,7 @@ namespace BlurryControls.Windows
         private void OnKeyDown(object sender, KeyEventArgs keyEventArgs)
         {
             if (keyEventArgs.Key != Key.F11) return;
+            if (!IsResizable) return;
 
             if (_isFullScreen)
             {

@@ -56,6 +56,7 @@
         </Setter>
     </Style>
 
+    <!-- blurry ContextMenu -->
     <Style TargetType="{x:Type ContextMenu}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />

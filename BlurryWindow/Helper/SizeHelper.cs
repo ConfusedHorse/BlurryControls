@@ -132,8 +132,8 @@ namespace BlurryControls.Helper
                 mmi.ptMaxSize.y = Math.Abs(rcWorkArea.right - rcMonitorArea.left);
                 mmi.ptMaxTrackSize.x = mmi.ptMaxSize.x;
                 mmi.ptMaxTrackSize.y = mmi.ptMaxSize.y;
-                mmi.ptMinTrackSize.x = 800;
-                mmi.ptMinTrackSize.y = 600;
+                mmi.ptMinTrackSize.x = 100;
+                mmi.ptMinTrackSize.y = 100;
                 mmi = AdjustWorkingAreaForAutoHide(monitorContainingApplication, mmi);
             }
             Marshal.StructureToPtr(mmi, lParam, true);
