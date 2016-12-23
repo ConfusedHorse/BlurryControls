@@ -124,13 +124,12 @@ namespace BlurryControls.Helper
                 GetMonitorInfo(monitorContainingApplication, monitorInfo);
                 var rcWorkArea = monitorInfo.rcWork;
                 var rcMonitorArea = monitorInfo.rcMonitor;
-                //some weird magic which happens to function on every monitor setup and resolution I tested
-                //TODO review this
-                mmi.ptMaxPosition.x = (int)SystemParameters.VirtualScreenLeft;
-                mmi.ptMaxPosition.y = (int)SystemParameters.VirtualScreenTop;
+                //does not work for secondary monitor when task bar is in another orientation than bottom
+                mmi.ptMaxPosition.x = rcWorkArea.bottom * rcMonitorArea.bottom;
+                mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
+                //
                 mmi.ptMaxSize.x = Math.Abs(rcWorkArea.top - rcMonitorArea.bottom);
                 mmi.ptMaxSize.y = Math.Abs(rcWorkArea.right - rcMonitorArea.left);
-                //until here (rest seems ok)
                 mmi.ptMaxTrackSize.x = mmi.ptMaxSize.x;
                 mmi.ptMaxTrackSize.y = mmi.ptMaxSize.y;
                 mmi.ptMinTrackSize.x = 800;

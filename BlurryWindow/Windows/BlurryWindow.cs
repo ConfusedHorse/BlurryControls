@@ -25,7 +25,7 @@ namespace BlurryControls.Windows
     {
         #region fields
         
-        private WindowState _lastNonMinimizedState = WindowState.Normal;
+        private bool _customBackground;
 
         #endregion
 
@@ -176,7 +176,7 @@ namespace BlurryControls.Windows
 
         private void InitializeParameters()
         {
-            SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
+            if (!_customBackground) SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
         }
 
         // apply system color when changed
@@ -201,8 +201,12 @@ namespace BlurryControls.Windows
             restoreContextMenuItem.IsEnabled = WindowState == WindowState.Maximized;
             maximizeContextMenuItem.IsEnabled = !restoreContextMenuItem.IsEnabled;
 
+            _customBackground = Background != null;
+
             //use system accent color for window (is overwritten if Background is set)
-            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
+            Background = !_customBackground
+                ? ColorHelper.TransparentSystemWindowGlassBrush(Strength)
+                : Background.ApplyStrength(Strength);
         }
 
         #endregion
@@ -252,7 +256,6 @@ namespace BlurryControls.Windows
 
         private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)
         {
-            _lastNonMinimizedState = WindowState;
             WindowState = WindowState.Minimized;
         }
 
@@ -327,7 +330,6 @@ namespace BlurryControls.Windows
         // minimizing the application into TaskBar
         private void Window_MinimizeButtonClicked()
         {
-            _lastNonMinimizedState = WindowState;
             WindowState = WindowState.Normal;
         }
 
@@ -335,7 +337,6 @@ namespace BlurryControls.Windows
         {
             // logic is based on http://stackoverflow.com/a/16035678 (2016/08)
             WindowState = WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
-            _lastNonMinimizedState = WindowState;
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
