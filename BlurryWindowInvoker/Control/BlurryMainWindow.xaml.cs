@@ -1,5 +1,4 @@
-﻿using BlurryControls.Helper;
-using BlurryControls.Windows;
+﻿using BlurryControls.Windows;
 
 namespace BlurryWindowInvoker.Control
 {
@@ -12,7 +11,6 @@ namespace BlurryWindowInvoker.Control
         public BlurryMainWindow()
         {
             InitializeComponent();
-            Title = Title + " (" + VersionHelper.OperatingSystem + ")";
         }
     }
 }

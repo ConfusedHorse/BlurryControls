@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +25,9 @@ namespace BlurryControls.Windows
         #region fields
         
         private bool _customBackground;
+
+        private WindowState _lastState;
+        private bool _isFullScreen;
 
         #endregion
 
@@ -113,12 +115,8 @@ namespace BlurryControls.Windows
         {
             Loaded += Window_Loaded;
             SourceInitialized += OnSourceInitialized;
+            KeyDown += OnKeyDown;
             InitializeParameters();
-        }
-
-        private void OnSourceInitialized(object sender, EventArgs eventArgs)
-        {
-            SizeHelper.WindowInitialized(this);
         }
 
         public override void OnApplyTemplate()
@@ -185,6 +183,27 @@ namespace BlurryControls.Windows
             Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
         }
 
+        private void OnKeyDown(object sender, KeyEventArgs keyEventArgs)
+        {
+            if (keyEventArgs.Key != Key.F11) return;
+
+            if (_isFullScreen)
+            {
+                _isFullScreen = false;
+                WindowState = _lastState;
+                IsMenuBarVisible = true;
+                Topmost = false;
+            }
+            else
+            {
+                _isFullScreen = true;
+                _lastState = WindowState;
+                IsMenuBarVisible = false;
+                WindowState = WindowState.Maximized;
+                Topmost = true;
+            }
+        }
+
         #endregion
 
         #region blurry internals
@@ -206,6 +225,11 @@ namespace BlurryControls.Windows
             Background = !_customBackground
                 ? ColorHelper.TransparentSystemWindowGlassBrush(Strength)
                 : Background.ApplyStrength(Strength);
+        }
+
+        private void OnSourceInitialized(object sender, EventArgs eventArgs)
+        {
+            SizeHelper.WindowInitialized(this);
         }
 
         #endregion

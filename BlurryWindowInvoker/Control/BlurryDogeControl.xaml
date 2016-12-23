@@ -9,11 +9,11 @@
 
     <Grid>
         <windows:BlurryImage x:Name="BlurryDoge" 
-                                         Source="../Resources/TestImage/doge.jpeg"
-                                         BlurRadius="50"/>
+                             Source="../Resources/TestImage/doge.jpeg"
+                             BlurRadius="50"/>
         <Slider Minimum="0"
-                            Maximum="100"
-                            Value="50"
-                            ValueChanged="RangeBase_OnValueChanged"/>
+                Maximum="100"
+                Value="50"
+                ValueChanged="RangeBase_OnValueChanged"/>
     </Grid>
 </UserControl>
