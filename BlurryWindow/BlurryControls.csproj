@@ -51,6 +51,7 @@
     <Compile Include="Helper\BlurryHelper.cs" />
     <Compile Include="Helper\SizeHelper.cs" />
     <Compile Include="Helper\VersionHelper.cs" />
+    <Compile Include="Internals\ButtonCollection.cs" />
     <Compile Include="Internals\SystemVersion.cs" />
     <Compile Include="Windows\BlurryImage.cs" />
     <Compile Include="DialogFactory\BlurryMessageBox.cs" />

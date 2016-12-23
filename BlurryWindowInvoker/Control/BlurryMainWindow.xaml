@@ -5,6 +5,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:windows="clr-namespace:BlurryControls.Windows;assembly=BlurryControls"
                       xmlns:control="clr-namespace:BlurryWindowInvoker.Control"
+                      xmlns:internals="clr-namespace:BlurryControls.Internals;assembly=BlurryControls"
                       mc:Ignorable="d"
                       Icon="/Resources/Icons/032/speaker.png"
                       Title="This is a caption">
@@ -64,6 +65,7 @@
             </DataTemplate>
         </ResourceDictionary>
     </windows:BlurryWindow.Resources>
+    
     <Grid>
         <!-- sample control with basic components -->
         <TabControl Background="Transparent"

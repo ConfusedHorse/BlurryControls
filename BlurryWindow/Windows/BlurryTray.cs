@@ -237,7 +237,7 @@ namespace BlurryControls.Windows
             //use system accent color for window (is overwritten if Background is set)
             Background = !_customBackground
                 ? ColorHelper.TransparentSystemWindowGlassBrush(Strength)
-                : Background.ApplyStrength(Strength);
+                : Background.OfStrength(Strength);
         }
 
         #endregion

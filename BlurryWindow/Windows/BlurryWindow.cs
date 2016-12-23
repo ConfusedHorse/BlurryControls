@@ -19,6 +19,7 @@ namespace BlurryControls.Windows
     /// <para><see cref="IsMenuBarVisible"/></para>
     /// <para><see cref="Strength"/></para>
     /// <para><see cref="CloseOnIconDoubleClick"/></para>
+    /// <para><see cref="AdditionalMenuBarButtons"/></para>
     /// </summary>
     public class BlurryWindow : Window
     {
@@ -98,6 +99,18 @@ namespace BlurryControls.Windows
         {
             get { return (bool) GetValue(CloseOnIconDoubleClickProperty); }
             set { SetValue(CloseOnIconDoubleClickProperty, value); }
+        }
+
+        public static readonly DependencyProperty AdditionalMenuBarButtonsProperty = DependencyProperty.Register(
+            "AdditionalMenuBarButtons", typeof(ButtonCollection), typeof(BlurryWindow), new PropertyMetadata(default(ButtonCollection)));
+
+        /// <summary>
+        /// a button collection shown additionaly to lefthand side of the conventional window buttons
+        /// </summary>
+        public ButtonCollection AdditionalMenuBarButtons
+        {
+            get { return (ButtonCollection) GetValue(AdditionalMenuBarButtonsProperty); }
+            set { SetValue(AdditionalMenuBarButtonsProperty, value); }
         }
 
         #endregion
@@ -222,9 +235,7 @@ namespace BlurryControls.Windows
 
             _customBackground = Background != null;
             //use system accent color for window (is overwritten if Background is set)
-            Background = !_customBackground
-                ? ColorHelper.TransparentSystemWindowGlassBrush(Strength)
-                : Background.ApplyStrength(Strength);
+            Background = !_customBackground ? ColorHelper.TransparentSystemWindowGlassBrush(Strength) : Background.OfStrength(Strength);
         }
 
         private void OnSourceInitialized(object sender, EventArgs eventArgs)

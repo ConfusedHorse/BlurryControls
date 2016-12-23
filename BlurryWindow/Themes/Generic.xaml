@@ -248,6 +248,22 @@
                                        FontFamily="Segoe UI"
                                        Text="{TemplateBinding Title}"
                                        Foreground="{TemplateBinding Foreground}" />
+                            
+                            <!-- additional button area -->
+                            <ItemsControl x:Name="AdditionalMenuBarButtonsItemsControl"
+                                          Grid.Column="1"
+                                          Margin="0 5 0 0"
+                                          Height="32"
+                                          ItemsSource="{TemplateBinding AdditionalMenuBarButtons}"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Right" 
+                                          ItemContainerStyle="{StaticResource WindowButtonGeneralStyle}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
 
                             <!-- StackPanel with Window Buttons -->
                             <StackPanel x:Name="RightPanel"

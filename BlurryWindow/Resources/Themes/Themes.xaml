@@ -38,7 +38,7 @@
                 <ControlTemplate TargetType="ToolTip">
                     <Grid>
                         <!-- apparently this is not even working ... :D -->
-                        <Grid Background="{StaticResource CommonDarkControlBackground}">
+                        <Grid Background="{StaticResource CommonLightControlBackground}">
                             <Grid.Effect>
                                 <BlurEffect Radius="5"/>
                             </Grid.Effect>
@@ -47,7 +47,7 @@
                         <ContentPresenter Margin="4"
                                           HorizontalAlignment="Left"
                                           VerticalAlignment="Top"
-                                          TextBlock.Foreground="{StaticResource VisibleLightForegroundColor}"
+                                          TextBlock.Foreground="{StaticResource VisibleDarkForegroundColor}"
                                           TextBlock.FontSize="15"
                                           TextBlock.FontFamily="Segoe UI" />
                     </Grid>
