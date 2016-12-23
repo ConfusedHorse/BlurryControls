@@ -28,6 +28,7 @@ namespace BlurryControls.Windows
         private bool _customBackground;
 
         private WindowState _lastState;
+        private bool _lastIsResizable;
         private bool _isFullScreen;
 
         #endregion
@@ -199,22 +200,21 @@ namespace BlurryControls.Windows
         private void OnKeyDown(object sender, KeyEventArgs keyEventArgs)
         {
             if (keyEventArgs.Key != Key.F11) return;
-            if (!IsResizable) return;
 
             if (_isFullScreen)
             {
                 _isFullScreen = false;
                 WindowState = _lastState;
+                IsResizable = _lastIsResizable;
                 IsMenuBarVisible = true;
-                Topmost = false;
             }
-            else
+            else if (IsResizable)
             {
                 _isFullScreen = true;
                 _lastState = WindowState;
-                IsMenuBarVisible = false;
+                _lastIsResizable = IsResizable;
+                IsMenuBarVisible = false; //overrides IsResizable
                 WindowState = WindowState.Maximized;
-                Topmost = true;
             }
         }
 
