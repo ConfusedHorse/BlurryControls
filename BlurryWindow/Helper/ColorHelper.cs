@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 
@@ -123,7 +122,7 @@ namespace BlurryControls.Helper
         /// <returns>a given <see cref="SolidColorBrush"/> with chosen opacity</returns>
         public static SolidColorBrush OfStrength(this SolidColorBrush brush, double strength = 0.75d)
         {
-            if (strength < 0d || strength > 1d)
+            if (strength < 0d || strength > 1.0d)
                 throw new ArgumentOutOfRangeException(nameof(strength), @"strength must be a value between 0.0 and 1.0");
             return brush.OfStrength((byte)(strength * 255));
         }

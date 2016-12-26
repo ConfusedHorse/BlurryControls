@@ -12,11 +12,12 @@
     <windows:BlurryWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/BlurryResources.xaml"/>
+                <ResourceDictionary
+                    Source="pack://application:,,,/BlurryControls;component/Resources/BlurryResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </windows:BlurryWindow.Resources>
-    
+
     <Grid>
         <!-- sample control with basic components -->
         <TabControl Margin="-1 3 -1 -1">
@@ -24,7 +25,7 @@
                 <control:BlurryContentControl />
             </TabItem>
             <TabItem Header="Test">
-                <control:BlurryDogeControl/>
+                <control:BlurryDogeControl />
             </TabItem>
         </TabControl>
     </Grid>

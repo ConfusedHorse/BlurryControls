@@ -4,7 +4,6 @@
                     xmlns:colors="clr-namespace:BlurryControls.Resources.Colors">
 
     <colors:InvertColorConverter x:Key="InvertColorConverter" />
-    <colors:ColorStrengthConverter x:Key="ColorStrengthConverter" />
 
     <SolidColorBrush x:Key="SystemWindowGlassColor" Color="{x:Static helper:ColorHelper.SystemWindowGlassColor}" />
     <SolidColorBrush x:Key="TransparentSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.TransparentSystemWindowGlassColor}" />

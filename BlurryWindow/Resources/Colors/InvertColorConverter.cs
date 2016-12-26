@@ -10,11 +10,14 @@ namespace BlurryControls.Resources.Colors
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var type = value.GetType();
+            var type = value?.GetType();
+            double strength;
+            var success = double.TryParse(parameter.ToString(), out strength);
+            if (!success) strength = 1.0d;
 
-            if (type == typeof(Brush)) return ((Brush)value).Invert();
-            if (type == typeof(Color)) return ((Color)value).Invert();
-            if (type == typeof(SolidColorBrush)) return ((SolidColorBrush)value).Invert();
+            if (type == typeof(Brush)) return ((Brush)value).Invert().OfStrength(strength);
+            if (type == typeof(Color)) return ((Color)value).Invert().OfStrength(strength);
+            if (type == typeof(SolidColorBrush)) return ((SolidColorBrush)value).Invert().OfStrength(strength);
 
             return null;
         }

@@ -53,7 +53,6 @@
     <Compile Include="Helper\VersionHelper.cs" />
     <Compile Include="Internals\ButtonCollection.cs" />
     <Compile Include="Internals\SystemVersion.cs" />
-    <Compile Include="Resources\Colors\ColorStrengthConverter.cs" />
     <Compile Include="Resources\Colors\InvertColorConverter.cs" />
     <Compile Include="Windows\BlurryImage.cs" />
     <Compile Include="DialogFactory\BlurryMessageBox.cs" />
