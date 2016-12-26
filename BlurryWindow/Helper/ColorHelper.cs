@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 
@@ -9,15 +10,74 @@ namespace BlurryControls.Helper
     /// </summary>
     public static class ColorHelper
     {
+        #region colors
+
+        /// <summary>
+        /// Returns the current Windows accent color as <see cref="SolidColorBrush"/>
+        /// </summary>
+        public static SolidColorBrush SystemWindowGlassColorBrush => (SolidColorBrush)SystemParameters.WindowGlassBrush;
+        /// <summary>
+        /// Returns the current Windows accent color as <see cref="Brush"/>
+        /// </summary>
+        public static Brush SystemWindowGlassBrush => SystemParameters.WindowGlassBrush;
+        /// <summary>
+        /// Returns the current Windows accent color as <see cref="Color"/>
+        /// </summary>
+        public static Color SystemWindowGlassColor => SystemParameters.WindowGlassColor;
+
+        /// <summary>
+        /// Returnsthe inversion of  the current Windows accent color as <see cref="SolidColorBrush"/>
+        /// </summary>
+        public static SolidColorBrush InvertedSystemWindowGlassColorBrush => SystemParameters.WindowGlassBrush.Invert();
+        /// <summary>
+        /// Returns the inversion of the current Windows accent color as <see cref="Brush"/>
+        /// </summary>
+        public static Brush InvertedSystemWindowGlassBrush => SystemParameters.WindowGlassBrush.Invert();
+        /// <summary>
+        /// Returns the inversion of the current Windows accent color as <see cref="Color"/>
+        /// </summary>
+        public static Color InvertedSystemWindowGlassColor => SystemParameters.WindowGlassColor.Invert();
+
+        /// <summary>
+        /// Returns the current Windows accent color with a strength of 0.75 as <see cref="SolidColorBrush"/>
+        /// </summary>
+        public static SolidColorBrush TransparentSystemWindowGlassColorBrush => SystemParameters.WindowGlassBrush.OfStrength();
+        /// <summary>
+        /// Returns the current Windows accent color with a strength of 0.75 as <see cref="Brush"/>
+        /// </summary>
+        public static Brush TransparentSystemWindowGlassBrush => SystemParameters.WindowGlassBrush.OfStrength();
+        /// <summary>
+        /// Returns the current Windows accent color with a strength of 0.75 as <see cref="Color"/>
+        /// </summary>
+        public static Color TransparentSystemWindowGlassColor => SystemParameters.WindowGlassBrush.OfStrength().Color;
+
+        /// <summary>
+        /// Returns the inversion of the current Windows accent color with a strength of 0.75 as <see cref="SolidColorBrush"/>
+        /// </summary>
+        public static SolidColorBrush InvertedTransparentSystemWindowGlassColorBrush => SystemParameters.WindowGlassBrush.OfStrength().Invert();
+        /// <summary>
+        /// Returns the inversion of the current Windows accent color with a strength of 0.75 as <see cref="Brush"/>
+        /// </summary>
+        public static Brush InvertedTransparentSystemWindowGlassBrush => SystemParameters.WindowGlassBrush.OfStrength().Invert();
+        /// <summary>
+        /// Returns the inversion of the current Windows accent color with a strength of 0.75 as <see cref="Color"/>
+        /// </summary>
+        public static Color InvertedTransparentSystemWindowGlassColor => SystemParameters.WindowGlassBrush.OfStrength().Color.Invert();
+
+        #endregion colors
+
+        #region color functions
+
         /// <summary>
         /// returns the currently selected <see cref="SystemParameters.WindowGlassColor"/> with chosen opacity
         /// </summary>
         /// <param name="strength">opacity weight from 0.0 to 1.0 and is set to 0.75 if no value is provided</param>
         /// <returns>the currently selected <see cref="SystemParameters.WindowGlassColor"/> with chosen opacity</returns>
-        public static SolidColorBrush TransparentSystemWindowGlassBrush(double strength = 0.75)
+        public static SolidColorBrush SystemWindowGlassBrushOfStrength(double strength = 0.75)
         {
-            return ((SolidColorBrush)SystemParameters.WindowGlassBrush).OfStrength(strength);
+            return SystemParameters.WindowGlassBrush.OfStrength(strength);
         }
+
         /// <summary>
         /// returns a <see cref="SolidColorBrush"/> of the given <see cref="SolidColorBrush"/> with inverted color channels
         /// </summary>
@@ -31,6 +91,7 @@ namespace BlurryControls.Helper
             color.B = (byte)(255 - color.B);
             return new SolidColorBrush(color);
         }
+
         /// <summary>
         /// returns a <see cref="SolidColorBrush"/> of the given <see cref="Brush"/> with inverted color channels
         /// </summary>
@@ -68,6 +129,19 @@ namespace BlurryControls.Helper
         }
 
         /// <summary>
+        /// returns a <see cref="SolidColorBrush"/> of the given <see cref="Color"/> with chosen opacity
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="strength">opacity weight from 0.0 to 1.0 and is set to 0.75 if no value is provided</param>
+        /// <returns>a given <see cref="SolidColorBrush"/> with chosen opacity</returns>
+        public static SolidColorBrush OfStrength(this Color color, double strength = 0.75d)
+        {
+            if (strength < 0d || strength > 1d)
+                throw new ArgumentOutOfRangeException(nameof(strength), @"strength must be a value between 0.0 and 1.0");
+            return OfStrength(new SolidColorBrush(color), (double) (byte)(strength * 255));
+        }
+
+        /// <summary>
         /// returns a <see cref="SolidColorBrush"/> of the given <see cref="Brush"/> with chosen opacity
         /// </summary>
         /// <param name="brush"></param>
@@ -92,5 +166,7 @@ namespace BlurryControls.Helper
             color.A = strength;
             return new SolidColorBrush(color);
         }
+
+        #endregion color functions
     }
 }

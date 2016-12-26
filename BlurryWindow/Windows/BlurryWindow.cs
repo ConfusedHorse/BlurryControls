@@ -194,7 +194,7 @@ namespace BlurryControls.Windows
         // apply system color when changed
         private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
-            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
+            Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
         }
 
         private void OnKeyDown(object sender, KeyEventArgs keyEventArgs)
@@ -236,7 +236,7 @@ namespace BlurryControls.Windows
 
             _customBackground = Background != null;
             //use system accent color for window (is overwritten if Background is set)
-            Background = !_customBackground ? ColorHelper.TransparentSystemWindowGlassBrush(Strength) : Background.OfStrength(Strength);
+            Background = !_customBackground ? ColorHelper.SystemWindowGlassBrushOfStrength(Strength) : Background.OfStrength(Strength);
         }
 
         private void OnSourceInitialized(object sender, EventArgs eventArgs)

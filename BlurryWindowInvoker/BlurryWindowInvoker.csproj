@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>BlurryWpfWindow.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -107,9 +110,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\032\speaker.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Control\BlurryContentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +129,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\TestImage\doge.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="BlurryWpfWindow.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

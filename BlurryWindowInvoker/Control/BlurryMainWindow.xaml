@@ -7,78 +7,23 @@
                       xmlns:control="clr-namespace:BlurryWindowInvoker.Control"
                       xmlns:internals="clr-namespace:BlurryControls.Internals;assembly=BlurryControls"
                       mc:Ignorable="d"
-                      Icon="/Resources/Icons/032/speaker.png"
+                      Icon="pack://application:,,,/BlurryControls;component/Resources/Icons/256/BlurryWpfWindow.png"
                       Title="This is a caption">
     <windows:BlurryWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/Themes/Themes.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/BlurryResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="SolidBorderBrush" Color="#FFFFFFFF" />
-
-            <SolidColorBrush x:Key="DisabledBorderBrush" Color="#FFAAAAAA" />
-
-            <SolidColorBrush x:Key="DisabledForegroundBrush" Color="#FF888888" />
-
-            <Style TargetType="{x:Type TabItem}">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type TabItem}">
-                            <Grid Background="Transparent">
-                                <Border x:Name="Border"
-                                        Margin="0,0,-1,-1"
-                                        Background="Transparent"
-                                        BorderBrush="{StaticResource SolidBorderBrush}"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="2,12,0,0">
-                                    <ContentPresenter x:Name="ContentSite"
-                                                      VerticalAlignment="Center"
-                                                      HorizontalAlignment="Center"
-                                                      ContentSource="Header"
-                                                      Margin="12,2,12,2"
-                                                      RecognizesAccessKey="True" />
-                                </Border>
-                            </Grid>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Panel.ZIndex" Value="100" />
-                                    <Setter TargetName="Border" Property="BorderThickness" Value="1,1,1,0" />
-                                    <Setter TargetName="Border" Property="Background" Value="#37FFFFFF" />
-                                </Trigger>
-                                <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="Border" Property="BorderBrush"
-                                            Value="{StaticResource DisabledBorderBrush}" />
-                                    <Setter Property="Foreground" Value="{StaticResource DisabledForegroundBrush}" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            
-            <DataTemplate x:Key="CustomTabHeader">
-                <TextBlock FontSize="15"
-                           Foreground="White"
-                           FontFamily="Segoe UI"
-                           FontWeight="SemiBold"
-                           Text="{TemplateBinding Content}"/>
-            </DataTemplate>
         </ResourceDictionary>
     </windows:BlurryWindow.Resources>
     
     <Grid>
         <!-- sample control with basic components -->
-        <TabControl Background="Transparent"
-                    BorderBrush="{StaticResource SolidBorderBrush}"
-                    Margin="-1 3 -1 -1">
-            <TabItem Header="BlurryContentControl"
-                     HeaderTemplate="{StaticResource CustomTabHeader}"
-                     Background="Transparent">
+        <TabControl Margin="-1 3 -1 -1">
+            <TabItem Header="BlurryContentControl">
                 <control:BlurryContentControl />
             </TabItem>
-            <TabItem Header="Test"
-                     HeaderTemplate="{StaticResource CustomTabHeader}"
-                     Background="Transparent">
+            <TabItem Header="Test">
                 <control:BlurryDogeControl/>
             </TabItem>
         </TabControl>

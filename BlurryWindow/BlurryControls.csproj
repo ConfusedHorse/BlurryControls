@@ -53,6 +53,8 @@
     <Compile Include="Helper\VersionHelper.cs" />
     <Compile Include="Internals\ButtonCollection.cs" />
     <Compile Include="Internals\SystemVersion.cs" />
+    <Compile Include="Resources\Colors\ColorStrengthConverter.cs" />
+    <Compile Include="Resources\Colors\InvertColorConverter.cs" />
     <Compile Include="Windows\BlurryImage.cs" />
     <Compile Include="DialogFactory\BlurryMessageBox.cs" />
     <Compile Include="Extentions\BlurryExtentions.cs" />
@@ -82,6 +84,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Control\BlurryDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\BlurryResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Colors\Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -118,7 +128,12 @@
     <Resource Include="Resources\Icons\064\question.png" />
     <Resource Include="Resources\Icons\064\warning.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Icons\256\BlurryWpfWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Converter\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -149,12 +149,12 @@ namespace BlurryControls.Control
         private void InitializeDialogSpecificVisualBehaviour(object sender, RoutedEventArgs e)
         {
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
-            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
+            Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
         }
 
         private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Background = ColorHelper.TransparentSystemWindowGlassBrush(Strength);
+            Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
         }
 
         #region blurry internals

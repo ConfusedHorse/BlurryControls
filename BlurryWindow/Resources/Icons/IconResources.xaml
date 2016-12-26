@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary
    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+
     <!-- 
-    vector parameters have been provided by a friend of mine
-    see: http://aderendhuelse.deviantart.com/ 
+        vector parameters have been provided by a friend of mine
+        see: http://aderendhuelse.deviantart.com/ 
     -->
-    
+
     <ControlTemplate x:Key="Minimize032W">
         <Viewbox Stretch="Fill" Height="32" Width="32">
             <Canvas Height="18" Width="18">
