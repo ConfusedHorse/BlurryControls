@@ -1,4 +1,6 @@
-﻿using BlurryControls.Windows;
+﻿using System.Windows;
+using BlurryControls.DialogFactory;
+using BlurryControls.Windows;
 
 namespace BlurryWindowInvoker.Control
 {
@@ -11,6 +13,11 @@ namespace BlurryWindowInvoker.Control
         public BlurryMainWindow()
         {
             InitializeComponent();
+        }
+
+        private void HelloMenuBarButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            BlurryMessageBox.Show(this, "You did the thing.", "Hello");
         }
     }
 }

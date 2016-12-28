@@ -17,6 +17,15 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </windows:BlurryWindow.Resources>
+    
+    <windows:BlurryWindow.AdditionalMenuBarButtons>
+        <internals:ButtonCollection>
+            <Button x:Name="HelloMenuBarButton"
+                    Content="Click Me!"
+                    Click="HelloMenuBarButton_OnClick"
+                    ToolTip="Do the thing!"/>
+        </internals:ButtonCollection>
+    </windows:BlurryWindow.AdditionalMenuBarButtons>
 
     <Grid>
         <!-- sample control with basic components -->

@@ -28,6 +28,7 @@
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Background" Value="#00000000" />
+        <Setter Property="Foreground" Value="#FFFFFFFF" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Height" Value="32" />
