@@ -2,7 +2,7 @@
 using BlurryControls.DialogFactory;
 using BlurryControls.Windows;
 
-namespace BlurryWindowInvoker.Control
+namespace BlurryWindowInvoker
 {
     /// <summary>
     /// Interaction logic for BlurryMainWindow.xaml
