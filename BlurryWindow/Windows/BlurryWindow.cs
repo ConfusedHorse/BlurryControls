@@ -44,8 +44,8 @@ namespace BlurryControls.Windows
         /// </summary>
         public bool IsResizable
         {
-            get { return (bool)GetValue(IsResizableProperty); }
-            set{ SetValue(IsResizableProperty, value); }
+            get => (bool)GetValue(IsResizableProperty);
+            set => SetValue(IsResizableProperty, value);
         }
 
         public static readonly DependencyProperty IsMenuBarVisibleProperty = DependencyProperty.Register(
@@ -59,7 +59,7 @@ namespace BlurryControls.Windows
         /// </summary>
         public bool IsMenuBarVisible
         {
-            get { return (bool)GetValue(IsMenuBarVisibleProperty); }
+            get => (bool)GetValue(IsMenuBarVisibleProperty);
             set
             {
                 SetValue(IsMenuBarVisibleProperty, value);
@@ -77,7 +77,7 @@ namespace BlurryControls.Windows
         /// </summary>
         public double Strength
         {
-            get { return (double)GetValue(StrengthProperty); }
+            get => (double)GetValue(StrengthProperty);
             set
             {
                 var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
@@ -98,8 +98,8 @@ namespace BlurryControls.Windows
         /// </summary>
         public bool CloseOnIconDoubleClick
         {
-            get { return (bool) GetValue(CloseOnIconDoubleClickProperty); }
-            set { SetValue(CloseOnIconDoubleClickProperty, value); }
+            get => (bool) GetValue(CloseOnIconDoubleClickProperty);
+            set => SetValue(CloseOnIconDoubleClickProperty, value);
         }
 
         public static readonly DependencyProperty AdditionalMenuBarButtonsProperty = DependencyProperty.Register(
@@ -110,8 +110,8 @@ namespace BlurryControls.Windows
         /// </summary>
         public ButtonCollection AdditionalMenuBarButtons
         {
-            get { return (ButtonCollection) GetValue(AdditionalMenuBarButtonsProperty); }
-            set { SetValue(AdditionalMenuBarButtonsProperty, value); }
+            get => (ButtonCollection) GetValue(AdditionalMenuBarButtonsProperty);
+            set => SetValue(AdditionalMenuBarButtonsProperty, value);
         }
 
         public static readonly DependencyProperty HorizontalTitleAlignmentProperty = DependencyProperty.Register(
@@ -119,8 +119,8 @@ namespace BlurryControls.Windows
 
         public HorizontalAlignment HorizontalTitleAlignment
         {
-            get { return (HorizontalAlignment) GetValue(HorizontalTitleAlignmentProperty); }
-            set { SetValue(HorizontalTitleAlignmentProperty, value); }
+            get => (HorizontalAlignment) GetValue(HorizontalTitleAlignmentProperty);
+            set => SetValue(HorizontalTitleAlignmentProperty, value);
         }
 
         #endregion

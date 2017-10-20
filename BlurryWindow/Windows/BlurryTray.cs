@@ -1,13 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using BlurryControls.Helper;
-using BlurryControls.Internals;
 
 namespace BlurryControls.Windows
 {
@@ -49,7 +46,7 @@ namespace BlurryControls.Windows
         /// </summary>
         public double Strength
         {
-            get { return (double)GetValue(StrengthProperty); }
+            get => (double)GetValue(StrengthProperty);
             set
             {
                 var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;

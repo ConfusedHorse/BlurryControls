@@ -18,7 +18,7 @@ namespace BlurryControls.Windows
 
         public double BlurRadius
         {
-            get { return (double) GetValue(BlurRadiusProperty); }
+            get => (double) GetValue(BlurRadiusProperty);
             set
             {
                 SetValue(BlurRadiusProperty, value);
