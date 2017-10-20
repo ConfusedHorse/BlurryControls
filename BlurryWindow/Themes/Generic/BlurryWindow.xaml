@@ -162,7 +162,7 @@
                                        Margin="0 5"
                                        Background="{StaticResource GeneralBackgroundBrush}"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"
+                                       HorizontalAlignment="{TemplateBinding HorizontalTitleAlignment}"
                                        FontSize="20"
                                        Text="{TemplateBinding Title}"
                                        Foreground="{TemplateBinding Foreground}" />
