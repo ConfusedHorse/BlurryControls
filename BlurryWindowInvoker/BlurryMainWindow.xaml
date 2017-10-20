@@ -12,7 +12,7 @@
     <windows:BlurryWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/BlurryResources.xaml" />-->
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </windows:BlurryWindow.Resources>
@@ -20,9 +20,14 @@
     <windows:BlurryWindow.AdditionalMenuBarButtons>
         <internals:ButtonCollection>
             <Button x:Name="HelloMenuBarButton"
-                    Content="Click Me!"
                     Click="HelloMenuBarButton_OnClick"
-                    ToolTip="Do the thing!"/>
+                    ToolTip="Do the thing!"
+                    Width="100">
+                <Button.Content>
+                    <TextBlock Text="Click Me!"
+                               VerticalAlignment="Center"/>
+                </Button.Content>
+            </Button>
         </internals:ButtonCollection>
     </windows:BlurryWindow.AdditionalMenuBarButtons>
 

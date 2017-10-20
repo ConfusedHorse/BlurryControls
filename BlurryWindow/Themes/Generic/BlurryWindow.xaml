@@ -170,10 +170,10 @@
                             <!-- additional button area -->
                             <ItemsControl x:Name="AdditionalMenuBarButtonsItemsControl"
                                           Grid.Column="1"
-                                          Margin="0 5"
+                                          Margin="5 0"
                                           Height="32"
                                           ItemsSource="{TemplateBinding AdditionalMenuBarButtons}"
-                                          VerticalAlignment="Center"
+                                          VerticalAlignment="Bottom"
                                           HorizontalAlignment="Right" 
                                           ItemContainerStyle="{StaticResource WindowButtonGeneralStyle}">
                                 <ItemsControl.ItemsPanel>
