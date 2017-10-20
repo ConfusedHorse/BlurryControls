@@ -114,6 +114,15 @@ namespace BlurryControls.Windows
             set { SetValue(AdditionalMenuBarButtonsProperty, value); }
         }
 
+        public static readonly DependencyProperty HorizontalTitleAlignmentProperty = DependencyProperty.Register(
+            "HorizontalTitleAlignment", typeof(HorizontalAlignment), typeof(BlurryWindow), new PropertyMetadata(HorizontalAlignment.Left));
+
+        public HorizontalAlignment HorizontalTitleAlignment
+        {
+            get { return (HorizontalAlignment) GetValue(HorizontalTitleAlignmentProperty); }
+            set { SetValue(HorizontalTitleAlignmentProperty, value); }
+        }
+
         #endregion
 
         #region constructor
