@@ -53,7 +53,7 @@
     <Compile Include="Helper\VersionHelper.cs" />
     <Compile Include="Internals\ButtonCollection.cs" />
     <Compile Include="Internals\SystemVersion.cs" />
-    <Compile Include="Resources\Colors\InvertColorConverter.cs" />
+    <Compile Include="Resources\Converter\InvertColorConverter.cs" />
     <Compile Include="Windows\BlurryImage.cs" />
     <Compile Include="DialogFactory\BlurryMessageBox.cs" />
     <Compile Include="Extentions\BlurryExtentions.cs" />
@@ -86,25 +86,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Resources\BlurryResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\Colors\Colors.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\Icons\IconResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\Themes\Themes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\BlurryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\BlurryTray.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\Controls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\WindowButtons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -130,9 +138,7 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\256\BlurryWpfWindow.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Converter\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

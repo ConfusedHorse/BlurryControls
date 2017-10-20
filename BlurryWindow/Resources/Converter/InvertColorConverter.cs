@@ -4,7 +4,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using BlurryControls.Helper;
 
-namespace BlurryControls.Resources.Colors
+namespace BlurryControls.Resources.Converter
 {
     public class InvertColorConverter : IValueConverter
     {

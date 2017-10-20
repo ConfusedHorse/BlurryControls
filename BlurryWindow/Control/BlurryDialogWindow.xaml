@@ -6,7 +6,6 @@
         xmlns:p="clr-namespace:BlurryControls.Properties"
         mc:Ignorable="d"
         Height="250" Width="500"
-        Foreground="#FFFFFFFF"
         AllowsTransparency="True"
         WindowStyle="None"
         ShowInTaskbar="False"
@@ -24,92 +23,10 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <!-- style for a button which slowly turns white when hovering the cursor over it -->
-            <Style x:Key="WindowButtonGeneralStyle"
-                   TargetType="{x:Type Button}"
-                   BasedOn="{StaticResource {x:Type Button}}">
-                <Setter Property="Background" Value="#00000000" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Height" Value="32" />
-                <Setter Property="Width" Value="48" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <EventTrigger RoutedEvent="Button.MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="#66FFFFFF"
-                                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="HoldEnd"
-                                                Duration="0:0:0.5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="Button.MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="#00000000"
-                                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="Stop"
-                                                Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Style.Triggers>
-            </Style>
-
-            <!-- style for a wider button which slowly turns white when hovering the cursor over it -->
-            <Style x:Key="WindowButtonDialogStyle" TargetType="Button"
-                   BasedOn="{StaticResource WindowButtonGeneralStyle}">
-                <Setter Property="Width" Value="128" />
-                <Setter Property="Margin" Value="10 0" />
-                <Setter Property="Visibility" Value="Collapsed" />
-            </Style>
-
-            <!-- style for a button which slowly turns red when hovering the cursor over it -->
-            <Style x:Key="WindowButtonExitStyle" TargetType="Button"
-                   BasedOn="{StaticResource WindowButtonGeneralStyle}">
-                <Style.Triggers>
-                    <EventTrigger RoutedEvent="Button.MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="#AAFF0000"
-                                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="HoldEnd"
-                                                Duration="0:0:0.5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="Button.MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="#00000000"
-                                                Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="Stop"
-                                                Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Style.Triggers>
-            </Style>
-
-            <!-- style for a TextBlock to show a dialog content -->
-            <Style x:Key="DialogTextBlockStyle" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="White" />
-                <Setter Property="FontFamily" Value="Segoe UI" />
-                <Setter Property="FontSize" Value="16" />
-            </Style>
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Icons/IconResources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/WindowButtons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -119,7 +36,7 @@
     colored backgrounds due to its transparent appearance
     -->
     <Border BorderThickness="1"
-            BorderBrush="White">
+            BorderBrush="{StaticResource GeneralBorderBrush}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -131,14 +48,14 @@
             <Grid x:Name="MenuBar"
                   Grid.Row="0"
                   Height="37"
-                  Background="#00000000"
+                  Background="{StaticResource GeneralBackgroundBrush}"
                   HorizontalAlignment="Stretch"
                   MouseLeftButtonDown="MenuBar_OnMouseLeftButtonDown">
                 <Grid.Triggers>
                     <EventTrigger RoutedEvent="Grid.MouseEnter">
                         <BeginStoryboard>
                             <Storyboard>
-                                <ColorAnimation To="#66000000"
+                                <ColorAnimation To="{StaticResource DialogMenuBarFocusBackgroundColor}"
                                                 Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
                                                 FillBehavior="HoldEnd"
                                                 Duration="0:0:1" />
@@ -148,7 +65,7 @@
                     <EventTrigger RoutedEvent="Grid.MouseLeave">
                         <BeginStoryboard>
                             <Storyboard>
-                                <ColorAnimation To="#00000000"
+                                <ColorAnimation To="{StaticResource DialogMenuBarFocusBackgroundColor}"
                                                 Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
                                                 FillBehavior="Stop"
                                                 Duration="0:0:1" />
@@ -175,14 +92,14 @@
                 </StackPanel>
 
                 <TextBlock x:Name="TitleTextBlock"
+                           Style="{StaticResource TextBlockStyle}"
                            Grid.Column="1"
                            Margin="0 5"
-                           Background="Transparent"
+                           Background="{StaticResource GeneralBackgroundBrush}"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontSize="20"
-                           FontFamily="Segoe UI"
-                           Foreground="White" />
+                           Foreground="{StaticResource GeneralForegroundBrush}" />
 
                 <StackPanel x:Name="RightPanel"
                             Grid.Column="2"
@@ -223,7 +140,7 @@
                                   VerticalAlignment="Center"
                                   VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="DialogMessageTextBlock"
-                                   Style="{StaticResource DialogTextBlockStyle}"
+                                   Style="{StaticResource TextBlockStyle}"
                                    TextWrapping="WrapWithOverflow" />
                     </ScrollViewer>
                 </Grid>
@@ -248,7 +165,7 @@
                     <EventTrigger RoutedEvent="Grid.MouseEnter">
                         <BeginStoryboard>
                             <Storyboard>
-                                <ColorAnimation To="#66000000"
+                                <ColorAnimation To="{StaticResource DialogMenuBarFocusBackgroundColor}"
                                                 Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
                                                 FillBehavior="HoldEnd"
                                                 Duration="0:0:1" />
@@ -258,7 +175,7 @@
                     <EventTrigger RoutedEvent="Grid.MouseLeave">
                         <BeginStoryboard>
                             <Storyboard>
-                                <ColorAnimation To="#00000000"
+                                <ColorAnimation To="{StaticResource DialogMenuBarGeneralBackgroundColor}"
                                                 Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
                                                 FillBehavior="Stop"
                                                 Duration="0:0:1" />
@@ -276,7 +193,7 @@
                     <Button x:Name="YesButton"
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="YesButton_OnClick">
-                        <TextBlock Style="{StaticResource DialogTextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    Text="{x:Static p:Resources.Yes}" />
                     </Button>
 
@@ -284,7 +201,7 @@
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="NoButton_OnClick">
                         <!-- No -->
-                        <TextBlock Style="{StaticResource DialogTextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    Text="{x:Static p:Resources.No}" />
                     </Button>
 
@@ -292,7 +209,7 @@
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="OkButton_OnClick">
                         <!-- Ok -->
-                        <TextBlock Style="{StaticResource DialogTextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    Text="{x:Static p:Resources.Ok}" />
                     </Button>
 
@@ -300,7 +217,7 @@
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="CancelButton_OnClick">
                         <!-- Cancel -->
-                        <TextBlock Style="{StaticResource DialogTextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockStyle}"
                                    Text="{x:Static p:Resources.Cancel}" />
                     </Button>
                 </StackPanel>

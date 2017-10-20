@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:BlurryControls.Resources.Converter"
+                    xmlns:helper="clr-namespace:BlurryControls.Helper">
+    <converter:InvertColorConverter x:Key="InvertColorConverter" />
+
+    <SolidColorBrush x:Key="SystemWindowGlassColor" Color="{x:Static helper:ColorHelper.SystemWindowGlassColor}" />
+    <SolidColorBrush x:Key="TransparentSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.TransparentSystemWindowGlassColor}" />
+    <SolidColorBrush x:Key="InvertedSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.InvertedSystemWindowGlassColor}" />
+    <SolidColorBrush x:Key="InvertedTransparentSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.InvertedTransparentSystemWindowGlassColor}" />
+    
+    <Color x:Key="WindowButtonGeneralForegroundColor">#FFFFFFFF</Color>
+    <Color x:Key="WindowButtonGeneralBackgroundColor">#00000000</Color>
+    <Color x:Key="WindowButtonGeneralFocusColor">#66FFFFFF</Color>
+    <Color x:Key="WindowButtonExitFocusColor">#AAFF0000</Color>
+
+    <Color x:Key="MenuBarFocusBackgroundColor">#33000000</Color>
+    <Color x:Key="MenuBarGeneralBackgroundColor">#00000000</Color>
+    <Color x:Key="DialogMenuBarFocusBackgroundColor">#66000000</Color>
+    <Color x:Key="DialogMenuBarGeneralBackgroundColor">#00000000</Color>
+
+    <SolidColorBrush x:Key="WindowButtonGeneralForegroundBrush" Color="{StaticResource WindowButtonGeneralForegroundColor}"/>
+    <SolidColorBrush x:Key="WindowButtonGeneralBackgroundBrush" Color="{StaticResource WindowButtonGeneralBackgroundColor}"/>
+    <SolidColorBrush x:Key="WindowButtonGeneralFocusBrush" Color="{StaticResource WindowButtonGeneralFocusColor}"/>
+    <SolidColorBrush x:Key="WindowButtonExitFocusBrush" Color="{StaticResource WindowButtonExitFocusColor}"/>
+
+    <SolidColorBrush x:Key="GeneralForegroundBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="GeneralBackgroundBrush" Color="#00000000"/>
+    <SolidColorBrush x:Key="GeneralBorderBrush" Color="#FFFFFFFF"/>
+</ResourceDictionary>
