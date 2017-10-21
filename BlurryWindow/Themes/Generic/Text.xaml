@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <FontFamily x:Key="DefaultFontFamily">Segoe UI</FontFamily>
+    
+    <system:Double x:Key="DefaultFontSize">16</system:Double>
+    <system:Double x:Key="StrongFontSize">20</system:Double>
+
+    <!-- style for a TextBlock -->
+    <Style x:Key="TextBlockBaseStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}" />
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
+    </Style>
+
+    <!--global override-->
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextBlockBaseStyle}"/>
+</ResourceDictionary>

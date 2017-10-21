@@ -24,9 +24,11 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Icons/IconResources.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/WindowButtons.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Brushes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Icons.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Text.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/ToolTip.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -92,14 +94,13 @@
                 </StackPanel>
 
                 <TextBlock x:Name="TitleTextBlock"
-                           Style="{StaticResource TextBlockStyle}"
+                           Style="{StaticResource TextBlockBaseStyle}"
                            Grid.Column="1"
                            Margin="0 5"
                            Background="Transparent"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
-                           FontSize="20"
-                           Foreground="{StaticResource GeneralForegroundBrush}" />
+                           FontSize="20"/>
 
                 <StackPanel x:Name="RightPanel"
                             Grid.Column="2"
@@ -140,7 +141,7 @@
                                   VerticalAlignment="Center"
                                   VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="DialogMessageTextBlock"
-                                   Style="{StaticResource TextBlockStyle}"
+                                   Style="{StaticResource TextBlockBaseStyle}"
                                    TextWrapping="WrapWithOverflow" />
                     </ScrollViewer>
                 </Grid>
@@ -193,7 +194,7 @@
                     <Button x:Name="YesButton"
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="YesButton_OnClick">
-                        <TextBlock Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockBaseStyle}"
                                    Text="{x:Static p:Resources.Yes}" />
                     </Button>
 
@@ -201,7 +202,7 @@
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="NoButton_OnClick">
                         <!-- No -->
-                        <TextBlock Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockBaseStyle}"
                                    Text="{x:Static p:Resources.No}" />
                     </Button>
 
@@ -209,7 +210,7 @@
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="OkButton_OnClick">
                         <!-- Ok -->
-                        <TextBlock Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockBaseStyle}"
                                    Text="{x:Static p:Resources.Ok}" />
                     </Button>
 
@@ -217,7 +218,7 @@
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="CancelButton_OnClick">
                         <!-- Cancel -->
-                        <TextBlock Style="{StaticResource TextBlockStyle}"
+                        <TextBlock Style="{StaticResource TextBlockBaseStyle}"
                                    Text="{x:Static p:Resources.Cancel}" />
                     </Button>
                 </StackPanel>
