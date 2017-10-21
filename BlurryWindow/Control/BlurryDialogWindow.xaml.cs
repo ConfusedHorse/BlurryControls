@@ -336,7 +336,7 @@ namespace BlurryControls.Control
         /// <param name="e"></param>
         private void ApplyCustomDialogButtonCloseOnClickEvents(object sender, RoutedEventArgs e)
         {
-            if (CustomDialogButtons.Count == 0) return;
+            if (CustomDialogButtons == null || CustomDialogButtons.Count == 0) return;
             foreach (var customButton in CustomDialogButtons.OfType<Button>())
                 customButton.Click += CustomButtonCloseOnClick;
         }
