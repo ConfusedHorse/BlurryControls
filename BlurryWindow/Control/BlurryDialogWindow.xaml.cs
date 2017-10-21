@@ -233,6 +233,8 @@ namespace BlurryControls.Control
         private void SetDialogIconSource(BlurryDialogIcon value)
         {
             Icon = value.GetDialogImage();
+            if (value == BlurryDialogIcon.None)
+                ContentImage.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -277,6 +279,8 @@ namespace BlurryControls.Control
                     YesButton.Visibility = Visibility.Collapsed;
                     NoButton.Visibility = Visibility.Collapsed;
                     CancelButton.Visibility = Visibility.Collapsed;
+
+                    ButtonGrid.Visibility = Visibility.Collapsed;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(value), value, null);
@@ -339,6 +343,7 @@ namespace BlurryControls.Control
             if (CustomDialogButtons == null || CustomDialogButtons.Count == 0) return;
             foreach (var customButton in CustomDialogButtons.OfType<Button>())
                 customButton.Click += CustomButtonCloseOnClick;
+            ButtonGrid.Visibility = Visibility.Visible;
         }
 
         /// <summary>
