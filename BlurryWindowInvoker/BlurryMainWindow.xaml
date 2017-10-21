@@ -11,14 +11,6 @@
                       Width="800" Height="600"
                       WindowStartupLocation="CenterScreen"
                       Title="I am a blurry window">
-    <windows:BlurryWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </windows:BlurryWindow.Resources>
-    
     <windows:BlurryWindow.AdditionalMenuBarButtons>
         <internals:ButtonCollection>
             <Button x:Name="HelloMenuBarButton"
@@ -36,15 +28,17 @@
     <Grid>
         <!-- sample control with basic components -->
         <TabControl Margin="5">
-            <TabItem Header="BlurryContentControl">
+            <TabItem Header="Tray Invoker">
                 <control:BlurryContentControl />
             </TabItem>
-            <TabItem Header="Test">
+            <TabItem Header="Animation">
+                <control:BlurryBackgroundAnimationControl/>
+            </TabItem>
+            <TabItem Header="Blurry Doge">
                 <control:BlurryDogeControl />
             </TabItem>
-            <TabItem Header="Empty Tab 1">
-            </TabItem>
-            <TabItem Header="Empty Tab 2">
+            <TabItem Header="Doge Dialog">
+                <control:BlurryDogeDialogControl/>
             </TabItem>
         </TabControl>
     </Grid>

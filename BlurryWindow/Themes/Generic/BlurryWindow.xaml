@@ -176,7 +176,7 @@
                                           ItemsSource="{TemplateBinding AdditionalMenuBarButtons}"
                                           VerticalAlignment="Bottom"
                                           HorizontalAlignment="Right" 
-                                          ItemContainerStyle="{StaticResource WindowButtonGeneralStyle}">
+                                          ItemContainerStyle="{StaticResource WindowButtonBaseStyle}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"/>

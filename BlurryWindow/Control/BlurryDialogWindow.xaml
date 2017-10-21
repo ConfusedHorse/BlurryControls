@@ -4,13 +4,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:p="clr-namespace:BlurryControls.Properties"
+        xmlns:control="clr-namespace:BlurryControls.Control"
         mc:Ignorable="d"
-        Height="250" Width="500"
         AllowsTransparency="True"
         WindowStyle="None"
         ShowInTaskbar="False"
         Topmost="True"
         Loaded="Window_Loaded"
+        SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
         d:DataContext="{d:DesignData BlurryWindow}"
         x:ClassModifier="internal">
@@ -138,6 +139,8 @@
                     a vertical ScrollBar is provided
                     -->
                     <ScrollViewer Grid.Column="1"
+                                  MaxHeight="218"
+                                  MaxWidth="308"
                                   VerticalAlignment="Center"
                                   VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="DialogMessageTextBlock"
@@ -145,6 +148,9 @@
                                    TextWrapping="WrapWithOverflow" />
                     </ScrollViewer>
                 </Grid>
+                
+                <!--when CustomContent is set, it is displayed here-->
+                <ContentControl x:Name="CustomContentControl"/>
             </Grid>
 
             <!-- 
@@ -222,6 +228,22 @@
                                    Text="{x:Static p:Resources.Cancel}" />
                     </Button>
                 </StackPanel>
+                
+                <!-- custom button area -->
+                <ItemsControl x:Name="CustomButtonPanel"
+                              Margin="0 5"
+                              VerticalAlignment="Stretch"
+                              HorizontalAlignment="Center"
+                              ItemsSource="{Binding CustomDialogButtons, 
+                                                    RelativeSource={RelativeSource FindAncestor, 
+                                                                                   AncestorType=control:BlurryDialogWindow}}"
+                              ItemContainerStyle="{StaticResource WindowButtonBaseStyle}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
             </Grid>
         </Grid>
     </Border>

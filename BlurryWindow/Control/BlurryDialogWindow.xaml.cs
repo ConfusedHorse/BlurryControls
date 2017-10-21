@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -42,7 +44,7 @@ namespace BlurryControls.Control
         /// </summary>
         public new string Title
         {
-            get { return (string)GetValue(TitleProperty); }
+            get => (string)GetValue(TitleProperty);
             set
             {
                 SetValue(TitleProperty, value);
@@ -59,7 +61,7 @@ namespace BlurryControls.Control
         /// </summary>
         public string DialogMessage
         {
-            get { return (string) GetValue(DialogMessageProperty); }
+            get => (string) GetValue(DialogMessageProperty);
             set
             {
                 SetValue(DialogMessageProperty, value);
@@ -72,7 +74,7 @@ namespace BlurryControls.Control
         /// </summary>
         public new ImageSource Icon
         {
-            get { return (ImageSource)GetValue(IconProperty); }
+            get => (ImageSource)GetValue(IconProperty);
             set
             {
                 SetValue(IconProperty, value);
@@ -91,7 +93,7 @@ namespace BlurryControls.Control
         /// </summary>
         public BlurryDialogIcon DialogIcon
         {
-            get { return (BlurryDialogIcon) GetValue(DialogIconProperty); }
+            get => (BlurryDialogIcon) GetValue(DialogIconProperty);
             set
             {
                 SetValue(DialogIconProperty, value);
@@ -108,7 +110,7 @@ namespace BlurryControls.Control
         /// </summary>
         public BlurryDialogButton Button
         {
-            get { return (BlurryDialogButton) GetValue(ButtonProperty); }
+            get => (BlurryDialogButton) GetValue(ButtonProperty);
             set
             {
                 SetValue(ButtonProperty, value);
@@ -126,7 +128,7 @@ namespace BlurryControls.Control
         /// </summary>
         public double Strength
         {
-            get { return (double)GetValue(StrengthProperty); }
+            get => (double)GetValue(StrengthProperty);
             set
             {
                 var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
@@ -138,12 +140,41 @@ namespace BlurryControls.Control
             }
         }
 
+        public static readonly DependencyProperty CustomDialogButtonsProperty = DependencyProperty.Register(
+            "CustomDialogButtons", typeof(ButtonCollection), typeof(BlurryDialogWindow), new PropertyMetadata(default(ButtonCollection)));
+
+        /// <summary>
+        /// a button collection shown instead of the conventional dialog buttons
+        /// </summary>
+        public ButtonCollection CustomDialogButtons
+        {
+            get => (ButtonCollection) GetValue(CustomDialogButtonsProperty);
+            set => SetValue(CustomDialogButtonsProperty, value);
+        }
+
+        public static readonly DependencyProperty CustomContentProperty = DependencyProperty.Register(
+            "CustomContent", typeof(FrameworkElement), typeof(BlurryDialogWindow), new PropertyMetadata(default(FrameworkElement)));
+
+        /// <summary>
+        /// custom content to be shown instead of a conventional dialog text and icon
+        /// </summary>
+        public FrameworkElement CustomContent
+        {
+            get => (FrameworkElement) GetValue(CustomContentProperty);
+            set
+            {
+                SetValue(CustomContentProperty, value);
+                CustomContentControl.Content = value;
+            }
+        }
+
         #endregion
 
         public BlurryDialogWindow()
         {
             InitializeComponent();
             Loaded += InitializeDialogSpecificVisualBehaviour;
+            Loaded += ApplyCustomDialogButtonCloseOnClickEvents;
         }
 
         private void InitializeDialogSpecificVisualBehaviour(object sender, RoutedEventArgs e)
@@ -170,9 +201,9 @@ namespace BlurryControls.Control
         #region basic functionality
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
-        [DllImportAttribute("user32.dll")]
+        [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
         private void MenuBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -296,6 +327,34 @@ namespace BlurryControls.Control
         {
             var resultArguments = new BlurryDialogResultArgs { Result = BlurryDialogResult.Cancel };
             ResultAquired?.Invoke(this, resultArguments);
+        }
+
+        /// <summary>
+        /// apply handlers to all custom buttons
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ApplyCustomDialogButtonCloseOnClickEvents(object sender, RoutedEventArgs e)
+        {
+            if (CustomDialogButtons.Count == 0) return;
+            foreach (var customButton in CustomDialogButtons.OfType<Button>())
+                customButton.Click += CustomButtonCloseOnClick;
+        }
+
+        /// <summary>
+        /// close dialog when any button is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="routedEventArgs"></param>
+        private void CustomButtonCloseOnClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var resultArguments = new BlurryDialogResultArgs { Result = BlurryDialogResult.None };
+            ResultAquired?.Invoke(this, resultArguments);
+
+            var customButton = (Button)sender;
+            customButton.Click -= CustomButtonCloseOnClick;
+
+            Close();
         }
 
         #endregion

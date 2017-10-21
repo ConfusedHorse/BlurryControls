@@ -28,46 +28,10 @@
             </TextBlock>
             
             <Button x:Name="SampleInvokeButton"
+                    HorizontalAlignment="Center"
                     Margin="5"
-                    Width="150"
-                    Content="This is said button"
-                    Click="SampleInvokeButton_OnClick">
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0"
-                                                    Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
-                                                    To="#991090FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
-                                    <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.2"
-                                                    Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                                    To="#993070FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
-                                    <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.4"
-                                                    Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[2].(GradientStop.Color)"
-                                                    To="#995050FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
-                                    <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.6"
-                                                    Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[3].(GradientStop.Color)"
-                                                    To="#997030FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
-                                    <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.8"
-                                                    Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[4].(GradientStop.Color)"
-                                                    To="#999010FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
-                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="SampleInvokeButton"
-                                                                    Storyboard.TargetProperty="(Button.IsEnabled)">
-                                        <DiscreteBooleanKeyFrame KeyTime="00:00:00"
-                                                                 Value="False" />
-                                    </BooleanAnimationUsingKeyFrames>
-                                    <StringAnimationUsingKeyFrames Storyboard.TargetName="SampleInvokeButton"
-                                                                   Storyboard.TargetProperty="(Button.Content)">
-                                        <DiscreteStringKeyFrame KeyTime="00:00:00"
-                                                                Value="Once is enough" />
-                                    </StringAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
+                    Content="I am said button"
+                    Click="SampleInvokeButton_OnClick"/>
         </StackPanel>        
     </Grid>
 </UserControl>
