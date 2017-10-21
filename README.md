@@ -1,5 +1,3 @@
-Welcome to the BlurryControls wiki!
-
 The BlurryControls library is meant to give your application a blurry look as it is known from the _AeroGlass_ design.
 Please consider that this library runs on Windows 10 only!
 
