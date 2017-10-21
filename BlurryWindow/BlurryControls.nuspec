@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BlurryControls</id>
-    <version>1.0.14</version>
+    <version>1.0.15</version>
     <title>BlurryControls</title>
     <authors>Jörg Flechsig</authors>
     <owners>Jörg Flechsig</owners>
@@ -10,11 +10,18 @@
     <projectUrl>https://github.com/ConfusedHorse/BlurryControls</projectUrl>
     <iconUrl>https://github.com/ConfusedHorse/BlurryControls/blob/master/BlurryWindow/Resources/Icons/256/BlurryWpfWindow.png?raw=true</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>BlurryControls library provides a variety of controls with a blurry effect known from the Microsoft AeroGlass design
-	For more information please have a look at the Wiki at https://github.com/ConfusedHorse/BlurryControls/wiki
+    <description>
+		BlurryControls library provides a variety of controls with a blurry effect known from the Microsoft AeroGlass design
+		For more information please have a look at the Wiki at https://github.com/ConfusedHorse/BlurryControls/wiki
 	</description>
-    <releaseNotes>Reduced minimum track size to support smaller windows</releaseNotes>
+    <releaseNotes>
+		Refactoring of generic styles
+		Minor bugfixes and visual adjustments
+	</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>blurry control window blur aero</tags>
   </metadata>
+	<files>
+		<file src="bin\Debug\BlurryControls.dll" target="lib\net452" />
+	</files>
 </package>
