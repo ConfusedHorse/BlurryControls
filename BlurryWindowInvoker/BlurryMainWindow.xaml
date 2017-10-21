@@ -18,8 +18,7 @@
                     ToolTip="Do the thing!"
                     Width="100">
                 <Button.Content>
-                    <TextBlock Text="Click Me!"
-                               VerticalAlignment="Center"/>
+                    <TextBlock Text="Click Me!"/>
                 </Button.Content>
             </Button>
         </internals:ButtonCollection>

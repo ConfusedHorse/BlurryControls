@@ -122,7 +122,7 @@
                   Grid.Row="1">
                 <Grid Margin="16">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="128" />
+                        <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
@@ -140,8 +140,9 @@
                     -->
                     <ScrollViewer Grid.Column="1"
                                   MaxHeight="218"
-                                  MaxWidth="308"
+                                  MaxWidth="304"
                                   VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
                                   VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="DialogMessageTextBlock"
                                    Style="{StaticResource TextBlockBaseStyle}"
@@ -159,6 +160,7 @@
                 _No
                 _Ok
                 _Cancel
+            or a set of custom buttons
             
             the composition of buttons is limited by the enum BlurryDialogButton
             -->
@@ -204,26 +206,26 @@
                                    Text="{x:Static p:Resources.Yes}" />
                     </Button>
 
+                    <!-- No -->
                     <Button x:Name="NoButton"
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="NoButton_OnClick">
-                        <!-- No -->
                         <TextBlock Style="{StaticResource TextBlockBaseStyle}"
                                    Text="{x:Static p:Resources.No}" />
                     </Button>
 
+                    <!-- Ok -->
                     <Button x:Name="OkButton"
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="OkButton_OnClick">
-                        <!-- Ok -->
                         <TextBlock Style="{StaticResource TextBlockBaseStyle}"
                                    Text="{x:Static p:Resources.Ok}" />
                     </Button>
 
+                    <!-- Cancel -->
                     <Button x:Name="CancelButton"
                             Style="{StaticResource WindowButtonDialogStyle}"
                             Click="CancelButton_OnClick">
-                        <!-- Cancel -->
                         <TextBlock Style="{StaticResource TextBlockBaseStyle}"
                                    Text="{x:Static p:Resources.Cancel}" />
                     </Button>
