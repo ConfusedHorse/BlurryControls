@@ -16,12 +16,13 @@ namespace BlurryWindowInvoker.Control
             InitializeComponent();
         }
 
-        private void Todesknopf_OnClick(object sender, RoutedEventArgs e)
+        private void SampleInvokeButton_OnClick(object sender, RoutedEventArgs e)
         {
             //show a sample dialog
             var mainWindow = Application.Current.MainWindow;
             var result = BlurryMessageBox.Show(mainWindow,
-                "By pressing OK a ColorAnimation will alter the control's background and a sample TrayControl will show up for the default duration of 10 seconds or until you click somewhere else.",
+                "By pressing OK a ColorAnimation will alter the underlying control's background and a sample TrayControl will show up " +
+                "for the default duration of 10 seconds, or until you click somewhere else.",
                 "This is a MessageBox!", BlurryDialogButton.Ok, BlurryDialogIcon.Information);
             // show a sample tray control when ok is clicked
             if (result == BlurryDialogResult.Ok)

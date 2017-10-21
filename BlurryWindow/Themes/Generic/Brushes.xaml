@@ -9,9 +9,11 @@
     <SolidColorBrush x:Key="InvertedSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.InvertedSystemWindowGlassColor}" />
     <SolidColorBrush x:Key="InvertedTransparentSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.InvertedTransparentSystemWindowGlassColor}" />
     
-    <Color x:Key="WindowButtonGeneralForegroundColor">#FFFFFFFF</Color>
-    <Color x:Key="WindowButtonGeneralBackgroundColor">#00000000</Color>
-    <Color x:Key="WindowButtonGeneralFocusColor">#66FFFFFF</Color>
+    <Color x:Key="WindowButtonForegroundColor">#FFFFFFFF</Color>
+    <Color x:Key="WindowButtonDarkForegroundColor">#FF000000</Color>
+    <Color x:Key="WindowButtonBackgroundColor">#00000000</Color>
+    <Color x:Key="WindowButtonFocusColor">#66FFFFFF</Color>
+    <Color x:Key="GlobalButtonWeakBackgroundColor">#33FFFFFF</Color>
     <Color x:Key="WindowButtonExitFocusColor">#AAFF0000</Color>
 
     <Color x:Key="MenuBarFocusBackgroundColor">#33000000</Color>
@@ -19,12 +21,25 @@
     <Color x:Key="DialogMenuBarFocusBackgroundColor">#66000000</Color>
     <Color x:Key="DialogMenuBarGeneralBackgroundColor">#00000000</Color>
 
-    <SolidColorBrush x:Key="WindowButtonGeneralForegroundBrush" Color="{StaticResource WindowButtonGeneralForegroundColor}"/>
-    <SolidColorBrush x:Key="WindowButtonGeneralBackgroundBrush" Color="{StaticResource WindowButtonGeneralBackgroundColor}"/>
-    <SolidColorBrush x:Key="WindowButtonGeneralFocusBrush" Color="{StaticResource WindowButtonGeneralFocusColor}"/>
+    <SolidColorBrush x:Key="WindowButtonForegroundBrush" Color="{StaticResource WindowButtonForegroundColor}"/>
+    <SolidColorBrush x:Key="WindowButtonDarkForegroundBrush" Color="{StaticResource WindowButtonDarkForegroundColor}"/>
+    <SolidColorBrush x:Key="WindowButtonBackgroundBrush" Color="{StaticResource WindowButtonBackgroundColor}"/>
+    <SolidColorBrush x:Key="WindowButtonFocusBrush" Color="{StaticResource WindowButtonFocusColor}"/>
+    <SolidColorBrush x:Key="GlobalButtonWeakBackgroundBrush" Color="{StaticResource GlobalButtonWeakBackgroundColor}"/>
     <SolidColorBrush x:Key="WindowButtonExitFocusBrush" Color="{StaticResource WindowButtonExitFocusColor}"/>
 
+    <SolidColorBrush x:Key="GeneralWeakBackgroundBrush" Color="#00000000"/>
+    
     <SolidColorBrush x:Key="GeneralForegroundBrush" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="GeneralBackgroundBrush" Color="#00000000"/>
     <SolidColorBrush x:Key="GeneralBorderBrush" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="GeneralDisabledForegroundBrush" Color="#FFAAAAAA"/>
+    
+    <SolidColorBrush x:Key="GeneralStrongerBackgroundBrush" Color="#99000000"/>
+    <SolidColorBrush x:Key="GeneralStrongerFocusBackgroundBrush" Color="#99333333"/>
+    <SolidColorBrush x:Key="GeneralStrongerBorderBrush" Color="#99000000"/>
+    
+    <SolidColorBrush x:Key="GeneralStrongBackgroundBrush" Color="#CC000000"/>
+    <SolidColorBrush x:Key="GeneralStrongFocusBackgroundBrush" Color="#CC333333"/>
+    <SolidColorBrush x:Key="GeneralStrongBorderBrush" Color="#CC000000"/>
 </ResourceDictionary>

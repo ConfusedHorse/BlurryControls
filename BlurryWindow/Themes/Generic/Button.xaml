@@ -3,17 +3,14 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Brushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-
+    
     <!-- style for a button which slowly turns white when hovering the cursor over it -->
-    <Style x:Key="WindowButtonGeneralStyle"
+    <Style x:Key="WindowButtonBaseStyle"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Background" Value="{StaticResource WindowButtonGeneralBackgroundBrush}" />
-        <Setter Property="Foreground" Value="{StaticResource WindowButtonGeneralForegroundBrush}" />
-        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Background" Value="{StaticResource WindowButtonBackgroundBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource WindowButtonForegroundBrush}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Height" Value="32" />
-        <Setter Property="Width" Value="48" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -27,7 +24,7 @@
             <EventTrigger RoutedEvent="Button.MouseEnter">
                 <BeginStoryboard>
                     <Storyboard>
-                        <ColorAnimation To="{StaticResource WindowButtonGeneralFocusColor}"
+                        <ColorAnimation To="{StaticResource WindowButtonFocusColor}"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         FillBehavior="HoldEnd"
                                         Duration="0:0:0.5" />
@@ -38,7 +35,27 @@
             <EventTrigger RoutedEvent="Button.MouseLeave">
                 <BeginStoryboard>
                     <Storyboard>
-                        <ColorAnimation To="{StaticResource WindowButtonGeneralBackgroundColor}"
+                        <ColorAnimation To="{StaticResource WindowButtonBackgroundColor}"
+                                        Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.5" />
+
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--global override-->
+    <Style TargetType="{x:Type Button}"
+           BasedOn="{StaticResource WindowButtonBaseStyle}">
+        <Setter Property="Background" Value="{StaticResource GlobalButtonWeakBackgroundBrush}" />
+        <Setter Property="Height" Value="32" />
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource GlobalButtonWeakBackgroundColor}"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         FillBehavior="HoldEnd"
                                         Duration="0:0:0.5" />
@@ -49,7 +66,16 @@
         </Style.Triggers>
     </Style>
 
-    <!-- style for a button which slowly turns red when hovering the cursor over it -->
+    <!-- style for a window button which slowly turns white when hovering the cursor over it -->
+    <Style x:Key="WindowButtonGeneralStyle"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource WindowButtonBaseStyle}">
+        <Setter Property="VerticalAlignment" Value="Bottom" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Width" Value="48" />
+    </Style>
+
+    <!-- style for a window button which slowly turns red when hovering the cursor over it -->
     <Style x:Key="WindowButtonExitStyle" TargetType="Button" BasedOn="{StaticResource WindowButtonGeneralStyle}">
         <Style.Triggers>
             <EventTrigger RoutedEvent="Button.MouseEnter">
@@ -65,7 +91,7 @@
             <EventTrigger RoutedEvent="Button.MouseLeave">
                 <BeginStoryboard>
                     <Storyboard>
-                        <ColorAnimation To="{StaticResource WindowButtonGeneralBackgroundColor}"
+                        <ColorAnimation To="{StaticResource WindowButtonBackgroundColor}"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         FillBehavior="Stop"
                                         Duration="0:0:1" />

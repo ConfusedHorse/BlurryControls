@@ -8,7 +8,9 @@
                       xmlns:internals="clr-namespace:BlurryControls.Internals;assembly=BlurryControls"
                       mc:Ignorable="d"
                       Icon="pack://application:,,,/BlurryControls;component/Resources/Icons/256/BlurryWpfWindow.png"
-                      Title="This is a caption">
+                      Width="800" Height="600"
+                      WindowStartupLocation="CenterScreen"
+                      Title="I am a blurry window">
     <windows:BlurryWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,12 +35,16 @@
 
     <Grid>
         <!-- sample control with basic components -->
-        <TabControl Margin="-1 3 -1 -1">
+        <TabControl Margin="5">
             <TabItem Header="BlurryContentControl">
                 <control:BlurryContentControl />
             </TabItem>
             <TabItem Header="Test">
                 <control:BlurryDogeControl />
+            </TabItem>
+            <TabItem Header="Empty Tab 1">
+            </TabItem>
+            <TabItem Header="Empty Tab 2">
             </TabItem>
         </TabControl>
     </Grid>

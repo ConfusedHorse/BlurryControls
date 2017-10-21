@@ -11,6 +11,7 @@
                         DeactivationDuration="500">
     <Grid>
         <TextBlock x:Name="TrayTextBlock"
+                   Margin="10"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    TextWrapping="Wrap"/>

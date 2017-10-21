@@ -5,9 +5,10 @@
                     xmlns:p="clr-namespace:BlurryControls.Properties">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Brushes.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/WindowButtons.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Controls.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Resources/Icons/IconResources.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Icons.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Text.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/ToolTip.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Button.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <!-- style for a transparent rectangle -->
@@ -81,28 +82,28 @@
                                     <MenuItem x:Name="MinimizeContextMenuItem"
                                               Header="{x:Static p:Resources.Minimize}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Minimize016B}" />
+                                            <ContentControl Template="{StaticResource Minimize032W}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!-- Restore -->
                                     <MenuItem x:Name="RestoreContextMenuItem"
                                               Header="{x:Static p:Resources.Restore}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Restore016B}" />
+                                            <ContentControl Template="{StaticResource Restore032W}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!-- Maximize -->
                                     <MenuItem x:Name="MaximizeContextMenuItem"
                                               Header="{x:Static p:Resources.Maximize}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Maximize016B}" />
+                                            <ContentControl Template="{StaticResource Maximize032W}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                     <!-- Close -->
                                     <MenuItem x:Name="CloseContextMenuItem"
                                               Header="{x:Static p:Resources.Close}">
                                         <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Close016B}" />
+                                            <ContentControl Template="{StaticResource Close032W}" />
                                         </MenuItem.Icon>
                                     </MenuItem>
                                 </ContextMenu>
@@ -157,7 +158,7 @@
 
                             <!-- Window Title -->
                             <TextBlock x:Name="TitleTextBlock"
-                                       Style="{StaticResource TextBlockStyle}"
+                                       Style="{StaticResource TextBlockBaseStyle}"
                                        Grid.Column="1"
                                        Margin="0 5"
                                        Background="Transparent"

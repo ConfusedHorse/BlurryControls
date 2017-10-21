@@ -4,16 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:windows="clr-namespace:BlurryControls.Windows;assembly=BlurryControls"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-
+             d:DesignHeight="450" d:DesignWidth="450">
+    <UserControl.Resources>
+        <system:Double x:Key="ExampleSize">400</system:Double>
+    </UserControl.Resources>
     <Grid>
-        <windows:BlurryImage x:Name="BlurryDoge" 
-                             Source="../Resources/TestImage/doge.jpeg"
-                             BlurRadius="50"/>
-        <Slider Minimum="0"
-                Maximum="100"
-                Value="50"
-                ValueChanged="RangeBase_OnValueChanged"/>
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Orientation="Vertical">
+            <windows:BlurryImage x:Name="BlurryDoge" 
+                                 Height="{StaticResource ExampleSize}"
+                                 Width="{StaticResource ExampleSize}"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 Source="../Resources/TestImage/doge.jpeg"
+                                 BlurRadius="50"/>
+            <Slider Minimum="0"
+                    Maximum="100"
+                    Value="50"
+                    Width="{StaticResource ExampleSize}"
+                    ValueChanged="RangeBase_OnValueChanged"/>
+        </StackPanel>
     </Grid>
 </UserControl>

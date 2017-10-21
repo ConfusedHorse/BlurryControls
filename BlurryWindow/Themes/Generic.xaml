@@ -2,6 +2,12 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/BlurryWindow.xaml" />
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/BlurryTray.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Controls.xaml" />
+        
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Brushes.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/ContextMenu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/TabControl.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Text.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/ToolTip.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

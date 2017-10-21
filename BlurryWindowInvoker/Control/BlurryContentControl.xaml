@@ -5,32 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid x:Name="BlurryContentControlMainGrid" 
-          Margin="5">
+    <Grid x:Name="BlurryContentControlMainGrid">
         <Grid.Background>
             <LinearGradientBrush>
-                <GradientStop Color="#19000000" Offset="0.2" />
-                <GradientStop Color="#19000000" Offset="0.4" />
-                <GradientStop Color="#19000000" Offset="0.6" />
-                <GradientStop Color="#19000000" Offset="0.8" />
-                <GradientStop Color="#19000000" Offset="1.0" />
+                <GradientStop Color="#00000000" Offset="0.2" />
+                <GradientStop Color="#00000000" Offset="0.4" />
+                <GradientStop Color="#00000000" Offset="0.6" />
+                <GradientStop Color="#00000000" Offset="0.8" />
+                <GradientStop Color="#00000000" Offset="1.0" />
             </LinearGradientBrush>
         </Grid.Background>
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-            <TextBlock Text="This is a sample content."
-                       HorizontalAlignment="Center"/>
-            <TextBlock Text="The background of this control's parent is blured."
-                       HorizontalAlignment="Center"/>
-            <TextBlock Text="Press the button to invoke a MessageBox."
-                       HorizontalAlignment="Center"/>
-            <Button x:Name="Todesknopf"
+            <TextBlock HorizontalAlignment="Center"
+                       Margin="5">
+                <Run>This is sample content.</Run>
+                <LineBreak />
+                <Run>If you are running Windows 10 you should be able to see a blured window.</Run>
+                <LineBreak />
+                <Run>Press the button to invoke a MessageBox.</Run>
+            </TextBlock>
+            
+            <Button x:Name="SampleInvokeButton"
                     Margin="5"
-                    Content="This is a button"
-                    HorizontalAlignment="Center"
-                    Background="Gray"
-                    Click="Todesknopf_OnClick">
+                    Width="150"
+                    Content="This is said button"
+                    Click="SampleInvokeButton_OnClick">
                 <Button.Triggers>
                     <EventTrigger RoutedEvent="Button.Click">
                         <EventTrigger.Actions>
@@ -38,25 +39,25 @@
                                 <Storyboard>
                                     <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0"
                                                     Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
-                                                    From="#19000000" To="#991090FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
+                                                    To="#991090FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
                                     <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.2"
                                                     Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
-                                                    From="#19000000" To="#993070FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
+                                                    To="#993070FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
                                     <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.4"
                                                     Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[2].(GradientStop.Color)"
-                                                    From="#19000000" To="#995050FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
+                                                    To="#995050FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
                                     <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.6"
                                                     Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[3].(GradientStop.Color)"
-                                                    From="#19000000" To="#997030FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
+                                                    To="#997030FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
                                     <ColorAnimation Storyboard.TargetName="BlurryContentControlMainGrid" BeginTime="0:0:0.8"
                                                     Storyboard.TargetProperty = "(Canvas.Background).(LinearGradientBrush.GradientStops)[4].(GradientStop.Color)"
-                                                    From="#19000000" To="#999010FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
-                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="Todesknopf"
+                                                    To="#999010FF" Duration="0:0:1" RepeatBehavior="Forever" AutoReverse="True"/>
+                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetName="SampleInvokeButton"
                                                                     Storyboard.TargetProperty="(Button.IsEnabled)">
                                         <DiscreteBooleanKeyFrame KeyTime="00:00:00"
                                                                  Value="False" />
                                     </BooleanAnimationUsingKeyFrames>
-                                    <StringAnimationUsingKeyFrames Storyboard.TargetName="Todesknopf"
+                                    <StringAnimationUsingKeyFrames Storyboard.TargetName="SampleInvokeButton"
                                                                    Storyboard.TargetProperty="(Button.Content)">
                                         <DiscreteStringKeyFrame KeyTime="00:00:00"
                                                                 Value="Once is enough" />
@@ -70,3 +71,4 @@
         </StackPanel>        
     </Grid>
 </UserControl>
+ 
