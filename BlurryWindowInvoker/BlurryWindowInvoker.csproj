@@ -62,6 +62,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Control\BlurryBackgroundAnimationControl.xaml.cs">
+      <DependentUpon>BlurryBackgroundAnimationControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\BlurryDogeDialogControl.xaml.cs">
+      <DependentUpon>BlurryDogeDialogControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\BlurryDogeControl.xaml.cs">
       <DependentUpon>BlurryDogeControl.xaml</DependentUpon>
     </Compile>
@@ -101,9 +107,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Control\BlurryBackgroundAnimationControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Control\BlurryContentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\BlurryDogeDialogControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Control\BlurryDogeControl.xaml">
       <SubType>Designer</SubType>

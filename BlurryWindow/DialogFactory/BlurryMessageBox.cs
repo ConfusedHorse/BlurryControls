@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using BlurryControls.Control;
 using BlurryControls.Internals;
 
@@ -11,6 +12,8 @@ namespace BlurryControls.DialogFactory
     public static class BlurryMessageBox
     {
         private const double Strength = 0.5;
+
+        #region Conventional Content Dialogs
 
         /// <summary>
         /// Displays a message box that has a message; and returns a result.
@@ -273,5 +276,210 @@ namespace BlurryControls.DialogFactory
 
             return result;
         }
+
+        #endregion
+
+        #region Custom Content Dialogs
+
+        /// <summary>
+        /// Displays a message box in front of the specified window. The message box displays
+        /// a message; and returns a result.
+        /// </summary>
+        /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
+        /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
+        /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
+        /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
+        public static BlurryDialogResult Show(string caption, FrameworkElement content, double strength = Strength)
+        {
+            var result = BlurryDialogResult.None;
+            var dialog = new BlurryDialogWindow()
+            {
+                Title = caption,
+                DialogIcon = BlurryDialogIcon.None,
+                CustomContent = content,
+                Button = BlurryDialogButton.None,
+                Owner = null,
+                Strength = strength
+            };
+
+            dialog.ResultAquired += (sender, args) =>
+            {
+                dialog.Close();
+                result = args.Result;
+            };
+
+            dialog.ShowDialog();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Displays a message box in front of the specified window. The message box displays
+        /// a message; and returns a result.
+        /// </summary>
+        /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
+        /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
+        /// <param name="button">A <see cref="BlurryDialogButton"/> value that specifies which button or buttons to display.</param>
+        /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
+        /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
+        public static BlurryDialogResult Show(string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
+        {
+            var result = BlurryDialogResult.None;
+            var dialog = new BlurryDialogWindow()
+            {
+                Title = caption,
+                DialogIcon = BlurryDialogIcon.None,
+                CustomContent = content,
+                Button = button,
+                Owner = null,
+                Strength = strength
+            };
+
+            dialog.ResultAquired += (sender, args) =>
+            {
+                dialog.Close();
+                result = args.Result;
+            };
+
+            dialog.ShowDialog();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Displays a message box in front of the specified window. The message box displays
+        /// a message; and returns a result.
+        /// </summary>
+        /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
+        /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
+        /// <param name="customDialogButtons"> A <see cref="ButtonCollection"/> shown instead of the conventional dialog buttons.</param>
+        /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
+        /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
+        public static BlurryDialogResult Show(string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
+        {
+            var result = BlurryDialogResult.None;
+            var dialog = new BlurryDialogWindow()
+            {
+                Title = caption,
+                DialogIcon = BlurryDialogIcon.None,
+                CustomContent = content,
+                CustomDialogButtons = customDialogButtons,
+                Owner = null,
+                Strength = strength
+            };
+
+            dialog.ResultAquired += (sender, args) =>
+            {
+                dialog.Close();
+                result = args.Result;
+            };
+
+            dialog.ShowDialog();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Displays a message box in front of the specified window. The message box displays
+        /// a message; and returns a result.
+        /// </summary>
+        /// <param name="owner">A <see cref="Window"/> that represents the owner window of the message box.</param>
+        /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
+        /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
+        /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
+        /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
+        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, double strength = Strength)
+        {
+            var result = BlurryDialogResult.None;
+            var dialog = new BlurryDialogWindow()
+            {
+                Title = caption,
+                DialogIcon = BlurryDialogIcon.None,
+                CustomContent = content,
+                Button = BlurryDialogButton.None,
+                Owner = owner,
+                Strength = strength
+            };
+
+            dialog.ResultAquired += (sender, args) =>
+            {
+                dialog.Close();
+                result = args.Result;
+            };
+
+            dialog.ShowDialog();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Displays a message box in front of the specified window. The message box displays
+        /// a message; and returns a result.
+        /// </summary>
+        /// <param name="owner">A <see cref="Window"/> that represents the owner window of the message box.</param>
+        /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
+        /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
+        /// <param name="button">A <see cref="BlurryDialogButton"/> value that specifies which button or buttons to display.</param>
+        /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
+        /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
+        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
+        {
+            var result = BlurryDialogResult.None;
+            var dialog = new BlurryDialogWindow()
+            {
+                Title = caption,
+                DialogIcon = BlurryDialogIcon.None,
+                CustomContent = content,
+                Button = button,
+                Owner = owner,
+                Strength = strength
+            };
+
+            dialog.ResultAquired += (sender, args) =>
+            {
+                dialog.Close();
+                result = args.Result;
+            };
+
+            dialog.ShowDialog();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Displays a message box in front of the specified window. The message box displays
+        /// a message; and returns a result.
+        /// </summary>
+        /// <param name="owner">A <see cref="Window"/> that represents the owner window of the message box.</param>
+        /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
+        /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
+        /// <param name="customDialogButtons"> A <see cref="ButtonCollection"/> shown instead of the conventional dialog buttons.</param>
+        /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
+        /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
+        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
+        {
+            var result = BlurryDialogResult.None;
+            var dialog = new BlurryDialogWindow()
+            {
+                Title = caption,
+                DialogIcon = BlurryDialogIcon.None,
+                CustomContent = content,
+                CustomDialogButtons = customDialogButtons,
+                Owner = owner,
+                Strength = strength
+            };
+
+            dialog.ResultAquired += (sender, args) =>
+            {
+                dialog.Close();
+                result = args.Result;
+            };
+
+            dialog.ShowDialog();
+
+            return result;
+        }
+
+        #endregion
     }
 }

@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <system:Double x:Key="ExampleSize">400</system:Double>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="10">
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Orientation="Vertical">
