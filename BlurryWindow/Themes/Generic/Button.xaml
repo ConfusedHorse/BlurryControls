@@ -6,8 +6,7 @@
     
     <!-- style for a button which slowly turns white when hovering the cursor over it -->
     <Style x:Key="WindowButtonBaseStyle"
-           TargetType="{x:Type Button}"
-           BasedOn="{StaticResource {x:Type Button}}">
+           TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{StaticResource WindowButtonBackgroundBrush}" />
         <Setter Property="Foreground" Value="{StaticResource WindowButtonForegroundBrush}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -28,7 +27,6 @@
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         FillBehavior="HoldEnd"
                                         Duration="0:0:0.5" />
-
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -39,7 +37,6 @@
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         FillBehavior="HoldEnd"
                                         Duration="0:0:0.5" />
-
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -59,7 +56,6 @@
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
                                         FillBehavior="HoldEnd"
                                         Duration="0:0:0.5" />
-
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>

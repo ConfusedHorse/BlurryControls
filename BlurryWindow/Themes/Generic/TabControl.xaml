@@ -11,6 +11,56 @@
         <Setter Property="Background" Value="{StaticResource GeneralStrongerFocusBackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
     </Style>
+    
+    <!-- TabItemContentBorderStyle -->
+    <Style x:Key="TabItemContentBorderStyle" TargetType="{x:Type Border}">
+        <Setter Property="BorderBrush" Value="{StaticResource GeneralBackgroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource GeneralStrongerBackgroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="-2 0 6 4"/>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Border.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource WindowButtonFocusColor}"
+                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.5" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Border.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource GeneralStrongerBackgroundColor}"
+                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.5" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- TabItemContentBorderSelectedStyle -->
+    <Style x:Key="TabItemContentBorderSelectedStyle" TargetType="{x:Type Border}">
+        <Setter Property="BorderBrush" Value="{StaticResource GeneralBackgroundBrush}"/>
+        <Setter Property="Background" Value="{StaticResource GeneralStrongerFocusBackgroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="-2 0 6 0"/>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Border.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource GeneralStrongerFocusBackgroundColor}"
+                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                        FillBehavior="HoldEnd"
+                                        Duration="0:0:0.5" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
 
     <Style TargetType="{x:Type TabItem}">
         <Setter Property="Template">
@@ -19,18 +69,12 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Panel.ZIndex" Value="100" />
-                            <Setter TargetName="Border" Property="Border.BorderThickness" Value="0" />
-                            <Setter TargetName="Border" Property="Border.Margin" Value="-2 0 6 0" />
-                            <Setter TargetName="Border" Property="Border.Background" Value="{StaticResource GeneralStrongerFocusBackgroundBrush}" />
-                            <Setter TargetName="Border" Property="Border.BorderBrush" Value="{StaticResource GeneralBackgroundBrush}" />
+                            <Setter TargetName="Border" Property="Border.Style" Value="{StaticResource TabItemContentBorderSelectedStyle}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
 
                     <Border x:Name="Border"
-                            BorderBrush="{StaticResource GeneralBackgroundBrush}"
-                            Background="{StaticResource GeneralStrongerBackgroundBrush}"
-                            BorderThickness="0"
-                            Margin="-2 0 6 4">
+                            Style="{StaticResource TabItemContentBorderStyle}">
                         <ContentPresenter x:Name="ContentSite"
                                           VerticalAlignment="Top"
                                           HorizontalAlignment="Center"
