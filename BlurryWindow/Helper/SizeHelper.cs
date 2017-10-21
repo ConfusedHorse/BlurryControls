@@ -9,8 +9,6 @@ namespace BlurryControls.Helper
     {
         /* the following code is taken from 
             https://codekong.wordpress.com/2010/11/10/custom-window-style-and-accounting-for-the-taskbar/
-           the source code has been refactored and WmGetMinMaxInfo override was modified due to a bug
-           which caused the window drag handle and maximized size to be inverted
         */
 
         public enum ABEdge
@@ -123,14 +121,12 @@ namespace BlurryControls.Helper
                 GetMonitorInfo(monitorContainingApplication, monitorInfo);
                 var rcWorkArea = monitorInfo.rcWork;
                 var rcMonitorArea = monitorInfo.rcMonitor;
-                //does not work for secondary monitor when task bar is in another orientation than bottom
-                mmi.ptMaxPosition.x = rcWorkArea.bottom * rcMonitorArea.bottom;
-                mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
-                //
-                mmi.ptMaxSize.x = Math.Abs(rcWorkArea.top - rcMonitorArea.bottom);
-                mmi.ptMaxSize.y = Math.Abs(rcWorkArea.right - rcMonitorArea.left);
-                mmi.ptMaxTrackSize.x = mmi.ptMaxSize.x;
-                mmi.ptMaxTrackSize.y = mmi.ptMaxSize.y;
+                mmi.ptMaxPosition.x = Math.Abs(rcWorkArea.left - rcMonitorArea.left);
+                mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
+                mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
+                mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
+                //mmi.ptMaxTrackSize.x = mmi.ptMaxSize.x;
+                //mmi.ptMaxTrackSize.y = mmi.ptMaxSize.y;
                 mmi.ptMinTrackSize.x = 20;
                 mmi.ptMinTrackSize.y = 20;
                 mmi = AdjustWorkingAreaForAutoHide(monitorContainingApplication, mmi);
@@ -163,9 +159,9 @@ namespace BlurryControls.Helper
         public class MONITORINFO
         {
             public int cbSize = Marshal.SizeOf(typeof(MONITORINFO));
-            public int dwFlags = 0;
             public RECT rcMonitor = new RECT();
             public RECT rcWork = new RECT();
+            public int dwFlags = 0;
         }
 
         [StructLayout(LayoutKind.Sequential)]
