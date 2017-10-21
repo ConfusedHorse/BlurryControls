@@ -26,7 +26,7 @@ namespace BlurryWindowInvoker.Control
                 new Button(){Content = "Custom Cancel", Margin = new Thickness(2.5, 0, 2.5, 0)}
             };
 
-            var result = BlurryMessageBox.Show(mainWindow, "Custom Dialog", dogeControl, customButtonCollection);
+            var result = BlurryMessageBox.Show(mainWindow, "Custom Dialog", dogeControl, customButtonCollection, 0d);
         }
     }
 }
