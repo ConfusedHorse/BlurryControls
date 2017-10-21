@@ -34,6 +34,9 @@
     <SolidColorBrush x:Key="GeneralBackgroundBrush" Color="#00000000"/>
     <SolidColorBrush x:Key="GeneralBorderBrush" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="GeneralDisabledForegroundBrush" Color="#FFAAAAAA"/>
+
+    <Color x:Key="GeneralStrongerBackgroundColor">#99000000</Color>
+    <Color x:Key="GeneralStrongerFocusBackgroundColor">#99333333</Color>
     
     <SolidColorBrush x:Key="GeneralStrongerBackgroundBrush" Color="#99000000"/>
     <SolidColorBrush x:Key="GeneralStrongerFocusBackgroundBrush" Color="#99333333"/>

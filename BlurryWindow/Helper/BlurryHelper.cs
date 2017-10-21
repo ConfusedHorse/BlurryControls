@@ -30,8 +30,8 @@ namespace BlurryControls.Helper
         private static void EnableBlur(Window win, bool enable)
         {
             //this code is taken from a sample application provided by Rafael Rivera
-            //see the full code sample here: (2016/07)
-            // https://github.com/riverar/sample-win10-aeroglass (2016/08)
+            //see the full code sample here: (2016/08)
+            // https://github.com/riverar/sample-win10-aeroglass
             var windowHelper = new WindowInteropHelper(win);
 
             var accent = new AccentPolicy
