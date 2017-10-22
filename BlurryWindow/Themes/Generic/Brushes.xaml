@@ -1,13 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converter="clr-namespace:BlurryControls.Resources.Converter"
-                    xmlns:helper="clr-namespace:BlurryControls.Helper">
+                    xmlns:helpers="clr-namespace:BlurryControls.Helpers">
     <converter:InvertColorConverter x:Key="InvertColorConverter" />
 
-    <SolidColorBrush x:Key="SystemWindowGlassColor" Color="{x:Static helper:ColorHelper.SystemWindowGlassColor}" />
-    <SolidColorBrush x:Key="TransparentSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.TransparentSystemWindowGlassColor}" />
-    <SolidColorBrush x:Key="InvertedSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.InvertedSystemWindowGlassColor}" />
-    <SolidColorBrush x:Key="InvertedTransparentSystemWindowGlassColor" Color="{x:Static helper:ColorHelper.InvertedTransparentSystemWindowGlassColor}" />
+    <SolidColorBrush x:Key="SystemWindowGlassColor" Color="{x:Static helpers:ColorHelper.SystemWindowGlassColor}" />
+    <SolidColorBrush x:Key="TransparentSystemWindowGlassColor" Color="{x:Static helpers:ColorHelper.TransparentSystemWindowGlassColor}" />
+    <SolidColorBrush x:Key="InvertedSystemWindowGlassColor" Color="{x:Static helpers:ColorHelper.InvertedSystemWindowGlassColor}" />
+    <SolidColorBrush x:Key="InvertedTransparentSystemWindowGlassColor" Color="{x:Static helpers:ColorHelper.InvertedTransparentSystemWindowGlassColor}" />
     
     <Color x:Key="WindowButtonForegroundColor">#FFFFFFFF</Color>
     <Color x:Key="WindowButtonDarkForegroundColor">#FF000000</Color>

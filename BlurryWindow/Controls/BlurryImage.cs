@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media.Effects;
 
-namespace BlurryControls.Windows
+namespace BlurryControls.Controls
 {
     public class BlurryImage : Image
     {

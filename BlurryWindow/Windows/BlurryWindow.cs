@@ -8,7 +8,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using BlurryControls.Helper;
+using BlurryControls.Helpers;
 using BlurryControls.Internals;
 
 namespace BlurryControls.Windows
