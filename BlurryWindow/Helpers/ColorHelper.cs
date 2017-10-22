@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace BlurryControls.Helper
+namespace BlurryControls.Helpers
 {
     /// <summary>
     /// provides functionality relating to types <see cref="Brush"/>, <see cref="SolidColorBrush"/> and <see cref="Color"/>

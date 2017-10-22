@@ -1,6 +1,4 @@
-﻿using System.Windows;
-using BlurryControls.Windows;
-using BlurryWindowInvoker.Resources;
+﻿using BlurryControls.Windows;
 
 namespace BlurryWindowInvoker.Control
 {
@@ -13,12 +11,6 @@ namespace BlurryWindowInvoker.Control
         public InvokedTrayWindow()
         {
             InitializeComponent();
-        }
-
-        //show sample text
-        private void InvokedTrayIcon_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            TrayTextBlock.Text = Lorem.Ipsum;
         }
     }
 }

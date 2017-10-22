@@ -21,7 +21,7 @@ namespace BlurryWindowInvoker.Control
             //show a sample dialog
             var mainWindow = Application.Current.MainWindow;
             var result = BlurryMessageBox.Show(mainWindow,
-                "By pressing OK a sample TrayControl will show up for the default duration of 10 seconds, or until you click somewhere else.",
+                "By pressing OK a sample TrayControl will show up for the duration of 5 seconds, or until you click somewhere else.",
                 "This is a MessageBox!", BlurryDialogButton.Ok, BlurryDialogIcon.Information);
             // show a sample tray control when ok is clicked
             if (result == BlurryDialogResult.Ok)

@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using BlurryControls.Helper;
+using BlurryControls.Helpers;
 
 namespace BlurryControls.Resources.Converter
 {

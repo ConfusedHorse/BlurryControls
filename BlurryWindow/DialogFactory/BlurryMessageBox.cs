@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
-using BlurryControls.Control;
 using BlurryControls.Internals;
+using BlurryDialogWindow = BlurryControls.Controls.BlurryDialogWindow;
 
 namespace BlurryControls.DialogFactory
 {

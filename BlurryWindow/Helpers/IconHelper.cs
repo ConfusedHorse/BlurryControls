@@ -2,7 +2,7 @@
 using System.Windows.Media.Imaging;
 using BlurryControls.Internals;
 
-namespace BlurryControls.Helper
+namespace BlurryControls.Helpers
 {
     internal static class IconHelper
     {

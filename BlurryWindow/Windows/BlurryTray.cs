@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
-using BlurryControls.Helper;
+using BlurryControls.Helpers;
 
 namespace BlurryControls.Windows
 {
@@ -67,8 +67,8 @@ namespace BlurryControls.Windows
         /// </summary>
         public bool DeactivatesOnLostFocus
         {
-            get { return (bool)GetValue(DeactivatesOnLostFocusProperty); }
-            set { SetValue(DeactivatesOnLostFocusProperty, value); }
+            get => (bool)GetValue(DeactivatesOnLostFocusProperty);
+            set => SetValue(DeactivatesOnLostFocusProperty, value);
         }
 
         public static readonly DependencyProperty DurationProperty = DependencyProperty.Register(
@@ -80,8 +80,8 @@ namespace BlurryControls.Windows
         /// </summary>
         public uint Duration
         {
-            get { return (uint) GetValue(DurationProperty); }
-            set { SetValue(DurationProperty, value); }
+            get => (uint) GetValue(DurationProperty);
+            set => SetValue(DurationProperty, value);
         }
 
         public static readonly DependencyProperty ActivationDurationProperty = DependencyProperty.Register(
@@ -92,8 +92,8 @@ namespace BlurryControls.Windows
         /// </summary>
         public int ActivationDuration
         {
-            get { return (int) GetValue(ActivationDurationProperty); }
-            set { SetValue(ActivationDurationProperty, value); }
+            get => (int) GetValue(ActivationDurationProperty);
+            set => SetValue(ActivationDurationProperty, value);
         }
 
         public static readonly DependencyProperty DeactivationDurationProperty = DependencyProperty.Register(
@@ -104,8 +104,8 @@ namespace BlurryControls.Windows
         /// </summary>
         public int DeactivationDuration
         {
-            get { return (int) GetValue(DeactivationDurationProperty); }
-            set { SetValue(DeactivationDurationProperty, value); }
+            get => (int) GetValue(DeactivationDurationProperty);
+            set => SetValue(DeactivationDurationProperty, value);
         }
 
         #endregion

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace BlurryControls.Helper
+namespace BlurryControls.Helpers
 {
     public static class SizeHelper
     {

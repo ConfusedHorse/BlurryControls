@@ -8,10 +8,10 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using BlurryControls.Helper;
+using BlurryControls.Helpers;
 using BlurryControls.Internals;
 
-namespace BlurryControls.Control
+namespace BlurryControls.Controls
 {
     //the following definition represents an implementation which is similar to the native windows
     //MessageBox control. it contains a visual definition for a caption, an icon which is arranged 
