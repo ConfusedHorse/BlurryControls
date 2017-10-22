@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         AllowsTransparency="True"
         WindowStyle="None"
+        ResizeMode="NoResize"
         ShowInTaskbar="False"
         Topmost="True"
         Loaded="Window_Loaded"
