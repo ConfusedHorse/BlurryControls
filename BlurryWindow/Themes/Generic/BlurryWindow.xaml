@@ -135,7 +135,7 @@
                                        Style="{StaticResource TextBlockBaseStyle}"
                                        Grid.Column="1"
                                        Margin="0 5"
-                                       Background="Transparent"
+                                       Background="#01000000"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="{TemplateBinding HorizontalTitleAlignment}"
                                        FontSize="20"
