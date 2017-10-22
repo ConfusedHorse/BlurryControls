@@ -28,6 +28,7 @@
                         <BlurEffect Radius="2"/>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="Opacity" Value="0.5"/>
             </Trigger>
             <EventTrigger RoutedEvent="Button.MouseEnter">
                 <BeginStoryboard>
