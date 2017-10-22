@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using BlurryControls.Helper;
 using BlurryControls.Internals;
@@ -144,10 +145,14 @@ namespace BlurryControls.Windows
 
         public override void OnApplyTemplate()
         {
-            //apply events to all ContextMenu children
             var menuBar = GetTemplateChild("MenuBar") as Grid;
             if (menuBar != null)
             {
+                //apply visual (calming) behaviour to the MenuBar
+                menuBar.MouseEnter += MenuBarOnMouseEnter;
+                menuBar.MouseLeave += MenuBarOnMouseLeave;
+
+                //apply events to all ContextMenu children
                 menuBar.MouseLeftButtonDown += MenuBar_OnMouseLeftButtonDown;
                 foreach (UIElement element in menuBar.ContextMenu.Items)
                 {
@@ -159,10 +164,10 @@ namespace BlurryControls.Windows
                 }
             }
 
-            //apply events to all Buttons which are children of MenuBar
             var rightPanel = GetTemplateChild("RightPanel") as StackPanel;
             if (rightPanel != null)
             {
+                //apply events to all Buttons which are children of MenuBar
                 foreach (UIElement element in rightPanel.Children)
                 {
                     var button = element as Button;
@@ -173,10 +178,10 @@ namespace BlurryControls.Windows
                 }
             }
 
-            //apply events to all BorderControl children
             var borderControl = GetTemplateChild("BorderControl") as Grid;
             if (borderControl != null)
             {
+                //apply events to all BorderControl children
                 foreach (UIElement element in borderControl.Children)
                 {
                     var resizeRectangle = element as Rectangle;
@@ -194,6 +199,10 @@ namespace BlurryControls.Windows
 
             base.OnApplyTemplate();
         }
+
+        #endregion
+
+        #region Visual Behaviour
 
         private void InitializeParameters()
         {
@@ -225,6 +234,46 @@ namespace BlurryControls.Windows
                 IsMenuBarVisible = false; //overrides IsResizable
                 WindowState = WindowState.Maximized;
             }
+        }
+
+        private void MenuBarOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
+        {
+            var menuBar = sender as Grid;
+            if (menuBar == null) return;
+
+            var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
+            var menuBarMouseEnterAnimation = new ColorAnimation
+            {
+                To = Background.GetColor(),
+                FillBehavior = FillBehavior.HoldEnd,
+                Duration = new Duration(TimeSpan.FromMilliseconds(500))
+            };
+            Storyboard.SetTarget(menuBarMouseEnterAnimation, menuBar);
+            Storyboard.SetTargetProperty(menuBarMouseEnterAnimation, colorTargetPath);
+
+            var menuBarMouseEnterStoryboard = new Storyboard();
+            menuBarMouseEnterStoryboard.Children.Add(menuBarMouseEnterAnimation);
+            menuBarMouseEnterStoryboard.Begin();
+        }
+
+        private void MenuBarOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
+        {
+            var menuBar = sender as Grid;
+            if (menuBar == null) return;
+
+            var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
+            var menuBarMouseLeaveAnimation = new ColorAnimation
+            {
+                To = (Color?)Resources["MenuBarGeneralBackgroundColor"],
+                FillBehavior = FillBehavior.HoldEnd,
+                Duration = new Duration(TimeSpan.FromMilliseconds(500))
+            };
+            Storyboard.SetTarget(menuBarMouseLeaveAnimation, menuBar);
+            Storyboard.SetTargetProperty(menuBarMouseLeaveAnimation, colorTargetPath);
+
+            var menuBarMouseLeaveStoryboard = new Storyboard();
+            menuBarMouseLeaveStoryboard.Children.Add(menuBarMouseLeaveAnimation);
+            menuBarMouseLeaveStoryboard.Begin();
         }
 
         #endregion

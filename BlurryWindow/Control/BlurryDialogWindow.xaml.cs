@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using BlurryControls.Helper;
 using BlurryControls.Internals;
 
@@ -175,6 +176,57 @@ namespace BlurryControls.Control
             InitializeComponent();
             Loaded += InitializeDialogSpecificVisualBehaviour;
             Loaded += ApplyCustomDialogButtonCloseOnClickEvents;
+            Loaded += ApplyVisualBehaviour;
+        }
+
+        #region Visual Behaviour
+
+        private void ApplyVisualBehaviour(object sender, RoutedEventArgs e)
+        {
+            MenuBar.MouseEnter += MenuBarOnMouseEnter;
+            MenuBar.MouseLeave += MenuBarOnMouseLeave;
+            ButtonGrid.MouseEnter += MenuBarOnMouseEnter;
+            ButtonGrid.MouseLeave += MenuBarOnMouseLeave;
+        }
+
+        private void MenuBarOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
+        {
+            var menuBar = sender as Grid;
+            if (menuBar == null) return;
+
+            var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
+            var menuBarMouseEnterAnimation = new ColorAnimation
+            {
+                To = Background.GetColor(),
+                FillBehavior = FillBehavior.HoldEnd,
+                Duration = new Duration(TimeSpan.FromMilliseconds(500))
+            };
+            Storyboard.SetTarget(menuBarMouseEnterAnimation, menuBar);
+            Storyboard.SetTargetProperty(menuBarMouseEnterAnimation, colorTargetPath);
+
+            var menuBarMouseEnterStoryboard = new Storyboard();
+            menuBarMouseEnterStoryboard.Children.Add(menuBarMouseEnterAnimation);
+            menuBarMouseEnterStoryboard.Begin();
+        }
+
+        private void MenuBarOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
+        {
+            var menuBar = sender as Grid;
+            if (menuBar == null) return;
+
+            var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
+            var menuBarMouseLeaveAnimation = new ColorAnimation
+            {
+                To = (Color?)Resources["MenuBarGeneralBackgroundColor"],
+                FillBehavior = FillBehavior.HoldEnd,
+                Duration = new Duration(TimeSpan.FromMilliseconds(500))
+            };
+            Storyboard.SetTarget(menuBarMouseLeaveAnimation, menuBar);
+            Storyboard.SetTargetProperty(menuBarMouseLeaveAnimation, colorTargetPath);
+
+            var menuBarMouseLeaveStoryboard = new Storyboard();
+            menuBarMouseLeaveStoryboard.Children.Add(menuBarMouseLeaveAnimation);
+            menuBarMouseLeaveStoryboard.Begin();
         }
 
         private void InitializeDialogSpecificVisualBehaviour(object sender, RoutedEventArgs e)
@@ -187,6 +239,8 @@ namespace BlurryControls.Control
         {
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
         }
+
+        #endregion
 
         #region blurry internals
 
