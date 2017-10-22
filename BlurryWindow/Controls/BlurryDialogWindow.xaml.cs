@@ -23,6 +23,12 @@ namespace BlurryControls.Controls
     /// </summary>
     internal partial class BlurryDialogWindow : Window
     {
+        #region fields
+
+        private Color _menuBarColor;
+
+        #endregion
+
         #region events
 
         /// <summary>
@@ -137,6 +143,7 @@ namespace BlurryControls.Controls
 
                 var backgroundColor = ((SolidColorBrush)Background).Color.OfStrength(Strength).Color;
                 Background = new SolidColorBrush(backgroundColor);
+                _menuBarColor = Background.OfStrength(0d).Color;
             }
         }
 
@@ -216,7 +223,7 @@ namespace BlurryControls.Controls
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseLeaveAnimation = new ColorAnimation
             {
-                To = (Color?)Resources["MenuBarGeneralBackgroundColor"],
+                To = _menuBarColor,
                 FillBehavior = FillBehavior.HoldEnd,
                 Duration = new Duration(TimeSpan.FromMilliseconds(500))
             };
@@ -232,11 +239,13 @@ namespace BlurryControls.Controls
         {
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            _menuBarColor = Background.OfStrength(0d).Color;
         }
 
         private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            _menuBarColor = Background.OfStrength(0d).Color;
         }
 
         #endregion
