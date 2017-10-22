@@ -135,8 +135,7 @@ namespace BlurryControls.Controls
                 var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
                 SetValue(StrengthProperty, correctValue);
 
-                var backgroundColor = ((SolidColorBrush)Background).Color;
-                backgroundColor.A = (byte)(Strength * 255);
+                var backgroundColor = ((SolidColorBrush)Background).Color.OfStrength(Strength).Color;
                 Background = new SolidColorBrush(backgroundColor);
             }
         }

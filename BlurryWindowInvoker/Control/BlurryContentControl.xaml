@@ -6,19 +6,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid x:Name="BlurryContentControlMainGrid">
-        <Grid.Background>
-            <LinearGradientBrush>
-                <GradientStop Color="#00000000" Offset="0.2" />
-                <GradientStop Color="#00000000" Offset="0.4" />
-                <GradientStop Color="#00000000" Offset="0.6" />
-                <GradientStop Color="#00000000" Offset="0.8" />
-                <GradientStop Color="#00000000" Offset="1.0" />
-            </LinearGradientBrush>
-        </Grid.Background>
         <StackPanel Orientation="Vertical"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
             <TextBlock HorizontalAlignment="Center"
+                       TextWrapping="WrapWithOverflow"
                        Margin="5">
                 <Run>This is sample content.</Run>
                 <LineBreak />

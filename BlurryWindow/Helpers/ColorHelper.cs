@@ -147,7 +147,7 @@ namespace BlurryControls.Helpers
         {
             if (strength < 0d || strength > 1d)
                 throw new ArgumentOutOfRangeException(nameof(strength), @"strength must be a value between 0.0 and 1.0");
-            return OfStrength(new SolidColorBrush(color), (double) (byte)(strength * 255));
+            return OfStrength(new SolidColorBrush(color), (byte)(strength * 255));
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace BlurryControls.Helpers
         public static SolidColorBrush OfStrength(this SolidColorBrush colorBrush, byte strength = 191)
         {
             var color = colorBrush.Color;
-            color.A = strength;
+            color.A = strength == 0 ? (byte)1 : strength; //minimum 1 for input handling
             return new SolidColorBrush(color);
         }
 

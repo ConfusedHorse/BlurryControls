@@ -76,7 +76,7 @@
                            Style="{StaticResource TextBlockBaseStyle}"
                            Grid.Column="1"
                            Margin="0 5"
-                           Background="Transparent"
+                           Background="#01000000"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontSize="20"/>
@@ -145,7 +145,7 @@
             <Grid x:Name="ButtonGrid"
                   Grid.Row="2"
                   Height="42"
-                  Background="Transparent"
+                  Background="#01000000"
                   HorizontalAlignment="Stretch"
                   MouseLeftButtonDown="MenuBar_OnMouseLeftButtonDown">
                 <StackPanel x:Name="ButtonPanel"
