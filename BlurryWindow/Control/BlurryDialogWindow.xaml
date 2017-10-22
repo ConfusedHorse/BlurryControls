@@ -54,28 +54,6 @@
                   Background="{StaticResource GeneralBackgroundBrush}"
                   HorizontalAlignment="Stretch"
                   MouseLeftButtonDown="MenuBar_OnMouseLeftButtonDown">
-                <Grid.Triggers>
-                    <EventTrigger RoutedEvent="Grid.MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="{StaticResource DialogMenuBarFocusBackgroundColor}"
-                                                Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="HoldEnd"
-                                                Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="Grid.MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="{StaticResource DialogMenuBarGeneralBackgroundColor}"
-                                                Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="Stop"
-                                                Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Grid.Triggers>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="37" />
                     <ColumnDefinition Width="*" />
@@ -167,32 +145,9 @@
             <Grid x:Name="ButtonGrid"
                   Grid.Row="2"
                   Height="42"
-                  Background="#00000000"
+                  Background="Transparent"
                   HorizontalAlignment="Stretch"
                   MouseLeftButtonDown="MenuBar_OnMouseLeftButtonDown">
-                <Grid.Triggers>
-                    <EventTrigger RoutedEvent="Grid.MouseEnter">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="{StaticResource DialogMenuBarFocusBackgroundColor}"
-                                                Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="HoldEnd"
-                                                Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                    <EventTrigger RoutedEvent="Grid.MouseLeave">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <ColorAnimation To="{StaticResource DialogMenuBarGeneralBackgroundColor}"
-                                                Storyboard.TargetProperty="(Grid.Background).(SolidColorBrush.Color)"
-                                                FillBehavior="Stop"
-                                                Duration="0:0:1" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Grid.Triggers>
-
                 <StackPanel x:Name="ButtonPanel"
                             Margin="0 5"
                             VerticalAlignment="Stretch"

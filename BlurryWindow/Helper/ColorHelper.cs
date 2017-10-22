@@ -115,6 +115,16 @@ namespace BlurryControls.Helper
         }
 
         /// <summary>
+        /// returns the <see cref="Color"/> of a given <see cref="Brush"/>
+        /// </summary>
+        /// <param name="brush"></param>
+        /// <returns>the <see cref="Color"/> of a given <see cref="Brush"/></returns>
+        public static Color GetColor(this Brush brush)
+        {
+            return ((SolidColorBrush) brush).Color;
+        }
+
+        /// <summary>
         /// returns a <see cref="SolidColorBrush"/> of the given <see cref="SolidColorBrush"/> with chosen opacity
         /// </summary>
         /// <param name="brush"></param>
