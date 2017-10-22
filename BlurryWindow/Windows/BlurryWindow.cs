@@ -32,6 +32,8 @@ namespace BlurryControls.Windows
         private bool _lastIsResizable;
         private bool _isFullScreen;
 
+        private Color _menuBarColor;
+
         #endregion
 
         #region dependency properties
@@ -86,6 +88,7 @@ namespace BlurryControls.Windows
 
                 var backgroundColor = ((SolidColorBrush)Background).Color.OfStrength(Strength).Color;
                 Background = new SolidColorBrush(backgroundColor);
+                _menuBarColor = Background.OfStrength(0d).Color;
             }
         }
 
@@ -263,7 +266,7 @@ namespace BlurryControls.Windows
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseLeaveAnimation = new ColorAnimation
             {
-                To = (Color?)Resources["MenuBarGeneralBackgroundColor"],
+                To = _menuBarColor,
                 FillBehavior = FillBehavior.HoldEnd,
                 Duration = new Duration(TimeSpan.FromMilliseconds(500))
             };
@@ -294,6 +297,7 @@ namespace BlurryControls.Windows
             _customBackground = Background != null;
             //use system accent color for window (is overwritten if Background is set)
             Background = !_customBackground ? ColorHelper.SystemWindowGlassBrushOfStrength(Strength) : Background.OfStrength(Strength);
+            _menuBarColor = Background.OfStrength(0d).Color;
         }
 
         private void OnSourceInitialized(object sender, EventArgs eventArgs)
