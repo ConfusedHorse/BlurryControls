@@ -28,7 +28,7 @@ namespace BlurryControls.Windows
     {
         #region fields
 
-        private bool _canClose = false;
+        private bool _canCloseActualWindow = false;
         private bool _customBackground;
         private readonly DispatcherTimer _durationDispatcherTimer = new DispatcherTimer();
 
@@ -128,7 +128,10 @@ namespace BlurryControls.Windows
             Loaded += InitializeTraySpecificVisualBehaviour;
             Closing += TerminateTraySpecificVisualBehaviour;
             // close window when a click is performed outside the window
-            Deactivated += delegate { if (!_canClose && DeactivatesOnLostFocus) Close(); };
+            Deactivated += delegate
+            {
+                if (!_canCloseActualWindow && DeactivatesOnLostFocus) Close();
+            };
         }
 
         // the Close event is raised after a certain amount of time
@@ -136,7 +139,11 @@ namespace BlurryControls.Windows
         {
             if (Duration == 0) return;
             _durationDispatcherTimer.Interval = new TimeSpan(0, 0, 0, (int)Duration);
-            _durationDispatcherTimer.Tick += delegate { Close(); };
+            _durationDispatcherTimer.Tick += delegate
+            {
+                if (!IsMouseOver) Close();
+                else _durationDispatcherTimer.Stop();
+            };
             _durationDispatcherTimer.Start();
         }
 
@@ -192,7 +199,7 @@ namespace BlurryControls.Windows
         private void TerminateTraySpecificVisualBehaviour(object sender, CancelEventArgs args)
         {
             // force performing a vanishing animation before the window gets terminated
-            if (_canClose) return;
+            if (_canCloseActualWindow) return;
             args.Cancel = true;
 
             var left = MaxWidth - ActualWidth;
@@ -218,7 +225,7 @@ namespace BlurryControls.Windows
             BeginAnimation(LeftProperty, easeAnimation);
             BeginAnimation(OpacityProperty, opacityAnimation);
 
-            _canClose = true;
+            _canCloseActualWindow = true;
         }
 
         #endregion
