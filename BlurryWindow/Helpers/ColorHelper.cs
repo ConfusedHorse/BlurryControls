@@ -176,6 +176,16 @@ namespace BlurryControls.Helpers
             return new SolidColorBrush(color);
         }
 
+        /// <summary>
+        /// returns a <see cref="SolidColorBrush"/> from <see cref="Color"/>
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns>a <see cref="SolidColorBrush"/> with the given <see cref="Color"/></returns>
+        public static SolidColorBrush GetBrush(this Color color)
+        {
+            return new SolidColorBrush(color);
+        }
+
         #endregion color functions
     }
 }

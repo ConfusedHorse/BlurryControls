@@ -244,6 +244,7 @@ namespace BlurryControls.Controls
         {
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
+            MenuBar.Background = _menuBarColor.GetBrush();
         }
 
         #endregion
