@@ -121,7 +121,7 @@
                                   MaxHeight="218"
                                   MaxWidth="304"
                                   VerticalAlignment="Center"
-                                  HorizontalAlignment="Left"
+                                  HorizontalAlignment="Center"
                                   VerticalScrollBarVisibility="Auto">
                         <TextBlock x:Name="DialogMessageTextBlock"
                                    Style="{StaticResource TextBlockBaseStyle}"
