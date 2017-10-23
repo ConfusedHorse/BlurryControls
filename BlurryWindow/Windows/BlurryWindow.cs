@@ -147,8 +147,7 @@ namespace BlurryControls.Windows
 
         public override void OnApplyTemplate()
         {
-            var menuBar = GetTemplateChild("MenuBar") as Grid;
-            if (menuBar != null)
+            if (GetTemplateChild("MenuBar") is Grid menuBar)
             {
                 //apply visual (calming) behaviour to the MenuBar
                 menuBar.MouseEnter += MenuBarOnMouseEnter;
@@ -156,47 +155,31 @@ namespace BlurryControls.Windows
 
                 //apply events to all ContextMenu children
                 menuBar.MouseLeftButtonDown += MenuBar_OnMouseLeftButtonDown;
+
+                if(menuBar.ContextMenu == null) return;
                 foreach (UIElement element in menuBar.ContextMenu.Items)
-                {
-                    var menuItem = element as MenuItem;
-                    if (menuItem != null)
-                    {
+                    if (element is MenuItem menuItem)
                         menuItem.Click += ContextMenuItemOnClick;
-                    }
-                }
             }
 
-            var rightPanel = GetTemplateChild("RightPanel") as StackPanel;
-            if (rightPanel != null)
+            if (GetTemplateChild("RightPanel") is StackPanel rightPanel)
             {
                 //apply events to all Buttons which are children of MenuBar
                 foreach (UIElement element in rightPanel.Children)
-                {
-                    var button = element as Button;
-                    if (button != null)
-                    {
+                    if (element is Button button)
                         button.Click += MenuBarButtonOnClick;
-                    }
-                }
             }
 
-            var borderControl = GetTemplateChild("BorderControl") as Grid;
-            if (borderControl != null)
+            if (GetTemplateChild("BorderControl") is Grid borderControl)
             {
                 //apply events to all BorderControl children
                 foreach (UIElement element in borderControl.Children)
-                {
-                    var resizeRectangle = element as Rectangle;
-                    if (resizeRectangle != null)
-                    {
+                    if (element is Rectangle resizeRectangle)
                         resizeRectangle.PreviewMouseLeftButtonDown += WindowResize;
-                    }
-                }
             }
 
             //apply left click event to the window icon (only accepts double click)
-            var titleImage = GetTemplateChild("TitleImage") as Image;
-            if (titleImage != null)
+            if (GetTemplateChild("TitleImage") is Image titleImage)
                 titleImage.MouseLeftButtonDown += TitleImage_OnMouseLeftButtonDown;
 
             base.OnApplyTemplate();
@@ -240,8 +223,7 @@ namespace BlurryControls.Windows
 
         private void MenuBarOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
         {
-            var menuBar = sender as Grid;
-            if (menuBar == null) return;
+            if (!(sender is Grid menuBar)) return;
 
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseEnterAnimation = new ColorAnimation
@@ -260,8 +242,7 @@ namespace BlurryControls.Windows
 
         private void MenuBarOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
         {
-            var menuBar = sender as Grid;
-            if (menuBar == null) return;
+            if (!(sender is Grid menuBar)) return;
 
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseLeaveAnimation = new ColorAnimation
@@ -338,16 +319,15 @@ namespace BlurryControls.Windows
             }
         }
 
-        private void WindowResize(object sender, MouseButtonEventArgs e)
+        private static void WindowResize(object sender, MouseButtonEventArgs e)
         {
-            var frameworkElement = sender as FrameworkElement;
-            if (frameworkElement == null) return;
+            if (!(sender is FrameworkElement frameworkElement)) return;
 
             // performing Interop call depending on the Rectangle tag which raised the event
             // see http://stackoverflow.com/a/25095026 (2016/08)
             var type = (int) frameworkElement.Tag.ToString().ToEnum<ResizeDirection>();
-            var hwndSource = PresentationSource.FromVisual((Visual) sender) as HwndSource;
-            if (hwndSource != null) SendMessage(hwndSource.Handle, 0x112, (IntPtr) type, IntPtr.Zero);
+            if (PresentationSource.FromVisual((Visual) sender) is HwndSource hwndSource)
+                SendMessage(hwndSource.Handle, 0x112, (IntPtr) type, IntPtr.Zero);
         }
 
         private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)
@@ -358,8 +338,7 @@ namespace BlurryControls.Windows
         // MenuBar context menu handling depending on the calling element's name
         private void ContextMenuItemOnClick(object sender, RoutedEventArgs e)
         {
-            var menuItem = sender as MenuItem;
-            if (menuItem == null) return;
+            if (!(sender is MenuItem menuItem)) return;
             switch (menuItem.Name)
             {
                 case "MinimizeContextMenuItem":
@@ -380,8 +359,7 @@ namespace BlurryControls.Windows
         // MenuBar button handling depending on the calling element's name
         private void MenuBarButtonOnClick(object sender, RoutedEventArgs e)
         {
-            var menuItem = sender as Button;
-            if (menuItem == null) return;
+            if (!(sender is Button menuItem)) return;
             switch (menuItem.Name)
             {
                 case "MinimizeButton":

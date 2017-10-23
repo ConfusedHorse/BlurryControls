@@ -197,8 +197,7 @@ namespace BlurryControls.Controls
 
         private void MenuBarOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
         {
-            var menuBar = sender as Grid;
-            if (menuBar == null) return;
+            if (!(sender is Grid menuBar)) return;
 
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseEnterAnimation = new ColorAnimation
@@ -217,8 +216,7 @@ namespace BlurryControls.Controls
 
         private void MenuBarOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
         {
-            var menuBar = sender as Grid;
-            if (menuBar == null) return;
+            if (!(sender is Grid menuBar)) return;
 
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseLeaveAnimation = new ColorAnimation
