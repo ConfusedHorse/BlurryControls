@@ -24,7 +24,7 @@ namespace BlurryControls.Windows
     /// </summary>
     public class BlurryWindow : Window
     {
-        #region fields
+        #region Fields
 
         private bool _customBackground;
 
@@ -37,7 +37,7 @@ namespace BlurryControls.Windows
 
         #endregion
 
-        #region dependency properties
+        #region Dependency Properties
 
         public static readonly DependencyProperty IsResizableProperty = DependencyProperty.Register(
             "IsResizable", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(true));
@@ -129,7 +129,7 @@ namespace BlurryControls.Windows
 
         #endregion
 
-        #region constructor
+        #region Constructor
 
         static BlurryWindow()
         {

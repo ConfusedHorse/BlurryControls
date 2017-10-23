@@ -27,7 +27,7 @@ namespace BlurryControls.Windows
     /// </summary>
     public class BlurryTray : Window
     {
-        #region fields
+        #region Fields
 
         private bool _canCloseActualWindow = false;
         private bool _customBackground;
@@ -35,7 +35,7 @@ namespace BlurryControls.Windows
 
         #endregion
 
-        #region dependency properties
+        #region Dependency Properties
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
             "Strength", typeof(double), typeof(BlurryTray), new PropertyMetadata(0.75));
@@ -110,7 +110,7 @@ namespace BlurryControls.Windows
 
         #endregion
 
-        #region constructor
+        #region Constructor
 
         static BlurryTray()
         {
@@ -135,6 +135,10 @@ namespace BlurryControls.Windows
             };
         }
 
+        #endregion
+
+        #region Visual Behaviour
+
         // the Close event is raised after a certain amount of time
         private void InitializeDuration(object sender, RoutedEventArgs e)
         {
@@ -147,10 +151,6 @@ namespace BlurryControls.Windows
             };
             _durationDispatcherTimer.Start();
         }
-
-        #endregion
-
-        #region visual behaviour
 
         // initial animation
         // performs a calming animation when loading the window
@@ -236,7 +236,7 @@ namespace BlurryControls.Windows
 
         #endregion
 
-        #region blurry internals
+        #region Basic Functionality
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
