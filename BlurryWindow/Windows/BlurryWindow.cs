@@ -25,13 +25,13 @@ namespace BlurryControls.Windows
     public class BlurryWindow : Window
     {
         #region fields
-        
+
         private bool _customBackground;
 
         private WindowState _lastState;
-        private bool _lastIsResizable;
+        private bool _originalIsResizable;
         private bool _isFullScreen;
-        private bool _lastIsMenuBarVisible;
+        private bool _originalIsMenuBarVisible;
 
         private Color _menuBarColor;
 
@@ -73,7 +73,7 @@ namespace BlurryControls.Windows
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
             "Strength", typeof(double), typeof(BlurryWindow), new PropertyMetadata(0.5));
-        
+
         /// <summary>
         /// gets or sets the StrengthProperty
         /// the strength property determines the opacity of the window controls
@@ -102,7 +102,7 @@ namespace BlurryControls.Windows
         /// </summary>
         public bool CloseOnIconDoubleClick
         {
-            get => (bool) GetValue(CloseOnIconDoubleClickProperty);
+            get => (bool)GetValue(CloseOnIconDoubleClickProperty);
             set => SetValue(CloseOnIconDoubleClickProperty, value);
         }
 
@@ -114,7 +114,7 @@ namespace BlurryControls.Windows
         /// </summary>
         public ButtonCollection AdditionalMenuBarButtons
         {
-            get => (ButtonCollection) GetValue(AdditionalMenuBarButtonsProperty);
+            get => (ButtonCollection)GetValue(AdditionalMenuBarButtonsProperty);
             set => SetValue(AdditionalMenuBarButtonsProperty, value);
         }
 
@@ -123,14 +123,14 @@ namespace BlurryControls.Windows
 
         public HorizontalAlignment HorizontalTitleAlignment
         {
-            get => (HorizontalAlignment) GetValue(HorizontalTitleAlignmentProperty);
+            get => (HorizontalAlignment)GetValue(HorizontalTitleAlignmentProperty);
             set => SetValue(HorizontalTitleAlignmentProperty, value);
         }
 
         #endregion
 
         #region constructor
-        
+
         static BlurryWindow()
         {
             //ensure loading template of BlurryWindowBase defined in Themes/Generic.xaml
@@ -147,18 +147,6 @@ namespace BlurryControls.Windows
             InitializeParameters();
         }
 
-        private void OnStateChanged(object sender, EventArgs eventArgs)
-        {
-            if (WindowState == WindowState.Maximized) return;
-            if (_isFullScreen)
-            {
-                _isFullScreen = false;
-                WindowState = _lastState;
-                IsMenuBarVisible = _lastIsMenuBarVisible;
-                IsResizable = _lastIsResizable;
-            }
-        }
-
         public override void OnApplyTemplate()
         {
             if (GetTemplateChild("MenuBar") is Grid menuBar)
@@ -170,7 +158,7 @@ namespace BlurryControls.Windows
                 //apply events to all ContextMenu children
                 menuBar.MouseLeftButtonDown += MenuBar_OnMouseLeftButtonDown;
 
-                if(menuBar.ContextMenu == null) return;
+                if (menuBar.ContextMenu == null) return;
                 foreach (UIElement element in menuBar.ContextMenu.Items)
                     if (element is MenuItem menuItem)
                         menuItem.Click += ContextMenuItemOnClick;
@@ -214,28 +202,6 @@ namespace BlurryControls.Windows
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs keyEventArgs)
-        {
-            if (keyEventArgs.Key != Key.F11) return;
-
-            if (_isFullScreen)
-            {
-                _isFullScreen = false;
-                WindowState = _lastState;
-                IsMenuBarVisible = _lastIsMenuBarVisible;
-                IsResizable = _lastIsResizable;
-            }
-            else if (IsResizable)
-            {
-                _isFullScreen = true;
-                _lastState = WindowState;
-                _lastIsResizable = IsResizable;
-                _lastIsMenuBarVisible = IsMenuBarVisible;
-                IsMenuBarVisible = false; //overrides IsResizable
-                WindowState = WindowState.Maximized;
-            }
-        }
-
         private void MenuBarOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
         {
             if (!(sender is Grid menuBar)) return;
@@ -276,7 +242,7 @@ namespace BlurryControls.Windows
 
         #endregion
 
-        #region blurry internals
+        #region Basic Functionality
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -294,6 +260,10 @@ namespace BlurryControls.Windows
             //use system accent color for window (is overwritten if Background is set)
             Background = !_customBackground ? ColorHelper.SystemWindowGlassBrushOfStrength(Strength) : Background.OfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
+
+            _lastState = WindowState;
+            _originalIsResizable = IsResizable;
+            _originalIsMenuBarVisible = IsMenuBarVisible;
         }
 
         private void OnSourceInitialized(object sender, EventArgs eventArgs)
@@ -301,15 +271,48 @@ namespace BlurryControls.Windows
             SizeHelper.WindowInitialized(this);
         }
 
-        #endregion
-
-        #region basic functionality
-
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
+
+        private void OnStateChanged(object sender, EventArgs eventArgs)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                IsResizable = false;
+            }
+            else
+            {
+                IsResizable = _originalIsResizable;
+                if (_isFullScreen)
+                {
+                    _isFullScreen = false;
+                    WindowState = _lastState;
+                    IsMenuBarVisible = _originalIsMenuBarVisible;
+                }
+            }
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs keyEventArgs)
+        {
+            if (keyEventArgs.Key != Key.F11) return;
+
+            if (_isFullScreen)
+            {
+                _isFullScreen = false;
+                WindowState = _lastState;
+                IsMenuBarVisible = _originalIsMenuBarVisible;
+            }
+            else if (_originalIsResizable)
+            {
+                _isFullScreen = true;
+                IsMenuBarVisible = false; //overrides IsResizable
+                _lastState = WindowState;
+                WindowState = WindowState.Maximized;
+            }
+        }
 
         private void MenuBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -322,7 +325,7 @@ namespace BlurryControls.Windows
             //this also enables native Windows10 gestures
             //such as Aero Snap and Aero Shake
             ReleaseCapture();
-            SendMessage(new WindowInteropHelper(this).Handle, 0xA1, (IntPtr) 0x2, (IntPtr) 0);
+            SendMessage(new WindowInteropHelper(this).Handle, 0xA1, (IntPtr)0x2, (IntPtr)0);
         }
 
         private void TitleImage_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -340,9 +343,9 @@ namespace BlurryControls.Windows
 
             // performing Interop call depending on the Rectangle tag which raised the event
             // see http://stackoverflow.com/a/25095026 (2016/08)
-            var type = (int) frameworkElement.Tag.ToString().ToEnum<ResizeDirection>();
-            if (PresentationSource.FromVisual((Visual) sender) is HwndSource hwndSource)
-                SendMessage(hwndSource.Handle, 0x112, (IntPtr) type, IntPtr.Zero);
+            var type = (int)frameworkElement.Tag.ToString().ToEnum<ResizeDirection>();
+            if (PresentationSource.FromVisual((Visual)sender) is HwndSource hwndSource)
+                SendMessage(hwndSource.Handle, 0x112, (IntPtr)type, IntPtr.Zero);
         }
 
         private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)
