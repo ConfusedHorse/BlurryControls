@@ -208,8 +208,6 @@ namespace BlurryControls.Windows
 
         private void MenuBarOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!(sender is Grid menuBar)) return;
-
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseEnterAnimation = new ColorAnimation
             {
@@ -217,7 +215,7 @@ namespace BlurryControls.Windows
                 FillBehavior = FillBehavior.HoldEnd,
                 Duration = new Duration(TimeSpan.FromMilliseconds(500))
             };
-            Storyboard.SetTarget(menuBarMouseEnterAnimation, menuBar);
+            Storyboard.SetTarget(menuBarMouseEnterAnimation, _menuBar);
             Storyboard.SetTargetProperty(menuBarMouseEnterAnimation, colorTargetPath);
 
             var menuBarMouseEnterStoryboard = new Storyboard();
@@ -227,8 +225,6 @@ namespace BlurryControls.Windows
 
         private void MenuBarOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
         {
-            if (!(sender is Grid menuBar)) return;
-
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseLeaveAnimation = new ColorAnimation
             {
@@ -236,7 +232,7 @@ namespace BlurryControls.Windows
                 FillBehavior = FillBehavior.HoldEnd,
                 Duration = new Duration(TimeSpan.FromMilliseconds(500))
             };
-            Storyboard.SetTarget(menuBarMouseLeaveAnimation, menuBar);
+            Storyboard.SetTarget(menuBarMouseLeaveAnimation, _menuBar);
             Storyboard.SetTargetProperty(menuBarMouseLeaveAnimation, colorTargetPath);
 
             var menuBarMouseLeaveStoryboard = new Storyboard();
