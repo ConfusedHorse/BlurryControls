@@ -47,6 +47,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource GeneralBackgroundBrush}"/>
         <Setter Property="Background" Value="{StaticResource GeneralStrongerFocusBackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Margin" Value="-2 0 6 0"/>
         <Style.Triggers>
             <EventTrigger RoutedEvent="Border.MouseLeave">
