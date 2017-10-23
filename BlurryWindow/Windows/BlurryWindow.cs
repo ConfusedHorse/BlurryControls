@@ -33,6 +33,11 @@ namespace BlurryControls.Windows
         private bool _isFullScreen;
         private bool _originalIsMenuBarVisible;
 
+        private Grid _menuBar;
+        private StackPanel _rightPanel;
+        private Grid _borderControl;
+        private Image _titleImage;
+
         private Color _menuBarColor;
 
         #endregion
@@ -149,40 +154,37 @@ namespace BlurryControls.Windows
 
         public override void OnApplyTemplate()
         {
-            if (GetTemplateChild("MenuBar") is Grid menuBar)
-            {
-                //apply visual (calming) behaviour to the MenuBar
-                menuBar.MouseEnter += MenuBarOnMouseEnter;
-                menuBar.MouseLeave += MenuBarOnMouseLeave;
+            //initialize visual parts
+            _menuBar = (Grid) GetTemplateChild("MenuBar");
+            _rightPanel = (StackPanel)GetTemplateChild("RightPanel");
+            _borderControl = (Grid)GetTemplateChild("BorderControl");
+            _titleImage = (Image)GetTemplateChild("TitleImage");
 
-                //apply events to all ContextMenu children
-                menuBar.MouseLeftButtonDown += MenuBar_OnMouseLeftButtonDown;
+            //apply visual (calming) behaviour to the MenuBar
+            _menuBar.MouseEnter += MenuBarOnMouseEnter;
+            _menuBar.MouseLeave += MenuBarOnMouseLeave;
 
-                if (menuBar.ContextMenu == null) return;
-                foreach (UIElement element in menuBar.ContextMenu.Items)
-                    if (element is MenuItem menuItem)
-                        menuItem.Click += ContextMenuItemOnClick;
-            }
+            //apply drag handle
+            _menuBar.MouseLeftButtonDown += MenuBar_OnMouseLeftButtonDown;
 
-            if (GetTemplateChild("RightPanel") is StackPanel rightPanel)
-            {
-                //apply events to all Buttons which are children of MenuBar
-                foreach (UIElement element in rightPanel.Children)
-                    if (element is Button button)
-                        button.Click += MenuBarButtonOnClick;
-            }
+            //apply events to all ContextMenu children
+            if (_menuBar.ContextMenu == null) return;
+            foreach (UIElement element in _menuBar.ContextMenu.Items)
+                if (element is MenuItem menuItem)
+                    menuItem.Click += ContextMenuItemOnClick;
+            
+            //apply events to all Buttons which are children of MenuBar
+            foreach (UIElement element in _rightPanel.Children)
+                if (element is Button button)
+                    button.Click += MenuBarButtonOnClick;
 
-            if (GetTemplateChild("BorderControl") is Grid borderControl)
-            {
-                //apply events to all BorderControl children
-                foreach (UIElement element in borderControl.Children)
-                    if (element is Rectangle resizeRectangle)
-                        resizeRectangle.PreviewMouseLeftButtonDown += WindowResize;
-            }
+            //apply events to all BorderControl children
+            foreach (UIElement element in _borderControl.Children)
+                if (element is Rectangle resizeRectangle)
+                    resizeRectangle.PreviewMouseLeftButtonDown += WindowResize;
 
             //apply left click event to the window icon (only accepts double click)
-            if (GetTemplateChild("TitleImage") is Image titleImage)
-                titleImage.MouseLeftButtonDown += TitleImage_OnMouseLeftButtonDown;
+            _titleImage.MouseLeftButtonDown += TitleImage_OnMouseLeftButtonDown;
 
             base.OnApplyTemplate();
         }
@@ -317,10 +319,8 @@ namespace BlurryControls.Windows
         private void MenuBar_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //double click on MenuBar causes Maximize/Restore event
-            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2)
-            {
-                MaximizeRestoreButton_OnClick(this, null);
-            }
+            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2) MaximizeRestoreButton_OnClick(this, null);
+
             //single click on MenuBar enables drag move
             //this also enables native Windows10 gestures
             //such as Aero Snap and Aero Shake
@@ -331,10 +331,7 @@ namespace BlurryControls.Windows
         private void TitleImage_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             //double click on window Icon causes Close event
-            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2 && CloseOnIconDoubleClick)
-            {
-                Close();
-            }
+            if (e.ChangedButton == MouseButton.Left && e.ClickCount == 2 && CloseOnIconDoubleClick) Close();
         }
 
         private static void WindowResize(object sender, MouseButtonEventArgs e)
