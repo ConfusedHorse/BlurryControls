@@ -31,6 +31,7 @@ namespace BlurryControls.Windows
         private WindowState _lastState;
         private bool _lastIsResizable;
         private bool _isFullScreen;
+        private bool _lastIsMenuBarVisible;
 
         private Color _menuBarColor;
 
@@ -56,7 +57,7 @@ namespace BlurryControls.Windows
 
         /// <summary>
         /// gets or sets the IsMenuBarVisibleProperty
-        /// the MenuBar will not be accessible if this property is set to true
+        /// the MenuBar will not be accessible if this property is set to false
         /// the window will not be resizable if this property is set to true
         /// the window can not be closed manually if this property is set to true
         /// </summary>
@@ -142,7 +143,20 @@ namespace BlurryControls.Windows
             Loaded += Window_Loaded;
             SourceInitialized += OnSourceInitialized;
             KeyDown += OnKeyDown;
+            StateChanged += OnStateChanged;
             InitializeParameters();
+        }
+
+        private void OnStateChanged(object sender, EventArgs eventArgs)
+        {
+            if (WindowState == WindowState.Maximized) return;
+            if (_isFullScreen)
+            {
+                _isFullScreen = false;
+                WindowState = _lastState;
+                IsMenuBarVisible = _lastIsMenuBarVisible;
+                IsResizable = _lastIsResizable;
+            }
         }
 
         public override void OnApplyTemplate()
@@ -208,14 +222,15 @@ namespace BlurryControls.Windows
             {
                 _isFullScreen = false;
                 WindowState = _lastState;
+                IsMenuBarVisible = _lastIsMenuBarVisible;
                 IsResizable = _lastIsResizable;
-                IsMenuBarVisible = true;
             }
             else if (IsResizable)
             {
                 _isFullScreen = true;
                 _lastState = WindowState;
                 _lastIsResizable = IsResizable;
+                _lastIsMenuBarVisible = IsMenuBarVisible;
                 IsMenuBarVisible = false; //overrides IsResizable
                 WindowState = WindowState.Maximized;
             }
