@@ -46,22 +46,6 @@ namespace BlurryControls.Controls
 
         #region dependency properties
 
-        public new static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register(
-            "Background", typeof(SolidColorBrush), typeof(BlurryDialogWindow), new PropertyMetadata(default(SolidColorBrush)));
-
-        /// <summary>
-        /// gets or sets a <see cref="SolidColorBrush"/> as the <see cref="BlurryDialogWindow"/>'s background
-        /// </summary>
-        public new SolidColorBrush Background
-        {
-            get => (SolidColorBrush)GetValue(BackgroundProperty);
-            set
-            {
-                SetValue(BackgroundProperty, value);
-                _menuBarColor = Background.OfStrength(0d).Color;
-            }
-        }
-
         /// <summary>
         /// the caption show in the MenuBar 
         /// </summary>
