@@ -44,6 +44,22 @@ namespace BlurryControls.Windows
 
         #region Dependency Properties
 
+        public new static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register(
+            "Background", typeof(SolidColorBrush), typeof(BlurryWindow), new PropertyMetadata(default(SolidColorBrush)));
+
+        /// <summary>
+        /// gets or sets a <see cref="SolidColorBrush"/> as the <see cref="BlurryWindow"/>'s background
+        /// </summary>
+        public new SolidColorBrush Background
+        {
+            get => (SolidColorBrush) GetValue(BackgroundProperty);
+            set
+            {
+                SetValue(BackgroundProperty, value);
+                _menuBarColor = Background.OfStrength(0d).Color;
+            }
+        }
+
         public static readonly DependencyProperty IsResizableProperty = DependencyProperty.Register(
             "IsResizable", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(true));
 
@@ -92,7 +108,7 @@ namespace BlurryControls.Windows
                 var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
                 SetValue(StrengthProperty, correctValue);
 
-                var backgroundColor = ((SolidColorBrush)Background).Color.OfStrength(Strength).Color;
+                var backgroundColor = Background.Color.OfStrength(Strength).Color;
                 Background = new SolidColorBrush(backgroundColor);
                 _menuBarColor = Background.OfStrength(0d).Color;
             }
