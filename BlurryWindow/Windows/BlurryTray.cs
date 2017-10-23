@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -126,6 +127,7 @@ namespace BlurryControls.Windows
             Loaded += InitializeDuration;
             Loaded += InitializeTraySpecificVisualBehaviour;
             Closing += TerminateTraySpecificVisualBehaviour;
+            MouseLeave += OnMouseLeave;
             // close window when a click is performed outside the window
             Deactivated += delegate
             {
@@ -225,6 +227,11 @@ namespace BlurryControls.Windows
             BeginAnimation(OpacityProperty, opacityAnimation);
 
             _canCloseActualWindow = true;
+        }
+
+        private void OnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
+        {
+            _durationDispatcherTimer.Start();
         }
 
         #endregion
