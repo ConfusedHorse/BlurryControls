@@ -202,6 +202,8 @@ namespace BlurryControls.Windows
         private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
         {
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            _menuBarColor = Background.OfStrength(0d).Color;
+            _menuBar.Background = _menuBarColor.GetBrush();
         }
 
         private void MenuBarOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
