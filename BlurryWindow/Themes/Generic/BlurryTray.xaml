@@ -21,6 +21,7 @@
         <!-- default -->
         <Setter Property="AllowsTransparency" Value="True" />
         <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="ResizeMode" Value="NoResize" />
         <Setter Property="Foreground" Value="{StaticResource GeneralForegroundBrush}" />
         <Setter Property="ShowInTaskbar" Value="False" />
         <Setter Property="Topmost" Value="True" />
