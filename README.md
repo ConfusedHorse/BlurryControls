@@ -9,4 +9,4 @@ If you have suggestions or questions, feel free to contact me. :)
 
 It is availlable on NuGet via: `PM> Install-Package BlurryControls`
 
-Have a look at the [Wiki](https://github.com/ConfusedHorse/BlurryControls/wiki) or the provided example project called _BlurryControlsInvoker_. For the latter make sure you are using the latest version of Visual Studio for the solution is coded with C#7 and some syntaxes may not be interpreted by the compiler.
+Have a look at the [Wiki](https://github.com/ConfusedHorse/BlurryControls/wiki) or the provided example project called _BlurryControlsInvoker_. For the latter make sure you are using the latest version of Visual Studio since the solution is coded with C#7 and some syntaxes may not be interpreted by the compiler otherwise.
