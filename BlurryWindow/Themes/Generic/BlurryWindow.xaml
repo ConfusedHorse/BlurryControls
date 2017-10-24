@@ -10,7 +10,7 @@
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/ToolTip.xaml" />
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Button.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <!-- style for a transparent rectangle -->
     <Style x:Key="WindowBorderGrab" TargetType="Rectangle">
         <Setter Property="Focusable" Value="False" />
@@ -56,166 +56,178 @@
                     this list was found on: (2016/08)
                     https://code.msdn.microsoft.com/WPF-styling-a-Window-in-fcf4e4ce
                     -->
-                    <Grid Background="{TemplateBinding Background}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+                    <Grid>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-                        <!-- MenuBar with animated background and buttons, an icon, ContextMenu and a caption -->
-                        <Grid x:Name="MenuBar"
-                              Grid.Row="0"
-                              Height="37"
-                              Background="{StaticResource GeneralBackgroundBrush}"
-                              HorizontalAlignment="Stretch"
-                              Visibility="{TemplateBinding IsMenuBarVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <Grid.ContextMenu>
-                                <!-- 
-                                ContextMenu providing basic window functions such as:
-                                    _minimize
-                                    _restore
-                                    _maximize
-                                    _close
-                                -->
-                                <ContextMenu x:Name="ContextMenuForBlurryControl">
-                                    <!-- Minimize -->
-                                    <MenuItem x:Name="MinimizeContextMenuItem"
-                                              Header="{x:Static p:Resources.Minimize}">
-                                        <MenuItem.Icon>
+                                <!-- MenuBar with animated background and buttons, an icon, ContextMenu and a caption -->
+                                <Grid x:Name="MenuBar"
+                                      Grid.Row="0"
+                                      Height="37"
+                                      Background="{StaticResource GeneralBackgroundBrush}"
+                                      HorizontalAlignment="Stretch"
+                                      Visibility="{TemplateBinding IsMenuBarVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <Grid.ContextMenu>
+                                        <!-- 
+                                        ContextMenu providing basic window functions such as:
+                                            _minimize
+                                            _restore
+                                            _maximize
+                                            _close
+                                        -->
+                                        <ContextMenu x:Name="ContextMenuForBlurryControl">
+                                            <!-- Minimize -->
+                                            <MenuItem x:Name="MinimizeContextMenuItem"
+                                                      Header="{x:Static p:Resources.Minimize}">
+                                                <MenuItem.Icon>
+                                                    <ContentControl Template="{StaticResource Minimize032W}" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <!-- Restore -->
+                                            <MenuItem x:Name="RestoreContextMenuItem"
+                                                      Header="{x:Static p:Resources.Restore}">
+                                                <MenuItem.Icon>
+                                                    <ContentControl Template="{StaticResource Restore032W}" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <!-- Maximize -->
+                                            <MenuItem x:Name="MaximizeContextMenuItem"
+                                                      Header="{x:Static p:Resources.Maximize}">
+                                                <MenuItem.Icon>
+                                                    <ContentControl Template="{StaticResource Maximize032W}" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <!-- Close -->
+                                            <MenuItem x:Name="CloseContextMenuItem"
+                                                      Header="{x:Static p:Resources.Close}">
+                                                <MenuItem.Icon>
+                                                    <ContentControl Template="{StaticResource Close032W}" />
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </Grid.ContextMenu>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="37" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="149" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- StackPanel with Window Icon -->
+                                    <StackPanel x:Name="LeftPanel"
+                                                Grid.Column="0"
+                                                Margin="5 5 0 0"
+                                                VerticalAlignment="Stretch"
+                                                Orientation="Horizontal">
+
+                                        <!-- Window Icon -->
+                                        <Image x:Name="TitleImage"
+                                               Margin="2 2 6 6"
+                                               Source="{TemplateBinding Icon}"
+                                               Height="24"
+                                               Width="24" />
+                                    </StackPanel>
+
+                                    <!-- Window Title -->
+                                    <TextBlock x:Name="TitleTextBlock"
+                                               Style="{StaticResource TextBlockBaseStyle}"
+                                               Grid.Column="1"
+                                               Margin="0 5"
+                                               Background="#01000000"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="{TemplateBinding HorizontalTitleAlignment}"
+                                               FontSize="20"
+                                               Text="{TemplateBinding Title}"
+                                               Foreground="{TemplateBinding Foreground}" />
+
+                                    <!-- additional button area -->
+                                    <ItemsControl x:Name="AdditionalMenuBarButtonsItemsControl"
+                                                  Grid.Column="1"
+                                                  Margin="5 0"
+                                                  Height="32"
+                                                  ItemsSource="{TemplateBinding AdditionalMenuBarButtons}"
+                                                  VerticalAlignment="Bottom"
+                                                  HorizontalAlignment="Right"
+                                                  ItemContainerStyle="{StaticResource WindowButtonBaseStyle}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+
+                                    <!-- StackPanel with Window Buttons -->
+                                    <StackPanel x:Name="RightPanel"
+                                                Grid.Column="2"
+                                                Margin="0 5 5 0"
+                                                VerticalAlignment="Stretch"
+                                                Orientation="Horizontal">
+
+                                        <!-- Minimize -->
+                                        <Button x:Name="MinimizeButton"
+                                                Style="{StaticResource WindowButtonGeneralStyle}"
+                                                ToolTip="{x:Static p:Resources.Minimize}">
                                             <ContentControl Template="{StaticResource Minimize032W}" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <!-- Restore -->
-                                    <MenuItem x:Name="RestoreContextMenuItem"
-                                              Header="{x:Static p:Resources.Restore}">
-                                        <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Restore032W}" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <!-- Maximize -->
-                                    <MenuItem x:Name="MaximizeContextMenuItem"
-                                              Header="{x:Static p:Resources.Maximize}">
-                                        <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Maximize032W}" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                    <!-- Close -->
-                                    <MenuItem x:Name="CloseContextMenuItem"
-                                              Header="{x:Static p:Resources.Close}">
-                                        <MenuItem.Icon>
-                                            <ContentControl Template="{StaticResource Close032W}" />
-                                        </MenuItem.Icon>
-                                    </MenuItem>
-                                </ContextMenu>
-                            </Grid.ContextMenu>
-                            
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="37" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="149" />
-                            </Grid.ColumnDefinitions>
+                                        </Button>
 
-                            <!-- StackPanel with Window Icon -->
-                            <StackPanel x:Name="LeftPanel"
-                                        Grid.Column="0"
-                                        Margin="5 5 0 0"
-                                        VerticalAlignment="Stretch"
-                                        Orientation="Horizontal">
-
-                                <!-- Window Icon -->
-                                <Image x:Name="TitleImage"
-                                       Margin="2 2 6 6"
-                                       Source="{TemplateBinding Icon}"
-                                       Height="24"
-                                       Width="24" />
-                            </StackPanel>
-
-                            <!-- Window Title -->
-                            <TextBlock x:Name="TitleTextBlock"
-                                       Style="{StaticResource TextBlockBaseStyle}"
-                                       Grid.Column="1"
-                                       Margin="0 5"
-                                       Background="#01000000"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="{TemplateBinding HorizontalTitleAlignment}"
-                                       FontSize="20"
-                                       Text="{TemplateBinding Title}"
-                                       Foreground="{TemplateBinding Foreground}" />
-
-                            <!-- additional button area -->
-                            <ItemsControl x:Name="AdditionalMenuBarButtonsItemsControl"
-                                          Grid.Column="1"
-                                          Margin="5 0"
-                                          Height="32"
-                                          ItemsSource="{TemplateBinding AdditionalMenuBarButtons}"
-                                          VerticalAlignment="Bottom"
-                                          HorizontalAlignment="Right" 
-                                          ItemContainerStyle="{StaticResource WindowButtonBaseStyle}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-
-                            <!-- StackPanel with Window Buttons -->
-                            <StackPanel x:Name="RightPanel"
-                                        Grid.Column="2"
-                                        Margin="0 5 5 0"
-                                        VerticalAlignment="Stretch"
-                                        Orientation="Horizontal">
-
-                                <!-- Minimize -->
-                                <Button x:Name="MinimizeButton"
-                                        Style="{StaticResource WindowButtonGeneralStyle}"
-                                        ToolTip="{x:Static p:Resources.Minimize}">
-                                    <ContentControl Template="{StaticResource Minimize032W}" />
-                                </Button>
-
-                                <!-- Maximize / Restore -->
-                                <Button x:Name="MaximizeRestoreButton">
-                                    <Button.Style>
-                                        <Style TargetType="Button" BasedOn="{StaticResource WindowButtonGeneralStyle}">
-                                            <Setter Property="ToolTip" Value="{x:Static p:Resources.Maximize}" />
-                                            <Style.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindow}}}"
-                                                    Value="Normal">
+                                        <!-- Maximize / Restore -->
+                                        <Button x:Name="MaximizeRestoreButton">
+                                            <Button.Style>
+                                                <Style TargetType="Button"
+                                                       BasedOn="{StaticResource WindowButtonGeneralStyle}">
                                                     <Setter Property="ToolTip" Value="{x:Static p:Resources.Maximize}" />
-                                                    <Setter Property="Content">
-                                                        <Setter.Value>
-                                                            <ContentControl Template="{StaticResource Maximize032W}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindow}}}"
-                                                    Value="Maximized">
-                                                    <Setter Property="ToolTip" Value="{x:Static p:Resources.Restore}" />
-                                                    <Setter Property="Content">
-                                                        <Setter.Value>
-                                                            <ContentControl Template="{StaticResource Restore032W}" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
+                                                    <Style.Triggers>
+                                                        <DataTrigger
+                                                            Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindow}}}"
+                                                            Value="Normal">
+                                                            <Setter Property="ToolTip"
+                                                                    Value="{x:Static p:Resources.Maximize}" />
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <ContentControl
+                                                                        Template="{StaticResource Maximize032W}" />
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                        <DataTrigger
+                                                            Binding="{Binding WindowState, RelativeSource={RelativeSource AncestorType={x:Type windows:BlurryWindow}}}"
+                                                            Value="Maximized">
+                                                            <Setter Property="ToolTip"
+                                                                    Value="{x:Static p:Resources.Restore}" />
+                                                            <Setter Property="Content">
+                                                                <Setter.Value>
+                                                                    <ContentControl
+                                                                        Template="{StaticResource Restore032W}" />
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
 
-                                <!-- Maximize -->
-                                <Button x:Name="CloseButton"
-                                        Style="{StaticResource WindowButtonExitStyle}"
-                                        ToolTip="{x:Static p:Resources.Close}">
-                                    <ContentControl Template="{StaticResource Close032W}" />
-                                </Button>
-                            </StackPanel>
-                        </Grid>
+                                        <!-- Maximize -->
+                                        <Button x:Name="CloseButton"
+                                                Style="{StaticResource WindowButtonExitStyle}"
+                                                ToolTip="{x:Static p:Resources.Close}">
+                                            <ContentControl Template="{StaticResource Close032W}" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
 
-                        <!-- here goes the content -->
-                        <AdornerDecorator Grid.Row="1">
-                            <ContentPresenter />
-                        </AdornerDecorator>
+                                <!-- here goes the content -->
+                                <AdornerDecorator Grid.Row="1">
+                                    <ContentPresenter />
+                                </AdornerDecorator>
+                            </Grid>
+                        </Border>
+
 
                         <!-- 
                         BorderControl implements a transparent border made from 8 rectangles 
@@ -223,8 +235,6 @@
                         constant BorderWeight sets the thickness of said border
                         -->
                         <Grid x:Name="BorderControl"
-                              Grid.Row="0"
-                              Grid.RowSpan="2"
                               Visibility="{TemplateBinding IsResizable, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <Rectangle Tag="Left"
                                        Margin="0 5"
