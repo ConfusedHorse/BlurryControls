@@ -5,8 +5,8 @@ Please consider that this library runs on Windows 10 only! On Windows 8.1 or old
 
 If you have suggestions or questions, feel free to contact me. :)
 
-![](https://i.imgur.com/XjKjmdK.jpg)
+![A screenshot of the example project](https://i.imgur.com/XjKjmdK.jpg)
 
-It is availlable at NuGet via: `PM> Install-Package BlurryControls`
+It is availlable on NuGet via: `PM> Install-Package BlurryControls`
 
-Have a look at the [Wiki](https://github.com/ConfusedHorse/BlurryControls/wiki) or the provided example projekt called _BlurryControlsInvoker_. For the latter make sure you are using the latest version of Visual Studio for the solution is coded with C#7 and some syntaxes may not be interpreted by the compiler.
+Have a look at the [Wiki](https://github.com/ConfusedHorse/BlurryControls/wiki) or the provided example project called _BlurryControlsInvoker_. For the latter make sure you are using the latest version of Visual Studio for the solution is coded with C#7 and some syntaxes may not be interpreted by the compiler.
