@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using BlurryControls.DialogFactory;
 using BlurryControls.Internals;
 
-namespace BlurryWindowInvoker.Control
+namespace BlurryControls.Example.Control
 {
     /// <summary>
     /// Interaction logic for BlurryDogeDialogControl.xaml

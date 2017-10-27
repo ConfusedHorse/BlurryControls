@@ -1,4 +1,4 @@
-﻿namespace BlurryWindowInvoker.Resources
+﻿namespace BlurryControls.Example.Resources
 {
     /// <summary>
     /// provides a filler text which can be used to demonstrate graphic elements

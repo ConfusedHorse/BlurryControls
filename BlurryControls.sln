@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlurryWindowInvoker", "BlurryWindowInvoker\BlurryWindowInvoker.csproj", "{45BB0C52-3E7C-46CD-9CF5-411CE6A8E2AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlurryControls.Example", "BlurryControls.Example\BlurryControls.Example.csproj", "{45BB0C52-3E7C-46CD-9CF5-411CE6A8E2AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlurryControls", "BlurryWindow\BlurryControls.csproj", "{D63B55BE-F2F9-4C99-BED1-0AF9770F428A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlurryControls", "BlurryControls\BlurryControls.csproj", "{D63B55BE-F2F9-4C99-BED1-0AF9770F428A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
