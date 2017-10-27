@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace BlurryWindowInvoker.Control
+namespace BlurryControls.Example.Control
 {
     /// <summary>
     /// Interaction logic for BlurryDogeControl.xaml

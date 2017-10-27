@@ -1,6 +1,6 @@
 ﻿using BlurryControls.Windows;
 
-namespace BlurryWindowInvoker.Control
+namespace BlurryControls.Example.Control
 {
     /// <summary>
     /// Interaction logic for InvokedTrayIcon.xaml

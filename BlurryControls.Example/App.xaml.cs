@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace BlurryWindowInvoker
+namespace BlurryControls.Example
 {
     /// <summary>
     /// Interaction logic for App.xaml

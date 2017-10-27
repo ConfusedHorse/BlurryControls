@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace BlurryWindowInvoker.Control
+namespace BlurryControls.Example.Control
 {
     /// <summary>
     /// Interaction logic for BlurryBackgroundAnimationControl.xaml
