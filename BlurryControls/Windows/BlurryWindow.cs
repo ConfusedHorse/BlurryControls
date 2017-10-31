@@ -57,6 +57,7 @@ namespace BlurryControls.Windows
             {
                 SetValue(BackgroundProperty, value);
                 _menuBarColor = Background.OfStrength(0d).Color;
+                _menuBar.Background = _menuBarColor.GetBrush();
             }
         }
 
@@ -108,9 +109,11 @@ namespace BlurryControls.Windows
                 var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
                 SetValue(StrengthProperty, correctValue);
 
+                if (Background == null) return; //just in case :D
                 var backgroundColor = Background.Color.OfStrength(Strength).Color;
                 Background = new SolidColorBrush(backgroundColor);
                 _menuBarColor = Background.OfStrength(0d).Color;
+                _menuBar.Background = _menuBarColor.GetBrush();
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using BlurryControls.Internals;
 using BlurryDialogWindow = BlurryControls.Controls.BlurryDialogWindow;
 
@@ -24,7 +23,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = string.Empty,
                 DialogIcon = BlurryDialogIcon.None,
@@ -55,7 +54,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, string caption, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -87,7 +86,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = string.Empty,
                 DialogIcon = BlurryDialogIcon.None,
@@ -120,7 +119,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -153,7 +152,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -187,7 +186,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = icon,
@@ -221,7 +220,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -256,7 +255,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = icon,
@@ -292,7 +291,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string caption, FrameworkElement content, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -325,7 +324,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -358,7 +357,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -391,7 +390,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -425,7 +424,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
@@ -459,7 +458,7 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow()
+            var dialog = new BlurryDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,

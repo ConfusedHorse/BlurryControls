@@ -140,10 +140,12 @@ namespace BlurryControls.Controls
             {
                 var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
                 SetValue(StrengthProperty, correctValue);
-
+                
+                if (Background == null) return;
                 var backgroundColor = ((SolidColorBrush)Background).Color.OfStrength(Strength).Color;
                 Background = new SolidColorBrush(backgroundColor);
                 _menuBarColor = Background.OfStrength(0d).Color;
+                MenuBar.Background = _menuBarColor.GetBrush();
             }
         }
 
@@ -234,10 +236,14 @@ namespace BlurryControls.Controls
         }
 
         private void InitializeDialogSpecificVisualBehaviour(object sender, RoutedEventArgs e)
-        {
+        {            
+            //apply blurry filter to the window
+            this.Blur();
+
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
+            MenuBar.Background = _menuBarColor.GetBrush();
         }
 
         private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -245,16 +251,6 @@ namespace BlurryControls.Controls
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
             MenuBar.Background = _menuBarColor.GetBrush();
-        }
-
-        #endregion
-
-        #region blurry internals
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //apply blurry filter to the window
-            this.Blur();
         }
 
         #endregion
