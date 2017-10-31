@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BlurryControls</id>
-    <version>1.0.16</version>
+    <version>1.0.17</version>
     <title>BlurryControls</title>
     <authors>Jörg Flechsig</authors>
     <owners>Jörg Flechsig</owners>
@@ -14,7 +14,8 @@
 		BlurryControls library provides a variety of controls with a blurry effect known from the Microsoft AeroGlass/Acrylic design
 For more information please have a look at the Wiki at https://github.com/ConfusedHorse/BlurryControls/wiki
 	</description>
-    <releaseNotes> visual adjustments and stability fixes, more MessageBox overloads</releaseNotes>
+    <releaseNotes> visual adjustments
+fixed full screen behaviour</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>blurry control window blur aero acrylic</tags>
   </metadata>
