@@ -1,0 +1,56 @@
+﻿<Page
+    x:Class="AcrylicControls.Example.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="using:AcrylicControls.Example.Resources"
+    mc:Ignorable="d" d:DesignWidth="600">
+    <Page.Resources>
+        <resources:Lorem x:Key="Lorem"/>
+
+        <DataTemplate x:Key="ExampleListViewItem"
+                      x:DataType="x:String">
+            <TextBlock Text="{Binding}"
+                       ToolTipService.ToolTip="This item does nothing"/>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <RelativePanel x:Name="AcrylicBackground" 
+                       Grid.Column="0" 
+                       Grid.ColumnSpan="2"
+                       MinWidth="40" 
+                       SizeChanged="Page_SizeChanged"/>
+        <Grid Column="0"
+              Width="{Binding Width, ElementName=AcrylicBackground}"
+              Background="Transparent">
+            <ListView Width="150" 
+                      ItemTemplate="{StaticResource ExampleListViewItem}">
+                <x:String>Item 1</x:String>
+                <x:String>Item 2</x:String>
+                <x:String>Item 3</x:String>
+                <x:String>Item 4</x:String>
+                <x:String>Item 5</x:String>
+            </ListView>
+        </Grid>
+        
+        <Grid Column="1"
+              Background="#BF000000">
+            <Pivot Title="I'm sample content. Look at me!">
+                <PivotItem Header="Lorem Ipsum">
+                    <TextBlock Text="{Binding Source={StaticResource Lorem}, Path=Ipsum}"
+                               TextWrapping="Wrap"/>
+                </PivotItem>
+                <PivotItem Header="BlurryControls">
+                    <WebView Source="https://github.com/ConfusedHorse/BlurryControls"/>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </Grid>
+</Page>
