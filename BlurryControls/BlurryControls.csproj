@@ -45,9 +45,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BlurBehindDialogWindow.xaml.cs">
+      <DependentUpon>BlurBehindDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BlurryDialogWindow.xaml.cs">
       <DependentUpon>BlurryDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DialogFactory\BlurBehindMessageBox.cs" />
     <Compile Include="Helpers\BlurryHelper.cs" />
     <Compile Include="Helpers\SizeHelper.cs" />
     <Compile Include="Internals\ButtonCollection.cs" />
@@ -79,6 +83,10 @@
     <Compile Include="Windows\BlurryWindow.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\BlurBehindDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\BlurryDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

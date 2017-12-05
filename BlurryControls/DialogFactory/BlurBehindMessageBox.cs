@@ -5,12 +5,15 @@ using BlurryControls.Internals;
 namespace BlurryControls.DialogFactory
 {
     /// <summary>
-    /// Provides a variety of overloads for displaying a simple <see cref="BlurryDialogWindow"/> 
-    /// to show a prompt or information
+    /// Provides a variety of overloads for displaying a <see cref="BlurBehindDialogWindow"/>
+    /// to show a prompt or information which blurs the content of its owner while it's active 
     /// </summary>
-    public static class BlurryMessageBox
+    public static class BlurBehindMessageBox
     {
         private const double Strength = 0.5;
+        private const int BlurDuration = 300;
+        private const int UnblurDuration = 250;
+        private const int BlurRadius = 15;
 
         #region Conventional Content Dialogs
 
@@ -23,14 +26,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = string.Empty,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.None,
-                Owner = null,
-                Strength = strength
+                Owner = Application.Current.MainWindow,
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -54,14 +60,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, string caption, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.None,
-                Owner = null,
-                Strength = strength
+                Owner = Application.Current.MainWindow,
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -86,14 +95,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = string.Empty,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.None,
                 Owner = owner,
-                Strength = strength
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -119,14 +131,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
                 Button = button,
-                Owner = null,
-                Strength = strength
+                Owner = Application.Current.MainWindow,
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -152,14 +167,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.None,
                 Owner = owner,
-                Strength = strength
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -186,14 +204,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = icon,
                 DialogMessage = messageBoxText,
                 Button = button,
-                Owner = null,
-                Strength = strength
+                Owner = Application.Current.MainWindow,
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -220,14 +241,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
                 Button = button,
                 Owner = owner,
-                Strength = strength
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -255,14 +279,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = icon,
                 DialogMessage = messageBoxText,
                 Button = button,
                 Owner = owner,
-                Strength = strength
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -291,14 +318,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string caption, FrameworkElement content, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
                 Button = BlurryDialogButton.None,
-                Owner = null,
-                Strength = strength
+                Owner = Application.Current.MainWindow,
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -324,14 +354,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
                 Button = button,
-                Owner = null,
-                Strength = strength
+                Owner = Application.Current.MainWindow,
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -357,14 +390,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
                 CustomDialogButtons = customDialogButtons,
-                Owner = null,
-                Strength = strength
+                Owner = Application.Current.MainWindow,
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -390,14 +426,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
                 Button = BlurryDialogButton.None,
                 Owner = owner,
-                Strength = strength
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -424,14 +463,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
                 Button = button,
                 Owner = owner,
-                Strength = strength
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>
@@ -458,14 +500,17 @@ namespace BlurryControls.DialogFactory
         public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
         {
             var result = BlurryDialogResult.None;
-            var dialog = new BlurryDialogWindow
+            var dialog = new BlurBehindDialogWindow
             {
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
                 CustomDialogButtons = customDialogButtons,
                 Owner = owner,
-                Strength = strength
+                Strength = strength,
+                BlurDuration = BlurDuration,
+                UnblurDuration = UnblurDuration,
+                BlurRadius = BlurRadius
             };
 
             dialog.ResultAquired += (sender, args) =>

@@ -39,6 +39,9 @@
             <TabItem Header="Doge Dialog">
                 <control:BlurryDogeDialogControl/>
             </TabItem>
+            <TabItem Header="Blur Behind">
+                <control:BlurBehindDialogControl/>
+            </TabItem>
         </TabControl>
     </Grid>
 </windows:BlurryWindow>
