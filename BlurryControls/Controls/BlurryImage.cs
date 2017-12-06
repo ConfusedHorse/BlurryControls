@@ -16,6 +16,9 @@ namespace BlurryControls.Controls
         public static readonly DependencyProperty BlurRadiusProperty = DependencyProperty.Register(
             "BlurRadius", typeof(double), typeof(BlurryImage), new PropertyMetadata(default(double)));
 
+        /// <summary>
+        /// impact of the blur
+        /// </summary>
         public double BlurRadius
         {
             get => (double) GetValue(BlurRadiusProperty);

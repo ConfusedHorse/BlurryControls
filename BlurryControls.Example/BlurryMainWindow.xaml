@@ -42,6 +42,9 @@
             <TabItem Header="Blur Behind">
                 <control:BlurBehindDialogControl/>
             </TabItem>
+            <TabItem Header="Blurry Overlay">
+                <control:BlurryUserControl/>
+            </TabItem>
         </TabControl>
     </Grid>
 </windows:BlurryWindow>
