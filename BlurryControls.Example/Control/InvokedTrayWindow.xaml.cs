@@ -1,4 +1,4 @@
-﻿using BlurryControls.Windows;
+﻿using BlurryControls.Controls;
 
 namespace BlurryControls.Example.Control
 {

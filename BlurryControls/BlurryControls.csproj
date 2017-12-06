@@ -82,8 +82,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Windows\BlurryTray.cs" />
-    <Compile Include="Windows\BlurryWindow.cs" />
+    <Compile Include="Controls\BlurryTray.cs" />
+    <Compile Include="Controls\BlurryWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\BlurBehindDialogWindow.xaml">
@@ -162,7 +162,9 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\256\BlurryWpfWindow.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Windows\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

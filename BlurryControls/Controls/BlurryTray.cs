@@ -7,7 +7,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using BlurryControls.Helpers;
 
-namespace BlurryControls.Windows
+namespace BlurryControls.Controls
 {
     // the BlurryTraybase can be used for both representing system global information
     // in the form of an overlay in the bottom right corner of the work space or

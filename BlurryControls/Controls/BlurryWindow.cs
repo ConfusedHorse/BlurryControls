@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using BlurryControls.Helpers;
 using BlurryControls.Internals;
 
-namespace BlurryControls.Windows
+namespace BlurryControls.Controls
 {
     /// <summary>
     /// provides an alternative WindowBase which uses the AeroGlass effect.

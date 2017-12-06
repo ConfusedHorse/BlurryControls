@@ -1,6 +1,6 @@
 ﻿using System.Windows;
+using BlurryControls.Controls;
 using BlurryControls.DialogFactory;
-using BlurryControls.Windows;
 
 namespace BlurryControls.Example
 {
