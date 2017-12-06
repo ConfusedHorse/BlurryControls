@@ -157,7 +157,7 @@ namespace BlurryControls.Windows
 
         static BlurryWindow()
         {
-            //ensure loading template of BlurryWindowBase defined in Themes/Generic.xaml
+            //ensure loading template of BlurryWindow defined in Themes/Generic.xaml
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BlurryWindow),
                 new FrameworkPropertyMetadata(typeof(BlurryWindow)));
         }

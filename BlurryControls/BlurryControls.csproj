@@ -36,6 +36,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,10 +52,12 @@
     <Compile Include="Controls\BlurryDialogWindow.xaml.cs">
       <DependentUpon>BlurryDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BlurryUserControl.cs" />
     <Compile Include="DialogFactory\BlurBehindMessageBox.cs" />
     <Compile Include="Helpers\BlurryHelper.cs" />
     <Compile Include="Helpers\SizeHelper.cs" />
     <Compile Include="Internals\ButtonCollection.cs" />
+    <Compile Include="Resources\Behaviour\BlurBackgroundBehaviour.cs" />
     <Compile Include="Resources\Converter\InvertColorConverter.cs" />
     <Compile Include="Controls\BlurryImage.cs" />
     <Compile Include="DialogFactory\BlurryMessageBox.cs" />
@@ -88,6 +91,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\BlurryDialogWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic\BlurryUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

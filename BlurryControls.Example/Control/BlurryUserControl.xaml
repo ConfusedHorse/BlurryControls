@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="BlurryControls.Example.Control.BlurryUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="450">
+    <Grid>
+        <Grid x:Name="BlurContainer">
+            <Image x:Name="PartiallyBluredDoge" 
+                   Stretch="UniformToFill"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Source="../Resources/TestImage/landscape.jpeg"/>
+        </Grid>
+
+        <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
+        <controls:BlurryUserControl VerticalAlignment="Top" 
+                                    HorizontalAlignment="Stretch"
+                                    Height="50"
+                                    Background="#54FFFFFF"
+                                    BlurContainer="{Binding ElementName=BlurContainer}"
+                                    BlurRadius="25">
+            <TextBlock Margin="10" 
+                       TextAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="Here's a blurry overlay!"
+                       FontSize="25"/>
+        </controls:BlurryUserControl>
+        
+        <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
+        <controls:BlurryUserControl VerticalAlignment="Bottom" 
+                                    HorizontalAlignment="Left"
+                                    Height="75"
+                                    Background="#54FFFFFF"
+                                    BlurContainer="{Binding ElementName=BlurContainer}"
+                                    BlurRadius="80">
+            <TextBlock x:Name="TimeTextBlock" 
+                       Margin="10" 
+                       TextAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="50"
+                       Loaded="TimeTextBlock_OnLoaded"/>
+        </controls:BlurryUserControl>
+    </Grid>
+</UserControl>
