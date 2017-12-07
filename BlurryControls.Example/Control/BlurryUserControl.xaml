@@ -35,7 +35,7 @@
                                     Height="75"
                                     Background="#54FFFFFF"
                                     BlurContainer="{Binding ElementName=BlurContainer}"
-                                    BlurRadius="80">
+                                    BlurRadius="25">
             <TextBlock x:Name="TimeTextBlock" 
                        Margin="10" 
                        TextAlignment="Left"
