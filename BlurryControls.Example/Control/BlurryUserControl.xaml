@@ -18,7 +18,7 @@
         <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
         <controls:BlurryUserControl VerticalAlignment="Top" 
                                     HorizontalAlignment="Stretch"
-                                    Height="50"
+                                    Height="55"
                                     Background="#54FFFFFF"
                                     BlurContainer="{Binding ElementName=BlurContainer}"
                                     BlurRadius="25">
