@@ -19,9 +19,7 @@
         <controls:BlurryUserControl VerticalAlignment="Top" 
                                     HorizontalAlignment="Stretch"
                                     Height="55"
-                                    Background="#54FFFFFF"
-                                    BlurContainer="{Binding ElementName=BlurContainer}"
-                                    BlurRadius="25">
+                                    BlurContainer="{Binding ElementName=BlurContainer}">
             <TextBlock Margin="10" 
                        TextAlignment="Right"
                        VerticalAlignment="Center"
@@ -33,9 +31,7 @@
         <controls:BlurryUserControl VerticalAlignment="Bottom" 
                                     HorizontalAlignment="Left"
                                     Height="75"
-                                    Background="#54FFFFFF"
-                                    BlurContainer="{Binding ElementName=BlurContainer}"
-                                    BlurRadius="25">
+                                    BlurContainer="{Binding ElementName=BlurContainer}">
             <TextBlock x:Name="TimeTextBlock" 
                        Margin="10" 
                        TextAlignment="Left"

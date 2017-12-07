@@ -5,6 +5,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
+using BlurryControls.Helpers;
 
 namespace BlurryControls.Controls
 {
@@ -40,7 +41,7 @@ namespace BlurryControls.Controls
         }
 
         public static readonly DependencyProperty BlurRadiusProperty = DependencyProperty.Register(
-            "BlurRadius", typeof(int), typeof(BlurryUserControl), new PropertyMetadata(25));
+            "BlurRadius", typeof(int), typeof(BlurryUserControl), new PropertyMetadata(10));
 
         /// <summary>
         /// impact of the blur
@@ -94,6 +95,7 @@ namespace BlurryControls.Controls
         public BlurryUserControl()
         {
             Loaded += OnLoaded;
+            Background = Brushes.WhiteSmoke.OfStrength(50);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -138,7 +140,7 @@ namespace BlurryControls.Controls
         {
             BlurContainer.LayoutUpdated -= OnContainerLayoutUpdated;
 
-            if (BlurContainer != null)
+            if (BlurContainer != null && _blur != null)
             {
                 Brush = new VisualBrush(BlurContainer) { ViewboxUnits = BrushMappingMode.Absolute };
 
