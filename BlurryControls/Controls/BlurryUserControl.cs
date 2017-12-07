@@ -8,6 +8,11 @@ using System.Windows.Shapes;
 
 namespace BlurryControls.Controls
 {
+    /// <summary>
+    /// UserControl which appears blurry over a given <see cref="BlurContainer"/>
+    /// </summary>
+    //based on: https://stackoverflow.com/a/27447817/6649611 (2017/12)
+
     public class BlurryUserControl : UserControl
     {
         #region Fields
