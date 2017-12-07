@@ -7,9 +7,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:BlurryUserControl}">
-                    <Grid Background="{TemplateBinding Background}">
-                        <Rectangle x:Name="Blur"/> <!--blured appearance will be applied to this Rectangle-->
-                        
+                    <Grid>
+                        <Rectangle x:Name="Blur"/> 
+                        <Rectangle Fill="{TemplateBinding Background}"/>
                         <AdornerDecorator>
                             <ContentPresenter/>
                         </AdornerDecorator>

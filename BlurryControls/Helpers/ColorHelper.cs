@@ -25,7 +25,7 @@ namespace BlurryControls.Helpers
         public static Color SystemWindowGlassColor => SystemParameters.WindowGlassColor;
 
         /// <summary>
-        /// Returnsthe inversion of  the current Windows accent color as <see cref="SolidColorBrush"/>
+        /// Returns the inversion of  the current Windows accent color as <see cref="SolidColorBrush"/>
         /// </summary>
         public static SolidColorBrush InvertedSystemWindowGlassColorBrush => SystemParameters.WindowGlassBrush.Invert();
         /// <summary>
