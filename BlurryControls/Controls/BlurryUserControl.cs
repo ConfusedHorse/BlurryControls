@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interactivity;
+using System.Windows.Data;
+using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
-using BlurryControls.Resources.Behaviour;
 
 namespace BlurryControls.Controls
 {
@@ -12,7 +13,6 @@ namespace BlurryControls.Controls
         #region Fields
         
         private Rectangle _blur;
-        private BlurBackgroundBehavior _behaviour;
 
         #endregion
 
@@ -30,9 +30,7 @@ namespace BlurryControls.Controls
             set
             {
                 SetValue(BlurContainerProperty, value);
-                if (_behaviour != null) _behaviour.BlurContainer = value;
-                else InitializeBehaviour();
-                RefreshBehaviour();
+                UpdateVisual();
             }
         }
 
@@ -48,16 +46,13 @@ namespace BlurryControls.Controls
             set
             {
                 SetValue(BlurRadiusProperty, value);
-                if (_behaviour != null) _behaviour.BlurRadius = value;
-                else InitializeBehaviour();
-                RefreshBehaviour();
+                UpdateVisual();
             }
         }
 
         public static readonly DependencyProperty RenderingBiasProperty = DependencyProperty.Register(
             "RenderingBias", typeof(RenderingBias), typeof(BlurryUserControl), new PropertyMetadata(RenderingBias.Quality));
         
-
         /// <summary>
         /// can be changed to RenderingBias.Performance when facing performance issues
         /// </summary>
@@ -67,10 +62,17 @@ namespace BlurryControls.Controls
             set
             {
                 SetValue(RenderingBiasProperty, value);
-                if (_behaviour != null) _behaviour.RenderingBias = value;
-                else InitializeBehaviour();
-                RefreshBehaviour();
+                UpdateVisual();
             }
+        }
+
+        private static readonly DependencyProperty BrushProperty = DependencyProperty.Register(
+            "Brush", typeof(VisualBrush), typeof(BlurryUserControl), new PropertyMetadata());
+
+        private VisualBrush Brush
+        {
+            get => (VisualBrush)GetValue(BrushProperty);
+            set => SetValue(BrushProperty, value);
         }
 
         #endregion
@@ -91,8 +93,7 @@ namespace BlurryControls.Controls
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            InitializeBehaviour();
-            RefreshBehaviour();
+            UpdateVisual();
         }
 
         public override void OnApplyTemplate()
@@ -100,30 +101,55 @@ namespace BlurryControls.Controls
             //initialize visual parts
             _blur = (Rectangle)GetTemplateChild("Blur");
 
+            _blur?.SetBinding(Shape.FillProperty,
+                new Binding { Source = this, Path = new PropertyPath(BrushProperty) });
+            
             base.OnApplyTemplate();
         }
 
         #endregion
 
         #region Private Methods
-
-        private void InitializeBehaviour()
+        
+        private void RefreshBounds()
         {
-            _behaviour = new BlurBackgroundBehavior
+            if (_blur == null || BlurContainer == null || Brush == null) return;
+            var difference = _blur.TranslatePoint(new Point(), BlurContainer);
+            Brush.Viewbox = new Rect(difference, _blur.RenderSize);
+        }
+
+        private void RefreshEffect()
+        {
+            if (_blur == null) return;
+            _blur.Effect = new BlurEffect
             {
-                BlurRadius = BlurRadius,
-                RenderingBias = RenderingBias,
-                BlurContainer = BlurContainer
+                Radius = BlurRadius,
+                KernelType = KernelType.Gaussian,
+                RenderingBias = RenderingBias
             };
         }
 
-        private void RefreshBehaviour()
+        private void UpdateVisual()
         {
-            if (_blur == null) return;
+            BlurContainer.LayoutUpdated -= OnContainerLayoutUpdated;
 
-            var behaviours = Interaction.GetBehaviors(_blur);
-            behaviours.Clear();
-            behaviours.Add(_behaviour);
+            if (BlurContainer != null)
+            {
+                Brush = new VisualBrush(BlurContainer) { ViewboxUnits = BrushMappingMode.Absolute };
+
+                BlurContainer.LayoutUpdated += OnContainerLayoutUpdated;
+                RefreshBounds();
+                RefreshEffect();
+            }
+            else
+            {
+                Brush = null;
+            }
+        }
+
+        private void OnContainerLayoutUpdated(object sender, EventArgs eventArgs)
+        {
+            RefreshBounds();
         }
 
         #endregion
