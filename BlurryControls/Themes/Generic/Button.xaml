@@ -45,7 +45,7 @@
                     <Storyboard>
                         <ColorAnimation To="{StaticResource WindowButtonBackgroundColor}"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                        FillBehavior="HoldEnd"
+                                        FillBehavior="Stop"
                                         Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
@@ -64,7 +64,7 @@
                     <Storyboard>
                         <ColorAnimation To="{StaticResource GlobalButtonWeakBackgroundColor}"
                                         Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)"
-                                        FillBehavior="HoldEnd"
+                                        FillBehavior="Stop"
                                         Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
