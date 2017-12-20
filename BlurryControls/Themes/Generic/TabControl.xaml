@@ -10,15 +10,122 @@
         <Setter Property="BorderBrush" Value="{StaticResource GeneralBackgroundBrush}"/>
         <Setter Property="Background" Value="{StaticResource GeneralStrongerFocusBackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <Grid ClipToBounds="True" 
+                          SnapsToDevicePixels="True" 
+                          KeyboardNavigation.TabNavigation="Local">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Name="LeftColumn" />
+                            <ColumnDefinition Width="0" Name="RightColumn" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" Name="TopRow" />
+                            <RowDefinition Height="*" Name="BottomRow" />
+                        </Grid.RowDefinitions>
+
+                        <TabPanel IsItemsHost="True"
+                                  Name="HeaderPanel"
+                                  Panel.ZIndex="1"
+                                  KeyboardNavigation.TabIndex="1"
+                                  Grid.Column="0"
+                                  Grid.Row="0" />
+                        <Grid Name="ContentPanel"
+                              KeyboardNavigation.TabIndex="2"
+                              KeyboardNavigation.TabNavigation="Local"
+                              KeyboardNavigation.DirectionalNavigation="Contained"
+                              Grid.Column="0"
+                              Grid.Row="1">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter Content="{TemplateBinding SelectedContent}"
+                                                  ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                                                  ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
+                                                  ContentSource="SelectedContent"
+                                                  Name="PART_SelectedContentHost"
+                                                  Margin="2"
+                                                  SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Left">
+                            <Setter TargetName="HeaderPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="HeaderPanel" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="LeftColumn" Property="ColumnDefinition.Width" Value="Auto" />
+                            <Setter TargetName="RightColumn" Property="ColumnDefinition.Width" Value="*" />
+                            <Setter TargetName="TopRow" Property="RowDefinition.Height" Value="*" />
+                            <Setter TargetName="BottomRow" Property="RowDefinition.Height" Value="0" />
+                        </Trigger>
+
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Top">
+                            <Setter TargetName="HeaderPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="TopRow" Property="RowDefinition.Height" Value="Auto" />
+                            <Setter TargetName="BottomRow" Property="RowDefinition.Height" Value="*" />
+                        </Trigger>
+
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Right">
+                            <Setter TargetName="HeaderPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="HeaderPanel" Property="Grid.Column" Value="1" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Column" Value="0" />
+                            <Setter TargetName="LeftColumn" Property="ColumnDefinition.Width" Value="*" />
+                            <Setter TargetName="RightColumn" Property="ColumnDefinition.Width" Value="Auto" />
+                            <Setter TargetName="TopRow" Property="RowDefinition.Height" Value="*" />
+                            <Setter TargetName="BottomRow" Property="RowDefinition.Height" Value="0" />
+                        </Trigger>
+
+                        <Trigger Property="TabControl.TabStripPlacement" Value="Bottom">
+                            <Setter TargetName="HeaderPanel" Property="Grid.Row" Value="1" />
+                            <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
+                            <Setter TargetName="TopRow" Property="RowDefinition.Height" Value="*" />
+                            <Setter TargetName="BottomRow" Property="RowDefinition.Height" Value="Auto" />
+                        </Trigger>
+
+                        <Trigger Property="UIElement.IsEnabled" Value="False">
+                            <Setter Property="UIElement.Effect">
+                                <Setter.Value>
+                                    <BlurEffect Radius="2"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
     
     <!-- TabItemContentBorderStyle -->
     <Style x:Key="TabItemContentBorderStyle" TargetType="{x:Type Border}">
         <Setter Property="BorderBrush" Value="{StaticResource GeneralBackgroundBrush}"/>
         <Setter Property="Background" Value="{StaticResource GeneralStrongerBackgroundBrush}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Margin" Value="-2 0 6 4"/>
         <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Left">
+                <Setter Property="Margin" Value="0 -2 4 6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Top">
+                <Setter Property="Margin" Value="-2 0 6 4"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Right">
+                <Setter Property="Margin" Value="0 -2 4 6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Bottom">
+                <Setter Property="Margin" Value="-2 4 6 0"/>
+            </DataTrigger>
+
             <EventTrigger RoutedEvent="Border.MouseEnter">
                 <BeginStoryboard>
                     <Storyboard>
@@ -29,12 +136,13 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
+            
             <EventTrigger RoutedEvent="Border.MouseLeave">
                 <BeginStoryboard>
                     <Storyboard>
                         <ColorAnimation To="{StaticResource GeneralStrongerBackgroundColor}"
                                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                        FillBehavior="HoldEnd"
+                                        FillBehavior="Stop"
                                         Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
@@ -48,15 +156,31 @@
         <Setter Property="Background" Value="{StaticResource GeneralStrongerFocusBackgroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Margin" Value="-2 0 6 0"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Left">
+                <Setter Property="Margin" Value="0 -2 0 6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Top">
+                <Setter Property="Margin" Value="-2 0 6 0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Right">
+                <Setter Property="Margin" Value="0 -2 0 6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
+                         Value="Bottom">
+                <Setter Property="Margin" Value="-2 0 6 0"/>
+            </DataTrigger>
+            
             <EventTrigger RoutedEvent="Border.MouseLeave">
                 <BeginStoryboard>
                     <Storyboard>
                         <ColorAnimation To="{StaticResource GeneralStrongerFocusBackgroundColor}"
                                         Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                        FillBehavior="HoldEnd"
+                                        FillBehavior="Stop"
                                         Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
@@ -70,9 +194,17 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
+                        <Trigger Property="TabItem.IsSelected" Value="True">
                             <Setter Property="Panel.ZIndex" Value="100" />
                             <Setter TargetName="Border" Property="Border.Style" Value="{StaticResource TabItemContentBorderSelectedStyle}" />
+                        </Trigger>
+
+                        <Trigger Property="UIElement.IsEnabled" Value="False">
+                            <Setter Property="UIElement.Effect">
+                                <Setter.Value>
+                                    <BlurEffect Radius="2"/>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
 

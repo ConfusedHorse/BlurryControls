@@ -26,11 +26,12 @@
 
     <Grid>
         <!-- sample control with basic components -->
-        <TabControl Margin="5">
+        <TabControl Margin="5"
+                    TabStripPlacement="Left">
             <TabItem Header="Tray Invoker">
                 <control:BlurryContentControl />
             </TabItem>
-            <TabItem Header="Animation">
+            <TabItem Header="Animation" IsEnabled="False">
                 <control:BlurryBackgroundAnimationControl/>
             </TabItem>
             <TabItem Header="Blurry Doge">
