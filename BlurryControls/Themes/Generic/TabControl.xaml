@@ -36,7 +36,8 @@
                             <TabPanel x:Name="HeaderTabPanelLeftRight" 
                                       IsItemsHost="True"
                                       Panel.ZIndex="1"
-                                      KeyboardNavigation.TabIndex="1" />
+                                      KeyboardNavigation.TabIndex="1"
+                                      SnapsToDevicePixels="True"/>
                         </ScrollViewer>
 
                         <TabPanel x:Name="HeaderTabPanelTopBottom" 
@@ -74,6 +75,7 @@
                             <Setter TargetName="HeaderScrollViewer" Property="Grid.Column" Value="0" />
                             <Setter TargetName="HeaderScrollViewer" Property="VerticalScrollBarVisibility" Value="Auto" />
                             <Setter TargetName="HeaderScrollViewer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="HeaderScrollViewer" Property="Margin" Value="0 0 -1 0" /> 
                             <Setter TargetName="HeaderScrollViewer" Property="FlowDirection" Value="RightToLeft" />
                             <Setter TargetName="HeaderTabPanelLeftRight" Property="FlowDirection" Value="LeftToRight" />
                             <Setter TargetName="HeaderTabPanelTopBottom" Property="Visibility" Value="Collapsed" />
@@ -86,7 +88,7 @@
                         </Trigger>
                         <Trigger SourceName="HeaderScrollViewer" Property="ScrollViewer.ComputedVerticalScrollBarVisibility" Value="Visible">
                             <Setter TargetName="HeaderScrollViewer" Property="Padding" Value="0 0 4 0" />
-                        </Trigger> <!--candles both left and right-->
+                        </Trigger> <!-- applies for both left and right since left is mirrored -->
 
                         <Trigger Property="TabControl.TabStripPlacement" Value="Top">
                             <Setter TargetName="ContentPanel" Property="Grid.Row" Value="1" />
@@ -102,6 +104,7 @@
                             <Setter TargetName="HeaderScrollViewer" Property="Grid.Column" Value="1" />
                             <Setter TargetName="HeaderScrollViewer" Property="VerticalScrollBarVisibility" Value="Auto" />
                             <Setter TargetName="HeaderScrollViewer" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="HeaderScrollViewer" Property="Margin" Value="-1 0 0 0" />
                             <Setter TargetName="HeaderTabPanelTopBottom" Property="Visibility" Value="Collapsed" />
                             <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
                             <Setter TargetName="ContentPanel" Property="Grid.Column" Value="0" />
@@ -141,7 +144,7 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Left">
-                <Setter Property="Margin" Value="0 -2 4 6" />
+                <Setter Property="Margin" Value="0 -2 5 6" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Top">
@@ -149,7 +152,7 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Right">
-                <Setter Property="Margin" Value="4 -2 0 6" />
+                <Setter Property="Margin" Value="5 -2 0 6" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Bottom">
@@ -189,7 +192,7 @@
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Left">
-                <Setter Property="Margin" Value="0 -2 0 6" />
+                <Setter Property="Margin" Value="0 -2 1 6" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Top">
@@ -197,7 +200,7 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Right">
-                <Setter Property="Margin" Value="0 -2 0 6" />
+                <Setter Property="Margin" Value="1 -2 0 6" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=TabStripPlacement, RelativeSource={RelativeSource FindAncestor, AncestorType=TabControl}}"
                          Value="Bottom">
