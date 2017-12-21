@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Brushes.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Constants.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
     <!-- style for a button which slowly turns white when hovering the cursor over it -->
@@ -21,15 +22,25 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
         <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="UIElement.Effect">
+                    <Setter.Value>
+                        <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Effect">
                     <Setter.Value>
-                        <BlurEffect Radius="2"/>
+                        <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Opacity" Value="0.5"/>
             </Trigger>
+            
             <EventTrigger RoutedEvent="Button.MouseEnter">
                 <BeginStoryboard>
                     <Storyboard>
@@ -40,6 +51,7 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
+            
             <EventTrigger RoutedEvent="Button.MouseLeave">
                 <BeginStoryboard>
                     <Storyboard>
@@ -105,6 +117,7 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
+            
             <EventTrigger RoutedEvent="Button.MouseLeave">
                 <BeginStoryboard>
                     <Storyboard>
