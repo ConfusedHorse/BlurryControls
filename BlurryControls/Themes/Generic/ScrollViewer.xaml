@@ -13,7 +13,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollViewer}">
-                    <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+                    <Grid x:Name="Grid" 
+                          Background="{TemplateBinding Background}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
@@ -29,12 +30,14 @@
                                    Fill="{TemplateBinding Background}" />
                         
                         <ScrollContentPresenter x:Name="PART_ScrollContentPresenter"
+                                                Grid.Row="0" 
+                                                Grid.Column="0"
                                                 CanContentScroll="{TemplateBinding CanContentScroll}"
                                                 CanHorizontallyScroll="False"
                                                 CanVerticallyScroll="False"
                                                 ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                Content="{TemplateBinding Content}" Grid.Column="0"
-                                                Margin="{TemplateBinding Padding}" Grid.Row="0" />
+                                                Content="{TemplateBinding Content}"
+                                                Margin="{TemplateBinding Padding}"/>
                         
                         <ScrollBar x:Name="PART_VerticalScrollBar"
                                    Grid.Column="1" Grid.Row="0"

@@ -26,8 +26,7 @@
 
     <Grid>
         <!-- sample control with basic components -->
-        <TabControl Margin="5"
-                    TabStripPlacement="Left">
+        <TabControl Margin="5">
             <TabItem Header="Tray Invoker">
                 <control:BlurryContentControl />
             </TabItem>
