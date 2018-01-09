@@ -168,7 +168,6 @@ namespace BlurryControls.Controls
             SourceInitialized += OnSourceInitialized;
             KeyDown += OnKeyDown;
             StateChanged += OnStateChanged;
-            InitializeParameters();
         }
 
         public override void OnApplyTemplate()
@@ -212,9 +211,17 @@ namespace BlurryControls.Controls
 
         #region Visual Behaviour
 
-        private void InitializeParameters()
+        //use system accent color for window or custom background
+        private void InitializeBackground()
         {
-            if (!_customBackground) SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
+            _customBackground = Background != null;
+            if (_customBackground)
+                Background = Background.OfStrength(Strength);
+            else
+            {
+                SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
+                Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            }
         }
 
         // apply system color when changed
@@ -275,10 +282,7 @@ namespace BlurryControls.Controls
             restoreContextMenuItem.IsEnabled = WindowState == WindowState.Maximized;
             maximizeContextMenuItem.IsEnabled = !restoreContextMenuItem.IsEnabled;
 
-            _customBackground = Background != null;
-            //use system accent color for window (is overwritten if Background is set)
-            Background = !_customBackground ? ColorHelper.SystemWindowGlassBrushOfStrength(Strength) : Background.OfStrength(Strength);
-            _menuBarColor = Background.OfStrength(0d).Color;
+            InitializeBackground();
 
             _lastState = WindowState;
             _originalIsResizable = IsResizable;
