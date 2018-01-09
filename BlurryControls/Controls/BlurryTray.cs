@@ -157,7 +157,8 @@ namespace BlurryControls.Controls
         // the window flows from right to left to its terminal position and gains opacity
         private void InitializeTraySpecificVisualBehaviour(object sender, RoutedEventArgs args)
         {
-            SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
+            if (!_customBackground)
+                SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
 
             MaxWidth = SystemParameters.WorkArea.Width;
             MaxHeight = SystemParameters.WorkArea.Height;
