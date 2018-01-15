@@ -400,7 +400,7 @@ namespace BlurryControls.Controls
             if (CustomDialogButtons == null || CustomDialogButtons.Count == 0) return;
             foreach (var customButton in CustomDialogButtons.OfType<Button>())
                 customButton.Click += CustomButtonCloseOnClick;
-            ButtonGrid.Visibility = Visibility.Visible;
+            CustomButtonPanel.Visibility = Visibility.Visible;
         }
 
         /// <summary>

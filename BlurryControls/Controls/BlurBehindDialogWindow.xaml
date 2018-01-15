@@ -196,7 +196,7 @@
                               HorizontalAlignment="Center"
                               ItemsSource="{Binding CustomDialogButtons, 
                                                     RelativeSource={RelativeSource FindAncestor, 
-                                                                                   AncestorType=controls:BlurryDialogWindow}}"
+                                                                                   AncestorType=controls:BlurBehindDialogWindow}}"
                               ItemContainerStyle="{StaticResource WindowButtonBaseStyle}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
