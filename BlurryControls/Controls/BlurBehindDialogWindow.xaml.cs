@@ -25,7 +25,7 @@ namespace BlurryControls.Controls
     /// <summary>
     /// Interaction logic for BlurBehindDialogWindow.xaml
     /// </summary>
-    internal partial class BlurBehindDialogWindow : Window
+    internal partial class BlurBehindDialogWindow
     {
         #region fields
 

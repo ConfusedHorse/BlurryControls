@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 
@@ -6,11 +7,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BlurryControls")]
-[assembly: AssemblyDescription("Provides basic functionality for bluring windows and images")]
+[assembly: AssemblyDescription("Provides basic functionality for bluring windows and controls")]
 [assembly: AssemblyConfiguration("Windows10 only")]
 [assembly: AssemblyCompany("Jörg Flechsig")]
 [assembly: AssemblyProduct("BlurryControls")]
-[assembly: AssemblyCopyright("Copyright © Jörg Flechsig 2016")]
+[assembly: AssemblyCopyright("Copyright © Jörg Flechsig 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -43,3 +44,5 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.1")]
 [assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: NeutralResourcesLanguage("en")]
+
