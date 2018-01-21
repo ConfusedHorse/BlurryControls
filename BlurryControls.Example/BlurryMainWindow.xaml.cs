@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using BlurryControls.Controls;
 using BlurryControls.DialogFactory;
+using BlurryControls.Example.Resources;
 
 namespace BlurryControls.Example
 {
@@ -17,7 +18,11 @@ namespace BlurryControls.Example
 
         private void HelloMenuBarButton_OnClick(object sender, RoutedEventArgs e)
         {
-            BlurryMessageBox.Show(this, "You did the thing.", "Hello");
+            // TODO auto define width
+            // TODO auto overflow
+            // TODO Ok button is fallback
+            BlurryMessageBox.Show(this, Lorem.Ipsum, "Hello");
+            //BlurryMessageBox.Show(this, "You did the thing.", "Hello");
         }
     }
 }
