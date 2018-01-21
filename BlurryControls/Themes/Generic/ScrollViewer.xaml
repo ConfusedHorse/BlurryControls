@@ -102,7 +102,6 @@
     </Style>
 
     <Style x:Key="BlurryScrollBarButton" TargetType="{x:Type RepeatButton}">
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
         <Setter Property="BorderBrush" Value="{StaticResource WindowButtonBackgroundBrush}" />
         <Setter Property="Background" Value="{StaticResource WindowButtonBackgroundBrush}" />
         <Setter Property="BorderThickness" Value="0" />
@@ -194,10 +193,19 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Rectangle x:Name="Rectangle" 
                                Fill="{StaticResource GlobalButtonWeakBackgroundBrush}"
-                               Height="{TemplateBinding Height}" SnapsToDevicePixels="True"
-                               Width="{TemplateBinding Width}" />
+                               Height="{TemplateBinding Height}"
+                               Width="{TemplateBinding Width}"
+                               SnapsToDevicePixels="True" />
                     
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter Property="UIElement.Effect">
+                                <Setter.Value>
+                                    <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+
                         <EventTrigger RoutedEvent="Thumb.MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
@@ -221,11 +229,6 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-
-                        <Trigger Property="IsDragging" Value="True">
-                            <Setter Property="Fill" TargetName="Rectangle"
-                                    Value="{StaticResource GlobalButtonWeakBackgroundBrush}" />
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -240,10 +243,19 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Rectangle x:Name="Rectangle" 
                                Fill="{StaticResource GlobalButtonWeakBackgroundBrush}"
-                               Height="{TemplateBinding Height}" SnapsToDevicePixels="True"
-                               Width="{TemplateBinding Width}" />
+                               Height="{TemplateBinding Height}"
+                               Width="{TemplateBinding Width}"
+                               SnapsToDevicePixels="True" />
                     
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsDragging" Value="True">
+                            <Setter Property="UIElement.Effect">
+                                <Setter.Value>
+                                    <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        
                         <EventTrigger RoutedEvent="Thumb.MouseEnter">
                             <BeginStoryboard>
                                 <Storyboard>
@@ -267,11 +279,6 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
-
-                        <Trigger Property="IsDragging" Value="True">
-                            <Setter Property="Fill" TargetName="Rectangle"
-                                    Value="{StaticResource GlobalButtonWeakBackgroundBrush}" />
-                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

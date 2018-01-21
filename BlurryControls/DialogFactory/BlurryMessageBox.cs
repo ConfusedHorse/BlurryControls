@@ -28,7 +28,7 @@ namespace BlurryControls.DialogFactory
                 Title = string.Empty,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
-                Button = BlurryDialogButton.None,
+                Button = BlurryDialogButton.Ok,
                 Owner = null,
                 Strength = strength
             };
@@ -59,7 +59,7 @@ namespace BlurryControls.DialogFactory
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
-                Button = BlurryDialogButton.None,
+                Button = BlurryDialogButton.Ok,
                 Owner = null,
                 Strength = strength
             };
@@ -91,7 +91,7 @@ namespace BlurryControls.DialogFactory
                 Title = string.Empty,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
-                Button = BlurryDialogButton.None,
+                Button = BlurryDialogButton.Ok,
                 Owner = owner,
                 Strength = strength
             };
@@ -157,7 +157,7 @@ namespace BlurryControls.DialogFactory
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 DialogMessage = messageBoxText,
-                Button = BlurryDialogButton.None,
+                Button = BlurryDialogButton.Ok,
                 Owner = owner,
                 Strength = strength
             };
@@ -296,7 +296,7 @@ namespace BlurryControls.DialogFactory
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
-                Button = BlurryDialogButton.None,
+                Button = BlurryDialogButton.Ok,
                 Owner = null,
                 Strength = strength
             };
@@ -428,7 +428,7 @@ namespace BlurryControls.DialogFactory
                 Title = caption,
                 DialogIcon = BlurryDialogIcon.None,
                 CustomContent = content,
-                Button = BlurryDialogButton.None,
+                Button = BlurryDialogButton.Ok,
                 Owner = owner,
                 Strength = strength
             };
