@@ -228,6 +228,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="TabItem.IsSelected" Value="True">
                             <Setter Property="Panel.ZIndex" Value="100" />
+                            <Setter TargetName="ContentSite" Property="FrameworkElement.Margin" Value="12 1 16 1" />
                             <Setter TargetName="Border" Property="Border.Style"
                                     Value="{StaticResource TabItemContentBorderSelectedStyle}" />
                         </Trigger>
@@ -244,7 +245,7 @@
                     <Border x:Name="Border"
                             Style="{StaticResource TabItemContentBorderStyle}">
                         <ContentPresenter x:Name="ContentSite"
-                                          VerticalAlignment="Top"
+                                          VerticalAlignment="Center"
                                           HorizontalAlignment="Center"
                                           ContentSource="Header"
                                           Margin="12 1"
