@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
@@ -19,6 +21,11 @@ namespace BlurryControls.Controls
         #region Fields
         
         private Rectangle _blur;
+
+        private bool _inDrag;
+        private Point _anchorPoint;
+        private Size _containerSize;
+        private Point _difference;
 
         #endregion
 
@@ -75,10 +82,25 @@ namespace BlurryControls.Controls
         private static readonly DependencyProperty BrushProperty = DependencyProperty.Register(
             "Brush", typeof(VisualBrush), typeof(BlurryUserControl), new PropertyMetadata());
 
+        
         private VisualBrush Brush
         {
             get => (VisualBrush)GetValue(BrushProperty);
             set => SetValue(BrushProperty, value);
+        }
+
+        public static readonly DependencyProperty DragMoveEnabledProperty = DependencyProperty.Register(
+            "DragMoveEnabled", typeof(bool), typeof(BlurryUserControl), new PropertyMetadata(false));
+
+        public bool DragMoveEnabled
+        {
+            get => (bool) GetValue(DragMoveEnabledProperty);
+            set
+            {
+                SetValue(DragMoveEnabledProperty, value);
+                if (value) ApplyDragHandles();
+                else RemoveDragHandles();
+            }
         }
 
         #endregion
@@ -95,12 +117,16 @@ namespace BlurryControls.Controls
         public BlurryUserControl()
         {
             Loaded += OnLoaded;
+
             Background = Brushes.WhiteSmoke.OfStrength(50);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
         {
             UpdateVisual();
+
+            if (DragMoveEnabled) ApplyDragHandles();
+            else RemoveDragHandles();
         }
 
         public override void OnApplyTemplate()
@@ -116,13 +142,91 @@ namespace BlurryControls.Controls
 
         #endregion
 
-        #region Private Methods
-        
+        #region Drag
+
+        private void ApplyDragHandles()
+        {
+            // handle drag move
+            MouseMove += OnMouseMove;
+            MouseLeftButtonDown += OnMouseLeftButtonDown;
+            MouseLeftButtonUp += OnMouseLeftButtonUp;
+
+            // grabby hand
+            MouseEnter += OnMouseEnter;
+            MouseLeave += OnMouseLeave;
+        }
+
+        private void RemoveDragHandles()
+        {
+            MouseMove -= OnMouseMove;
+            MouseLeftButtonDown -= OnMouseLeftButtonDown;
+            MouseLeftButtonUp -= OnMouseLeftButtonUp;
+        }
+
+        private void OnMouseMove(object sender, MouseEventArgs args)
+        {
+            if (!_inDrag) return;
+
+            // offset change
+            var currentPoint = args.GetPosition(null);
+            var movement = currentPoint - _anchorPoint;
+
+            // horizontal change
+            var newX = Margin.Left + movement.X;
+            var maxX = _containerSize.Width - Width + BorderThickness.Right;
+            var thresholdX = _difference.X + movement.X;
+
+            // vertical change
+            var newY = Margin.Top + movement.Y;
+            var maxY = _containerSize.Height - Height + BorderThickness.Bottom;
+            var thresholdY = _difference.Y + movement.Y;
+
+            // determine new offset
+            var left = thresholdX > BorderThickness.Left ? thresholdX < maxX ? newX : Margin.Left : Margin.Left;
+            var top = thresholdY > BorderThickness.Top ? thresholdY < maxY ? newY : Margin.Top : Margin.Top;
+
+            Margin = new Thickness(left, top, -left, -top);
+            _anchorPoint = currentPoint;
+            args.Handled = true;
+        }
+
+        private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs args)
+        {
+            if (_inDrag) return;
+            _anchorPoint = args.GetPosition(null);
+            CaptureMouse();
+            _inDrag = true;
+            args.Handled = true;
+        }
+
+        private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
+        {
+            if (!_inDrag) return;
+            ReleaseMouseCapture();
+            _inDrag = false;
+            args.Handled = true;
+        }
+
+        private void OnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
+        {
+            Mouse.OverrideCursor = Cursors.ScrollAll;
+        }
+
+        private void OnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
+        {
+            Mouse.OverrideCursor = null;
+        }
+
+        #endregion
+
+        #region Blur
+
         private void RefreshBounds()
         {
             if (_blur == null || BlurContainer == null || Brush == null) return;
-            var difference = _blur.TranslatePoint(new Point(), BlurContainer);
-            Brush.Viewbox = new Rect(difference, _blur.RenderSize);
+            _difference = _blur.TranslatePoint(new Point(), BlurContainer);
+            Brush.Viewbox = new Rect(_difference, _blur.RenderSize);
+            _containerSize = BlurContainer.RenderSize;
         }
 
         private void RefreshEffect()
