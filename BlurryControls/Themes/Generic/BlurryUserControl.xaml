@@ -7,13 +7,16 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:BlurryUserControl}">
-                    <Grid>
-                        <Rectangle x:Name="Blur"/> 
-                        <Rectangle Fill="{TemplateBinding Background}"/>
-                        <AdornerDecorator>
-                            <ContentPresenter/>
-                        </AdornerDecorator>
-                    </Grid>
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Rectangle x:Name="Blur"/>
+                            <Rectangle Fill="{TemplateBinding Background}"/>
+                            <AdornerDecorator>
+                                <ContentPresenter/>
+                            </AdornerDecorator>
+                        </Grid>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
