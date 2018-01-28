@@ -44,10 +44,11 @@
                                    AutomationProperties.AutomationId="VerticalScrollBar"
                                    Minimum="0" Maximum="{TemplateBinding ScrollableHeight}"
                                    Cursor="Arrow"
+                                   Background="{StaticResource GeneralStrongerBackgroundBrush}"
                                    Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
                                    Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                                    ViewportSize="{TemplateBinding ViewportHeight}"
-                                   Opacity="0.55" />
+                                   Opacity="{StaticResource IdleOpacity}" />
                         
                         <ScrollBar x:Name="PART_HorizontalScrollBar"
                                    Grid.Column="0" Grid.Row="1"
@@ -55,10 +56,11 @@
                                    Minimum="0" Maximum="{TemplateBinding ScrollableWidth}"
                                    Orientation="Horizontal"
                                    Cursor="Arrow"
+                                   Background="{StaticResource GeneralStrongerBackgroundBrush}"
                                    Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
                                    Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}"
                                    ViewportSize="{TemplateBinding ViewportWidth}"
-                                   Opacity="0.55" />
+                                   Opacity="{StaticResource IdleOpacity}" />
                     </Grid>
                     
                     <ControlTemplate.Triggers>
@@ -82,12 +84,12 @@
                         <EventTrigger RoutedEvent="ScrollViewer.MouseLeave">
                             <BeginStoryboard>
                                 <Storyboard>
-                                    <DoubleAnimation To="0.55"
+                                    <DoubleAnimation To="{StaticResource IdleOpacity}"
                                                      Storyboard.TargetName="PART_VerticalScrollBar"
                                                      Storyboard.TargetProperty="Opacity"
                                                      FillBehavior="Stop"
                                                      Duration="0:0:0.5" />
-                                    <DoubleAnimation To="0.55"
+                                    <DoubleAnimation To="{StaticResource IdleOpacity}"
                                                      Storyboard.TargetName="PART_HorizontalScrollBar"
                                                      Storyboard.TargetProperty="Opacity"
                                                      FillBehavior="Stop"
@@ -162,7 +164,7 @@
                                     <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
                                 </Setter.Value>
                             </Setter>
-                            <Setter Property="Opacity" Value="0.5"/>
+                            <Setter Property="Opacity" Value="{StaticResource IdleOpacity}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -446,14 +448,14 @@
                                             <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter TargetName="PART_LineLeftButton" Property="Opacity" Value="0.5"/>
+                                    <Setter TargetName="PART_LineLeftButton" Property="Opacity" Value="{StaticResource IdleOpacity}"/>
                                     
                                     <Setter TargetName="PART_LineRightButton" Property="UIElement.Effect">
                                         <Setter.Value>
                                             <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
                                         </Setter.Value>
                                     </Setter>
-                                    <Setter TargetName="PART_LineRightButton" Property="Opacity" Value="0.5"/>
+                                    <Setter TargetName="PART_LineRightButton" Property="Opacity" Value="{StaticResource IdleOpacity}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
