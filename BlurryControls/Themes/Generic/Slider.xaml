@@ -262,6 +262,7 @@
 
     <!-- Slider -->
     <Style TargetType="{x:Type Slider}">
+        <Setter Property="Focusable" Value="False" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Style.Triggers>
