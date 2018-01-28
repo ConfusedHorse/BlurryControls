@@ -153,7 +153,7 @@
     <Resource Include="BlurryWpfWindow.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\TestImage\landscape.jpeg" />
+    <Resource Include="Resources\TestImage\wallpaper_mikael_gustafsson.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

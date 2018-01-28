@@ -10,10 +10,39 @@
         <Grid x:Name="BlurContainer">
             <Image x:Name="PartiallyBluredDoge" 
                    Stretch="UniformToFill"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   Source="../Resources/TestImage/landscape.jpeg"/>
+                   Source="../Resources/TestImage/wallpaper_mikael_gustafsson.png"/>
         </Grid>
+
+        <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
+        <controls:BlurryUserControl VerticalAlignment="Center" 
+                                    HorizontalAlignment="Center"
+                                    Height="150" Width="250"
+                                    BorderBrush="White"
+                                    Background="Transparent"
+                                    BorderThickness="1"
+                                    DragMoveEnabled="True"
+                                    Panel.ZIndex="100"
+                                    BlurContainer="{Binding ElementName=BlurContainer}">
+            <Grid>
+                <TextBlock Margin="5"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           FontSize="15"
+                           Text="Drag me around to see how the BlurryUserControl works!"
+                           TextWrapping="Wrap"/>
+                
+                <StackPanel Orientation="Vertical"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock Margin="5"
+                               FontSize="15"
+                               Text="Adjust the BlurRadius:"/>
+                    <Slider Value="{Binding RelativeSource={RelativeSource AncestorType=controls:BlurryUserControl}, Path=BlurRadius, Mode=TwoWay}"
+                            Minimum="0"
+                            Maximum="30"/>
+                </StackPanel>
+            </Grid>
+        </controls:BlurryUserControl>
 
         <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
         <controls:BlurryUserControl VerticalAlignment="Top" 

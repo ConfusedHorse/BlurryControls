@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using BlurryControls.Helpers;
+using BlurryControls.Internals;
 
 namespace BlurryControls.Controls
 {
@@ -32,7 +32,13 @@ namespace BlurryControls.Controls
         #region Dependecy Properties
 
         public static readonly DependencyProperty BlurContainerProperty = DependencyProperty.Register(
-            "BlurContainer", typeof(UIElement), typeof(BlurryUserControl), new PropertyMetadata(default(UIElement)));
+            "BlurContainer", typeof(UIElement), typeof(BlurryUserControl), new PropertyMetadata(default(UIElement), OnBlurContainerChanged));
+
+        private static void OnBlurContainerChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var flipControl = (BlurryUserControl)dependencyObject;
+            flipControl.UpdateVisual();
+        }
 
         /// <summary>
         /// represents the underlying element that will be blured
@@ -40,15 +46,17 @@ namespace BlurryControls.Controls
         public UIElement BlurContainer
         {
             get => (UIElement)GetValue(BlurContainerProperty);
-            set
-            {
-                SetValue(BlurContainerProperty, value);
-                UpdateVisual();
-            }
+            set => SetValue(BlurContainerProperty, value);
         }
 
         public static readonly DependencyProperty BlurRadiusProperty = DependencyProperty.Register(
-            "BlurRadius", typeof(int), typeof(BlurryUserControl), new PropertyMetadata(10));
+            "BlurRadius", typeof(int), typeof(BlurryUserControl), new PropertyMetadata(10, OnBlurRadiusChanged));
+
+        private static void OnBlurRadiusChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var flipControl = (BlurryUserControl)dependencyObject;
+            flipControl.UpdateVisual();
+        }
 
         /// <summary>
         /// impact of the blur
@@ -56,27 +64,25 @@ namespace BlurryControls.Controls
         public int BlurRadius
         {
             get => (int)GetValue(BlurRadiusProperty);
-            set
-            {
-                SetValue(BlurRadiusProperty, value);
-                UpdateVisual();
-            }
+            set => SetValue(BlurRadiusProperty, value);
         }
 
         public static readonly DependencyProperty RenderingBiasProperty = DependencyProperty.Register(
-            "RenderingBias", typeof(RenderingBias), typeof(BlurryUserControl), new PropertyMetadata(RenderingBias.Quality));
-        
+            "RenderingBias", typeof(RenderingBias), typeof(BlurryUserControl), new PropertyMetadata(RenderingBias.Quality, OnRenderingBiasChanged));
+
+        private static void OnRenderingBiasChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var flipControl = (BlurryUserControl)dependencyObject;
+            flipControl.UpdateVisual();
+        }
+
         /// <summary>
         /// can be changed to RenderingBias.Performance when facing performance issues
         /// </summary>
         public RenderingBias RenderingBias
         {
             get => (RenderingBias)GetValue(RenderingBiasProperty);
-            set
-            {
-                SetValue(RenderingBiasProperty, value);
-                UpdateVisual();
-            }
+            set => SetValue(RenderingBiasProperty, value);
         }
 
         private static readonly DependencyProperty BrushProperty = DependencyProperty.Register(
@@ -90,17 +96,19 @@ namespace BlurryControls.Controls
         }
 
         public static readonly DependencyProperty DragMoveEnabledProperty = DependencyProperty.Register(
-            "DragMoveEnabled", typeof(bool), typeof(BlurryUserControl), new PropertyMetadata(false));
+            "DragMoveEnabled", typeof(bool), typeof(BlurryUserControl), new PropertyMetadata(false, OnDragMoveEnabledChanged));
+
+        private static void OnDragMoveEnabledChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        {
+            var flipControl = (BlurryUserControl)dependencyObject;
+            if ((bool) args.NewValue) flipControl.ApplyDragHandles();
+            else flipControl.RemoveDragHandles();
+        }
 
         public bool DragMoveEnabled
         {
             get => (bool) GetValue(DragMoveEnabledProperty);
-            set
-            {
-                SetValue(DragMoveEnabledProperty, value);
-                if (value) ApplyDragHandles();
-                else RemoveDragHandles();
-            }
+            set => SetValue(DragMoveEnabledProperty, value);
         }
 
         #endregion
@@ -153,7 +161,6 @@ namespace BlurryControls.Controls
 
             // grabby hand
             MouseEnter += OnMouseEnter;
-            MouseLeave += OnMouseLeave;
         }
 
         private void RemoveDragHandles()
@@ -161,6 +168,13 @@ namespace BlurryControls.Controls
             MouseMove -= OnMouseMove;
             MouseLeftButtonDown -= OnMouseLeftButtonDown;
             MouseLeftButtonUp -= OnMouseLeftButtonUp;
+
+            MouseEnter -= OnMouseEnter;
+        }
+
+        private void OnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
+        {
+            Cursor = DragCursor.Grab.GetCursor();
         }
 
         private void OnMouseMove(object sender, MouseEventArgs args)
@@ -197,6 +211,8 @@ namespace BlurryControls.Controls
             CaptureMouse();
             _inDrag = true;
             args.Handled = true;
+
+            Cursor = DragCursor.Grabbing.GetCursor();
         }
 
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
@@ -205,16 +221,8 @@ namespace BlurryControls.Controls
             ReleaseMouseCapture();
             _inDrag = false;
             args.Handled = true;
-        }
 
-        private void OnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
-        {
-            Mouse.OverrideCursor = Cursors.ScrollAll;
-        }
-
-        private void OnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
-        {
-            Mouse.OverrideCursor = null;
+            Cursor = DragCursor.Grab.GetCursor();
         }
 
         #endregion
