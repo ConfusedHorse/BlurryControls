@@ -34,10 +34,11 @@
                 <StackPanel Orientation="Vertical"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Stretch">
-                    <TextBlock Margin="5"
+                    <TextBlock Margin="5 0"
                                FontSize="15"
                                Text="Adjust the BlurRadius:"/>
-                    <Slider Value="{Binding RelativeSource={RelativeSource AncestorType=controls:BlurryUserControl}, Path=BlurRadius, Mode=TwoWay}"
+                    <Slider Margin="5" 
+                            Value="{Binding RelativeSource={RelativeSource AncestorType=controls:BlurryUserControl}, Path=BlurRadius, Mode=TwoWay}"
                             Minimum="0"
                             Maximum="30"/>
                 </StackPanel>
