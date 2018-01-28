@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using BlurryControls.Internals;
 
@@ -6,6 +8,8 @@ namespace BlurryControls.Helpers
 {
     internal static class IconHelper
     {
+        #region Dialog
+
         //icon paths for BlurryDialogWindow presentation
         private const string RelativeQuestionIconPath = @"pack://application:,,,/BlurryControls;component/Resources/Icons/064/question.png";
         private const string RelativeInformationIconPath = @"pack://application:,,,/BlurryControls;component/Resources/Icons/064/information.png";
@@ -38,6 +42,34 @@ namespace BlurryControls.Helpers
                     throw new ArgumentOutOfRangeException(nameof(icon), icon, null);
             }
         }
+
+        #endregion
+
+        #region Cursor
+
+        private const string GrabCursorPath = @"pack://application:,,,/BlurryControls;component/Resources/Cursors/grab.cur";
+        private const string GrabbingCursorPath = @"pack://application:,,,/BlurryControls;component/Resources/Cursors/grabbing.cur";
+
+        public static Cursor GetCursor(this DragCursor cursor)
+        {
+            switch (cursor)
+            {
+                case DragCursor.Grab:
+                    return new Cursor(
+                        Application.GetResourceStream(new Uri(GrabCursorPath))?.Stream ??
+                        throw new InvalidOperationException()
+                    );
+                case DragCursor.Grabbing:
+                    return new Cursor(
+                        Application.GetResourceStream(new Uri(GrabbingCursorPath))?.Stream ??
+                        throw new InvalidOperationException()
+                    );
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(cursor), cursor, null);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// returns a new instance of a <see cref="BitmapImage"/> with the given icon path as <see cref="string"/>

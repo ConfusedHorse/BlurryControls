@@ -55,6 +55,7 @@
     <Compile Include="DialogFactory\BlurBehindMessageBox.cs" />
     <Compile Include="Helpers\BlurryHelper.cs" />
     <Compile Include="Helpers\SizeHelper.cs" />
+    <Compile Include="Internals\CursorEnums.cs" />
     <Compile Include="Internals\ButtonCollection.cs" />
     <Compile Include="Properties\Resources.de.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -158,6 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\256\BlurryWpfWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cursors\grab.cur" />
+    <Resource Include="Resources\Cursors\grabbing.cur" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

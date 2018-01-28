@@ -1,16 +1,18 @@
 ﻿<controls:BlurryWindow x:Class="BlurryControls.Example.BlurryMainWindow"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:control="clr-namespace:BlurryControls.Example.Control"
-                      xmlns:internals="clr-namespace:BlurryControls.Internals;assembly=BlurryControls"
-                      xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
-                      mc:Ignorable="d"
-                      Icon="pack://application:,,,/BlurryControls;component/Resources/Icons/256/BlurryWpfWindow.png"
-                      Width="800" Height="600"
-                      WindowStartupLocation="CenterScreen"
-                      Title="I am a blurry window">
+                       xmlns:internals="clr-namespace:BlurryControls.Internals;assembly=BlurryControls"
+                       xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
+                       mc:Ignorable="d"
+                       Icon="pack://application:,,,/BlurryControls;component/Resources/Icons/256/BlurryWpfWindow.png"
+                       Width="800" Height="600" 
+                       Background="DodgerBlue" Strength="0.1"
+                       BorderBrush="White" BorderThickness="1"
+                       WindowStartupLocation="CenterScreen"
+                       Title="I am a blurry window">
     <controls:BlurryWindow.AdditionalMenuBarButtons>
         <internals:ButtonCollection>
             <Button x:Name="HelloMenuBarButton"
@@ -26,11 +28,16 @@
 
     <Grid>
         <!-- sample control with basic components -->
-        <TabControl Margin="5">
+        <TabControl Margin="5"
+                    TabStripPlacement="Left">
+            <TabItem Header="BlurryUserControl">
+                <control:BlurryUserControl/>
+            </TabItem>
+            <TabItem Header="Disabled" IsEnabled="False"/>
             <TabItem Header="Tray Invoker">
                 <control:BlurryContentControl />
             </TabItem>
-            <TabItem Header="Animation" IsEnabled="False">
+            <TabItem Header="Animation">
                 <control:BlurryBackgroundAnimationControl/>
             </TabItem>
             <TabItem Header="Blurry Doge">
@@ -41,9 +48,6 @@
             </TabItem>
             <TabItem Header="Blur Behind">
                 <control:BlurBehindDialogControl/>
-            </TabItem>
-            <TabItem Header="Blurry Overlay">
-                <control:BlurryUserControl/>
             </TabItem>
         </TabControl>
     </Grid>
