@@ -126,7 +126,7 @@ namespace BlurryControls.Controls
         {
             Loaded += OnLoaded;
 
-            Background = Brushes.WhiteSmoke.OfStrength(50);
+            Background = Brushes.WhiteSmoke.OfStrength(0.2d);
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)

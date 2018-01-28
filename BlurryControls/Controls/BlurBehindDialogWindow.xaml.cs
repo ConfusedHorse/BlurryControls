@@ -284,14 +284,16 @@ namespace BlurryControls.Controls
             this.Blur();
 
             SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
-            Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            Background = Application.Current.MainWindow?.Background?.OfStrength(Strength) ??
+                         ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
             MenuBar.Background = _menuBarColor.GetBrush();
         }
 
         private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            Background = Application.Current.MainWindow?.Background?.OfStrength(Strength) ??
+                         ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
             MenuBar.Background = _menuBarColor.GetBrush();
         }
