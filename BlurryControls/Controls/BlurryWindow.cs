@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,13 +15,23 @@ using BlurryControls.Internals;
 namespace BlurryControls.Controls
 {
     /// <summary>
-    /// provides an alternative WindowBase which uses the AeroGlass effect.
-    /// Additional properties are:
-    /// <para><see cref="IsResizable"/></para>
-    /// <para><see cref="IsMenuBarVisible"/></para>
-    /// <para><see cref="Strength"/></para>
-    /// <para><see cref="CloseOnIconDoubleClick"/></para>
-    /// <para><see cref="AdditionalMenuBarButtons"/></para>
+    ///     provides an alternative WindowBase which uses the AeroGlass effect.
+    ///     Additional properties are:
+    ///     <para>
+    ///         <see cref="IsResizable" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="IsMenuBarVisible" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="Strength" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="CloseOnIconDoubleClick" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="AdditionalMenuBarButtons" />
+    ///     </para>
     /// </summary>
     public class BlurryWindow : Window
     {
@@ -45,109 +56,124 @@ namespace BlurryControls.Controls
         #region Dependency Properties
 
         public new static readonly DependencyProperty BackgroundProperty = DependencyProperty.Register(
-            "Background", typeof(SolidColorBrush), typeof(BlurryWindow), new PropertyMetadata(default(SolidColorBrush)));
+            "Background", typeof(SolidColorBrush), typeof(BlurryWindow),
+            new PropertyMetadata(default(SolidColorBrush), OnBackgroundChanged));
+
+        private static void OnBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryWindow = (BlurryWindow) d;
+            if (!Equals(blurryWindow.Background, e.NewValue)) blurryWindow.InitializeBackground();
+            blurryWindow._menuBarColor = blurryWindow.Background.OfStrength(0d).Color;
+
+            if (blurryWindow._menuBar == null) return;
+            blurryWindow._menuBar.Background = blurryWindow._menuBarColor.GetBrush();
+        }
 
         /// <summary>
-        /// gets or sets a <see cref="SolidColorBrush"/> as the <see cref="BlurryWindow"/>'s background
+        ///     gets or sets a <see cref="SolidColorBrush" /> as the <see cref="BlurryWindow" />'s background
         /// </summary>
         public new SolidColorBrush Background
         {
             get => (SolidColorBrush) GetValue(BackgroundProperty);
-            set
-            {
-                SetValue(BackgroundProperty, value);
-                _menuBarColor = Background.OfStrength(0d).Color;
-                _menuBar.Background = _menuBarColor.GetBrush();
-            }
+            set => SetValue(BackgroundProperty, value);
         }
 
         public static readonly DependencyProperty IsResizableProperty = DependencyProperty.Register(
             "IsResizable", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(true));
 
         /// <summary>
-        /// gets or sets the IsResizableProperty
-        /// the window will not be resizable if this property is set to false
+        ///     gets or sets the IsResizableProperty
+        ///     the window will not be resizable if this property is set to false
         /// </summary>
         public bool IsResizable
         {
-            get => (bool)GetValue(IsResizableProperty);
+            get => (bool) GetValue(IsResizableProperty);
             set => SetValue(IsResizableProperty, value);
         }
 
         public static readonly DependencyProperty IsMenuBarVisibleProperty = DependencyProperty.Register(
-            "IsMenuBarVisible", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(true));
+            "IsMenuBarVisible", typeof(bool), typeof(BlurryWindow),
+            new PropertyMetadata(true, OnMenuBarVisibleChanged));
+
+        private static void OnMenuBarVisibleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryWindow = (BlurryWindow) d;
+            if (!(bool) e.NewValue) blurryWindow.IsResizable = false;
+        }
 
         /// <summary>
-        /// gets or sets the IsMenuBarVisibleProperty
-        /// the MenuBar will not be accessible if this property is set to false
-        /// the window will not be resizable if this property is set to true
-        /// the window can not be closed manually if this property is set to true
+        ///     gets or sets the IsMenuBarVisibleProperty
+        ///     the MenuBar will not be accessible if this property is set to false
+        ///     the window will not be resizable if this property is set to true
+        ///     the window can not be closed manually if this property is set to true
         /// </summary>
         public bool IsMenuBarVisible
         {
-            get => (bool)GetValue(IsMenuBarVisibleProperty);
-            set
-            {
-                SetValue(IsMenuBarVisibleProperty, value);
-                if (!value) IsResizable = false;
-            }
+            get => (bool) GetValue(IsMenuBarVisibleProperty);
+            set => SetValue(IsMenuBarVisibleProperty, value);
         }
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
-            "Strength", typeof(double), typeof(BlurryWindow), new PropertyMetadata(0.5));
+            "Strength", typeof(double), typeof(BlurryWindow), new PropertyMetadata(0.5, OnStrengthChanged));
+
+        private static void OnStrengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryWindow = (BlurryWindow) d;
+
+            if (blurryWindow.Background == null) return; //just in case :D
+            var backgroundColor = blurryWindow.Background.Color.OfStrength(blurryWindow.Strength).Color;
+            blurryWindow.Background = new SolidColorBrush(backgroundColor);
+            blurryWindow._menuBarColor = blurryWindow.Background.OfStrength(0d).Color;
+
+            if (blurryWindow._menuBar == null) return;
+            blurryWindow._menuBar.Background = blurryWindow._menuBarColor.GetBrush();
+        }
 
         /// <summary>
-        /// gets or sets the StrengthProperty
-        /// the strength property determines the opacity of the window controls
-        /// it is set to 0.5 by default and may not exceed 1
+        ///     gets or sets the StrengthProperty
+        ///     the strength property determines the opacity of the window controls
+        ///     it is set to 0.5 by default and may not exceed 1
         /// </summary>
         public double Strength
         {
-            get => (double)GetValue(StrengthProperty);
-            set
-            {
-                var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
-                SetValue(StrengthProperty, correctValue);
-
-                if (Background == null) return; //just in case :D
-                var backgroundColor = Background.Color.OfStrength(Strength).Color;
-                Background = new SolidColorBrush(backgroundColor);
-                _menuBarColor = Background.OfStrength(0d).Color;
-                _menuBar.Background = _menuBarColor.GetBrush();
-            }
+            get => (double) GetValue(StrengthProperty);
+            set => SetValue(StrengthProperty, (value >= 1 ? 1 : value) <= 0 ? 0 : value);
         }
 
         public static readonly DependencyProperty CloseOnIconDoubleClickProperty = DependencyProperty.Register(
             "CloseOnIconDoubleClick", typeof(bool), typeof(BlurryWindow), new PropertyMetadata(default(bool)));
 
         /// <summary>
-        /// gets or sets the CloseOnIconDoubleClickProperty
-        /// the window can not be closed manually by performing a double click on the window icon if this property is set to false
+        ///     gets or sets the CloseOnIconDoubleClickProperty
+        ///     the window can not be closed manually by performing a double click on the window icon if this property is set to
+        ///     false
         /// </summary>
         public bool CloseOnIconDoubleClick
         {
-            get => (bool)GetValue(CloseOnIconDoubleClickProperty);
+            get => (bool) GetValue(CloseOnIconDoubleClickProperty);
             set => SetValue(CloseOnIconDoubleClickProperty, value);
         }
 
         public static readonly DependencyProperty AdditionalMenuBarButtonsProperty = DependencyProperty.Register(
-            "AdditionalMenuBarButtons", typeof(ButtonCollection), typeof(BlurryWindow), new PropertyMetadata(default(ButtonCollection)));
+            "AdditionalMenuBarButtons", typeof(ButtonCollection), typeof(BlurryWindow),
+            new PropertyMetadata(default(ButtonCollection)));
 
         /// <summary>
-        /// a button collection shown additionaly to lefthand side of the conventional window buttons
+        ///     a button collection shown additionaly to lefthand side of the conventional window buttons
         /// </summary>
         public ButtonCollection AdditionalMenuBarButtons
         {
-            get => (ButtonCollection)GetValue(AdditionalMenuBarButtonsProperty);
+            get => (ButtonCollection) GetValue(AdditionalMenuBarButtonsProperty);
             set => SetValue(AdditionalMenuBarButtonsProperty, value);
         }
 
         public static readonly DependencyProperty HorizontalTitleAlignmentProperty = DependencyProperty.Register(
-            "HorizontalTitleAlignment", typeof(HorizontalAlignment), typeof(BlurryWindow), new PropertyMetadata(HorizontalAlignment.Left));
+            "HorizontalTitleAlignment", typeof(HorizontalAlignment), typeof(BlurryWindow),
+            new PropertyMetadata(HorizontalAlignment.Left));
 
         public HorizontalAlignment HorizontalTitleAlignment
         {
-            get => (HorizontalAlignment)GetValue(HorizontalTitleAlignmentProperty);
+            get => (HorizontalAlignment) GetValue(HorizontalTitleAlignmentProperty);
             set => SetValue(HorizontalTitleAlignmentProperty, value);
         }
 
@@ -174,9 +200,9 @@ namespace BlurryControls.Controls
         {
             //initialize visual parts
             _menuBar = (Grid) GetTemplateChild("MenuBar");
-            _rightPanel = (StackPanel)GetTemplateChild("RightPanel");
-            _borderControl = (Grid)GetTemplateChild("BorderControl");
-            _titleImage = (Image)GetTemplateChild("TitleImage");
+            _rightPanel = (StackPanel) GetTemplateChild("RightPanel");
+            _borderControl = (Grid) GetTemplateChild("BorderControl");
+            _titleImage = (Image) GetTemplateChild("TitleImage");
 
             //apply visual (calming) behaviour to the MenuBar
             _menuBar.MouseEnter += MenuBarOnMouseEnter;
@@ -190,7 +216,7 @@ namespace BlurryControls.Controls
             foreach (UIElement element in _menuBar.ContextMenu.Items)
                 if (element is MenuItem menuItem)
                     menuItem.Click += ContextMenuItemOnClick;
-            
+
             //apply events to all Buttons which are children of MenuBar
             foreach (UIElement element in _rightPanel.Children)
                 if (element is Button button)
@@ -216,7 +242,10 @@ namespace BlurryControls.Controls
         {
             _customBackground = Background != null;
             if (_customBackground)
+            {
+                SystemParameters.StaticPropertyChanged -= SystemParametersOnStaticPropertyChanged;
                 Background = Background.OfStrength(Strength);
+            }
             else
             {
                 SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
@@ -225,8 +254,10 @@ namespace BlurryControls.Controls
         }
 
         // apply system color when changed
-        private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName != "WindowGlassBrush") return;
+
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
             _menuBar.Background = _menuBarColor.GetBrush();
@@ -309,12 +340,11 @@ namespace BlurryControls.Controls
             else
             {
                 IsResizable = _originalIsResizable;
-                if (_isFullScreen)
-                {
-                    _isFullScreen = false;
-                    WindowState = _lastState;
-                    IsMenuBarVisible = _originalIsMenuBarVisible;
-                }
+
+                if (!_isFullScreen) return;
+                _isFullScreen = false;
+                WindowState = _lastState;
+                IsMenuBarVisible = _originalIsMenuBarVisible;
             }
         }
 
@@ -346,7 +376,7 @@ namespace BlurryControls.Controls
             //this also enables native Windows10 gestures
             //such as Aero Snap and Aero Shake
             ReleaseCapture();
-            SendMessage(new WindowInteropHelper(this).Handle, 0xA1, (IntPtr)0x2, (IntPtr)0);
+            SendMessage(new WindowInteropHelper(this).Handle, 0xA1, (IntPtr) 0x2, (IntPtr) 0);
         }
 
         private void TitleImage_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -361,9 +391,9 @@ namespace BlurryControls.Controls
 
             // performing Interop call depending on the Rectangle tag which raised the event
             // see http://stackoverflow.com/a/25095026 (2016/08)
-            var type = (int)frameworkElement.Tag.ToString().ToEnum<ResizeDirection>();
-            if (PresentationSource.FromVisual((Visual)sender) is HwndSource hwndSource)
-                SendMessage(hwndSource.Handle, 0x112, (IntPtr)type, IntPtr.Zero);
+            var type = (int) frameworkElement.Tag.ToString().ToEnum<ResizeDirection>();
+            if (PresentationSource.FromVisual((Visual) sender) is HwndSource hwndSource)
+                SendMessage(hwndSource.Handle, 0x112, (IntPtr) type, IntPtr.Zero);
         }
 
         private void MinimizeButton_OnClick(object sender, RoutedEventArgs e)

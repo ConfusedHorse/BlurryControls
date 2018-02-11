@@ -17,19 +17,46 @@ namespace BlurryControls.Controls
     // or as a tray control Duration be set to 0 which disables automatic closing
 
     /// <summary>
-    /// contains logic for a custom tray base control
-    /// Additional properties are:
-    /// <para><see cref="Strength"/></para>
-    /// <para><see cref="DeactivatesOnLostFocus"/></para>
-    /// <para><see cref="Duration"/></para>
-    /// <para><see cref="ActivationDuration"/></para>
-    /// <para><see cref="DeactivationDuration"/></para>
+    ///     contains logic for a custom tray base control
+    ///     Additional properties are:
+    ///     <para>
+    ///         <see cref="Strength" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="DeactivatesOnLostFocus" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="Duration" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="ActivationDuration" />
+    ///     </para>
+    ///     <para>
+    ///         <see cref="DeactivationDuration" />
+    ///     </para>
     /// </summary>
     public class BlurryTray : Window
     {
+        #region Basic Functionality
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //apply blurry filter to the window
+            this.Blur();
+
+            _customBackground = Background != null;
+            //use system accent color for window (is overwritten if Background is set)
+            Background = !_customBackground
+                ? ((BlurryWindow) Application.Current.MainWindow)?.Background?.OfStrength(Strength) ??
+                  ColorHelper.SystemWindowGlassBrushOfStrength(Strength)
+                : Background.OfStrength(Strength);
+        }
+
+        #endregion
+
         #region Fields
 
-        private bool _canCloseActualWindow = false;
+        private bool _canCloseActualWindow;
         private bool _customBackground;
         private readonly DispatcherTimer _durationDispatcherTimer = new DispatcherTimer();
 
@@ -38,36 +65,39 @@ namespace BlurryControls.Controls
         #region Dependency Properties
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
-            "Strength", typeof(double), typeof(BlurryTray), new PropertyMetadata(0.75));
+            "Strength", typeof(double), typeof(BlurryTray), new PropertyMetadata(0.75, OnStrengthChanged));
+
+        private static void OnStrengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryTray = (BlurryTray) d;
+
+            if (blurryTray.Background == null) return;
+            var backgroundColor = ((SolidColorBrush) blurryTray.Background).Color
+                .OfStrength((double) e.NewValue).Color;
+            blurryTray.Background = new SolidColorBrush(backgroundColor);
+        }
 
         /// <summary>
-        /// gets or sets the StrengthProperty
-        /// the strength property determines the opacity of the window controls
-        /// it is set to 0.75 by default and may not exceed 1
+        ///     gets or sets the StrengthProperty
+        ///     the strength property determines the opacity of the window controls
+        ///     it is set to 0.75 by default and may not exceed 1
         /// </summary>
         public double Strength
         {
-            get => (double)GetValue(StrengthProperty);
-            set
-            {
-                var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
-                SetValue(StrengthProperty, correctValue);
-
-                var backgroundColor = ((SolidColorBrush)Background).Color.OfStrength(Strength).Color;
-                Background = new SolidColorBrush(backgroundColor);
-            }
+            get => (double) GetValue(StrengthProperty);
+            set => SetValue(StrengthProperty, (value >= 1 ? 1d : value) <= 0 ? 0d : value);
         }
 
         public static readonly DependencyProperty DeactivatesOnLostFocusProperty = DependencyProperty.Register(
             "DeactivatesOnLostFocus", typeof(bool), typeof(BlurryTray), new PropertyMetadata(true));
 
         /// <summary>
-        /// gets or sets the DeactivatesOnLostFocusProperty
-        /// the the window will be closed when a click outside the window is performed
+        ///     gets or sets the DeactivatesOnLostFocusProperty
+        ///     the the window will be closed when a click outside the window is performed
         /// </summary>
         public bool DeactivatesOnLostFocus
         {
-            get => (bool)GetValue(DeactivatesOnLostFocusProperty);
+            get => (bool) GetValue(DeactivatesOnLostFocusProperty);
             set => SetValue(DeactivatesOnLostFocusProperty, value);
         }
 
@@ -75,8 +105,8 @@ namespace BlurryControls.Controls
             "Duration", typeof(uint), typeof(BlurryTray), new PropertyMetadata(default(uint)));
 
         /// <summary>
-        /// gets or sets the DurationProperty
-        /// the the window will be closed after a certain amount of time
+        ///     gets or sets the DurationProperty
+        ///     the the window will be closed after a certain amount of time
         /// </summary>
         public uint Duration
         {
@@ -88,7 +118,7 @@ namespace BlurryControls.Controls
             "ActivationDuration", typeof(int), typeof(BlurryTray), new PropertyMetadata(2000));
 
         /// <summary>
-        /// Milliseconds the activation animation takes
+        ///     Milliseconds the activation animation takes
         /// </summary>
         public int ActivationDuration
         {
@@ -100,7 +130,7 @@ namespace BlurryControls.Controls
             "DeactivationDuration", typeof(int), typeof(BlurryTray), new PropertyMetadata(2000));
 
         /// <summary>
-        /// Milliseconds the deactivation animation takes
+        ///     Milliseconds the deactivation animation takes
         /// </summary>
         public int DeactivationDuration
         {
@@ -129,10 +159,7 @@ namespace BlurryControls.Controls
             Closing += TerminateTraySpecificVisualBehaviour;
             MouseLeave += OnMouseLeave;
             // close window when a click is performed outside the window
-            Deactivated += delegate
-            {
-                if (!_canCloseActualWindow && DeactivatesOnLostFocus) Close();
-            };
+            Deactivated += OnDeactivated;
         }
 
         #endregion
@@ -143,7 +170,7 @@ namespace BlurryControls.Controls
         private void InitializeDuration(object sender, RoutedEventArgs e)
         {
             if (Duration == 0) return;
-            _durationDispatcherTimer.Interval = new TimeSpan(0, 0, 0, (int)Duration);
+            _durationDispatcherTimer.Interval = new TimeSpan(0, 0, 0, (int) Duration);
             _durationDispatcherTimer.Tick += delegate
             {
                 if (!IsMouseOver) Close();
@@ -173,7 +200,7 @@ namespace BlurryControls.Controls
                 From = MaxWidth,
                 To = left,
                 Duration = new Duration(new TimeSpan(0, 0, 0, 0, ActivationDuration)),
-                EasingFunction = new ExponentialEase { Exponent = 15 }
+                EasingFunction = new ExponentialEase {Exponent = 15}
             };
 
             var opacityAnimation = new DoubleAnimation
@@ -181,7 +208,7 @@ namespace BlurryControls.Controls
                 From = 0,
                 To = 1,
                 Duration = new Duration(new TimeSpan(0, 0, 0, 0, ActivationDuration)),
-                EasingFunction = new ExponentialEase { Exponent = 15 }
+                EasingFunction = new ExponentialEase {Exponent = 15}
             };
 
             BeginAnimation(LeftProperty, easeAnimation);
@@ -189,8 +216,10 @@ namespace BlurryControls.Controls
         }
 
         // apply system color when changed
-        private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName != "WindowGlassBrush") return;
+
             Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
         }
 
@@ -211,7 +240,7 @@ namespace BlurryControls.Controls
                 From = left,
                 To = MaxWidth,
                 Duration = new Duration(new TimeSpan(0, 0, 0, 0, DeactivationDuration)),
-                EasingFunction = new ExponentialEase { Exponent = 15 }
+                EasingFunction = new ExponentialEase {Exponent = 15}
             };
 
             var opacityAnimation = new DoubleAnimation
@@ -219,7 +248,7 @@ namespace BlurryControls.Controls
                 From = 1,
                 To = 0,
                 Duration = new Duration(new TimeSpan(0, 0, 0, 0, DeactivationDuration)),
-                EasingFunction = new ExponentialEase { Exponent = 15 }
+                EasingFunction = new ExponentialEase {Exponent = 15}
             };
 
             this.UnBlur();
@@ -235,20 +264,9 @@ namespace BlurryControls.Controls
             _durationDispatcherTimer.Start();
         }
 
-        #endregion
-
-        #region Basic Functionality
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void OnDeactivated(object sender, EventArgs eventArgs)
         {
-            //apply blurry filter to the window
-            this.Blur();
-
-            _customBackground = Background != null;
-            //use system accent color for window (is overwritten if Background is set)
-            Background = !_customBackground
-                ? ColorHelper.SystemWindowGlassBrushOfStrength(Strength)
-                : Background.OfStrength(Strength);
+            if (!_canCloseActualWindow && DeactivatesOnLostFocus) Close();
         }
 
         #endregion

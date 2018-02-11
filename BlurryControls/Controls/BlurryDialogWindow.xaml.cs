@@ -19,69 +19,90 @@ namespace BlurryControls.Controls
     //for a user to answer the prompt
 
     /// <summary>
-    /// Interaction logic for BlurryDialogWindow.xaml
+    ///     Interaction logic for BlurryDialogWindow.xaml
     /// </summary>
     internal partial class BlurryDialogWindow
     {
-        #region fields
+        #region Fields
 
         private Color _menuBarColor;
 
         #endregion
 
-        #region events
+        public BlurryDialogWindow()
+        {
+            InitializeComponent();
+            Loaded += InitializeDialogSpecificVisualBehaviour;
+            Loaded += InitializeCustomDialogButtons;
+            Loaded += ApplyVisualBehaviour;
+        }
+
+        #region Events
 
         /// <summary>
-        /// a delegate that is called when an action is performed by the user
+        ///     a delegate that is called when an action is performed by the user
         /// </summary>
-        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow"/></param>
-        /// <param name="args">a preset argument list which is provided when an action is performed of type <see cref="BlurryDialogResultArgs"/></param>
+        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow" /></param>
+        /// <param name="args">
+        ///     a preset argument list which is provided when an action is performed of type
+        ///     <see cref="BlurryDialogResultArgs" />
+        /// </param>
         public delegate void BlurryDialogResultEventHandler(object sender, BlurryDialogResultArgs args);
+
         /// <summary>
-        /// an event that is raised when an action is performed by the user
+        ///     an event that is raised when an action is performed by the user
         /// </summary>
         public event BlurryDialogResultEventHandler ResultAquired;
 
         #endregion
 
-        #region dependency properties
+        #region Dependency Properties
+
+        public new static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
+            "Title", typeof(string), typeof(BlurryDialogWindow),
+            new PropertyMetadata(default(string), OnTitleChanged));
+
+        private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryDialogWindow = (BlurryDialogWindow) d;
+            blurryDialogWindow.TitleTextBlock.Text = (string) e.NewValue;
+        }
 
         /// <summary>
-        /// the caption show in the MenuBar 
+        ///     the caption show in the MenuBar
         /// </summary>
         public new string Title
         {
-            get => (string)GetValue(TitleProperty);
-            set
-            {
-                SetValue(TitleProperty, value);
-                TitleTextBlock.Text = value;
-            }
+            get => (string) GetValue(TitleProperty);
+            set => SetValue(TitleProperty, value);
         }
 
         public static readonly DependencyProperty DialogMessageProperty = DependencyProperty.Register(
-            "DialogMessage", typeof(string), typeof(BlurryDialogWindow), new PropertyMetadata(default(string)));
+            "DialogMessage", typeof(string), typeof(BlurryDialogWindow),
+            new PropertyMetadata(default(string), OnDialogMessageChanged));
+
+        private static void OnDialogMessageChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryDialogWindow = (BlurryDialogWindow) d;
+            blurryDialogWindow.DialogMessageTextBlock.Text = (string) e.NewValue;
+        }
 
         /// <summary>
-        /// gets or sets the DialogMessageProperty
-        /// an information or prompt that is shown to a user
+        ///     gets or sets the DialogMessageProperty
+        ///     an information or prompt that is shown to a user
         /// </summary>
         public string DialogMessage
         {
             get => (string) GetValue(DialogMessageProperty);
-            set
-            {
-                SetValue(DialogMessageProperty, value);
-                DialogMessageTextBlock.Text = value;
-            }
+            set => SetValue(DialogMessageProperty, value);
         }
 
         /// <summary>
-        /// an icon in the left area of the MenuBar which is currently not in use
+        ///     an icon in the left area of the MenuBar which is currently not in use
         /// </summary>
-        public new ImageSource Icon
+        internal new ImageSource Icon
         {
-            get => (ImageSource)GetValue(IconProperty);
+            get => (ImageSource) GetValue(IconProperty);
             set
             {
                 SetValue(IconProperty, value);
@@ -91,69 +112,78 @@ namespace BlurryControls.Controls
         }
 
         public static readonly DependencyProperty DialogIconProperty = DependencyProperty.Register(
-            "DialogIcon", typeof(BlurryDialogIcon), typeof(BlurryDialogWindow), new PropertyMetadata(default(BlurryDialogIcon)));
+            "DialogIcon", typeof(BlurryDialogIcon), typeof(BlurryDialogWindow),
+            new PropertyMetadata(default(BlurryDialogIcon), OnDialogIconChanged));
+
+        private static void OnDialogIconChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryDialogWindow = (BlurryDialogWindow) d;
+            blurryDialogWindow.SetDialogIconSource((BlurryDialogIcon) e.NewValue);
+        }
 
 
         /// <summary>
-        /// gets or sets the DialogIconProperty
-        /// represents a chosen value of enum <see cref="BlurryDialogIcon"/>
+        ///     gets or sets the DialogIconProperty
+        ///     represents a chosen value of enum <see cref="BlurryDialogIcon" />
         /// </summary>
         public BlurryDialogIcon DialogIcon
         {
             get => (BlurryDialogIcon) GetValue(DialogIconProperty);
-            set
-            {
-                SetValue(DialogIconProperty, value);
-                SetDialogIconSource(value);
-            }
+            set => SetValue(DialogIconProperty, value);
         }
 
         public static readonly DependencyProperty ButtonProperty = DependencyProperty.Register(
-            "Button", typeof(BlurryDialogButton), typeof(BlurryDialogWindow), new PropertyMetadata(default(BlurryDialogButton)));
+            "Button", typeof(BlurryDialogButton), typeof(BlurryDialogWindow),
+            new PropertyMetadata(default(BlurryDialogButton), OnButtonChanged));
+
+        private static void OnButtonChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryDialogWindow = (BlurryDialogWindow) d;
+            blurryDialogWindow.SetButtonSet((BlurryDialogButton) e.NewValue);
+        }
 
         /// <summary>
-        /// gets or sets the ButtonProperty
-        /// a preset composition chosen from enum <see cref="BlurryDialogButton"/>
+        ///     gets or sets the ButtonProperty
+        ///     a preset composition chosen from enum <see cref="BlurryDialogButton" />
         /// </summary>
         public BlurryDialogButton Button
         {
             get => (BlurryDialogButton) GetValue(ButtonProperty);
-            set
-            {
-                SetValue(ButtonProperty, value);
-                SetButtonSet(value);
-            }
+            set => SetValue(ButtonProperty, value);
         }
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
-            "Strength", typeof(double), typeof(BlurryDialogWindow), new PropertyMetadata(0.75));
+            "Strength", typeof(double), typeof(BlurryDialogWindow), new PropertyMetadata(0.75, OnStrengthChanged));
+
+        private static void OnStrengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryDialogWindow = (BlurryDialogWindow) d;
+
+            if (blurryDialogWindow.Background == null) return;
+            var backgroundColor = ((SolidColorBrush) blurryDialogWindow.Background).Color
+                .OfStrength((double) e.NewValue).Color;
+            blurryDialogWindow.Background = new SolidColorBrush(backgroundColor);
+            blurryDialogWindow._menuBarColor = blurryDialogWindow.Background.OfStrength(0d).Color;
+            blurryDialogWindow.MenuBar.Background = blurryDialogWindow._menuBarColor.GetBrush();
+        }
 
         /// <summary>
-        /// gets or sets the StrengthProperty
-        /// the strength property determines the opacity of the window controls
-        /// it is set to 0.75 by default and may not exceed 1
+        ///     gets or sets the StrengthProperty
+        ///     the strength property determines the opacity of the window controls
+        ///     it is set to 0.75 by default and may not exceed 1
         /// </summary>
         public double Strength
         {
-            get => (double)GetValue(StrengthProperty);
-            set
-            {
-                var correctValue = (value >= 1 ? 1 : value) <= 0 ? 0 : value;
-                SetValue(StrengthProperty, correctValue);
-                
-                if (Background == null) return;
-                var backgroundColor = ((SolidColorBrush)Background).Color.OfStrength(Strength).Color;
-                Background = new SolidColorBrush(backgroundColor);
-                _menuBarColor = Background.OfStrength(0d).Color;
-                MenuBar.Background = _menuBarColor.GetBrush();
-            }
+            get => (double) GetValue(StrengthProperty);
+            set => SetValue(StrengthProperty, (value >= 1 ? 1d : value) <= 0 ? 0d : value);
         }
 
         public static readonly DependencyProperty CustomDialogButtonsProperty = DependencyProperty.Register(
-            "CustomDialogButtons", typeof(ButtonCollection), typeof(BlurryDialogWindow), new PropertyMetadata(default(ButtonCollection)));
+            "CustomDialogButtons", typeof(ButtonCollection), typeof(BlurryDialogWindow),
+            new PropertyMetadata(default(ButtonCollection)));
 
         /// <summary>
-        /// a button collection shown instead of the conventional dialog buttons
+        ///     a button collection shown instead of the conventional dialog buttons
         /// </summary>
         public ButtonCollection CustomDialogButtons
         {
@@ -162,30 +192,25 @@ namespace BlurryControls.Controls
         }
 
         public static readonly DependencyProperty CustomContentProperty = DependencyProperty.Register(
-            "CustomContent", typeof(FrameworkElement), typeof(BlurryDialogWindow), new PropertyMetadata(default(FrameworkElement)));
+            "CustomContent", typeof(FrameworkElement), typeof(BlurryDialogWindow),
+            new PropertyMetadata(default(FrameworkElement), OnCustomContentChanged));
+
+        private static void OnCustomContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryDialogWindow = (BlurryDialogWindow) d;
+            blurryDialogWindow.CustomContentControl.Content = (FrameworkElement) e.NewValue;
+        }
 
         /// <summary>
-        /// custom content to be shown instead of a conventional dialog text and icon
+        ///     custom content to be shown instead of a conventional dialog text and icon
         /// </summary>
         public FrameworkElement CustomContent
         {
             get => (FrameworkElement) GetValue(CustomContentProperty);
-            set
-            {
-                SetValue(CustomContentProperty, value);
-                CustomContentControl.Content = value;
-            }
+            set => SetValue(CustomContentProperty, value);
         }
 
         #endregion
-
-        public BlurryDialogWindow()
-        {
-            InitializeComponent();
-            Loaded += InitializeDialogSpecificVisualBehaviour;
-            Loaded += ApplyCustomDialogButtonCloseOnClickEvents;
-            Loaded += ApplyVisualBehaviour;
-        }
 
         #region Visual Behaviour
 
@@ -236,7 +261,7 @@ namespace BlurryControls.Controls
         }
 
         private void InitializeDialogSpecificVisualBehaviour(object sender, RoutedEventArgs e)
-        {            
+        {
             //apply blurry filter to the window
             this.Blur();
 
@@ -245,10 +270,15 @@ namespace BlurryControls.Controls
                          ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
             MenuBar.Background = _menuBarColor.GetBrush();
+            
+            SetDialogIconSource(DialogIcon);
+            SetButtonSet(Button);
         }
 
         private void SystemParametersOnStaticPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
+            if (e.PropertyName != "WindowGlassBrush") return;
+
             Background = ((BlurryWindow) Application.Current.MainWindow)?.Background?.OfStrength(Strength) ??
                          ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             _menuBarColor = Background.OfStrength(0d).Color;
@@ -272,7 +302,7 @@ namespace BlurryControls.Controls
             //such as Aero Snap and Aero Shake
             ReleaseCapture();
             SendMessage(new WindowInteropHelper(this).Handle,
-                0xA1, (IntPtr)0x2, (IntPtr)0);
+                0xA1, (IntPtr) 0x2, (IntPtr) 0);
         }
 
         private void CloseButton_OnClick(object sender, RoutedEventArgs e)
@@ -282,25 +312,24 @@ namespace BlurryControls.Controls
 
         #endregion
 
-        #region dialog management
+        #region Dialog Management
 
         /// <summary>
-        /// sets the ImageSource of <see cref="Icon"/> to a value corresponding to a
-        /// chosen value <see cref="DialogIcon"/> using <see cref="IconHelper.GetDialogImage"/>
+        ///     sets the ImageSource of <see cref="Icon" /> to a value corresponding to a
+        ///     chosen value <see cref="DialogIcon" /> using <see cref="IconHelper.GetDialogImage" />
         /// </summary>
-        /// <param name="value">a chosen value of enum <see cref="BlurryDialogIcon"/></param>
+        /// <param name="value">a chosen value of enum <see cref="BlurryDialogIcon" /></param>
         private void SetDialogIconSource(BlurryDialogIcon value)
         {
             Icon = value.GetDialogImage();
-            if (value == BlurryDialogIcon.None)
-                ContentImage.Visibility = Visibility.Collapsed;
+            ContentImage.Visibility = value == BlurryDialogIcon.None ? Visibility.Collapsed : Visibility.Visible;
         }
 
         /// <summary>
-        /// sets the visibility of the buttons in ButtonGrid by a preset combination
-        /// provided by the <see cref="Button"/> property
+        ///     sets the visibility of the buttons in ButtonGrid by a preset combination
+        ///     provided by the <see cref="Button" /> property
         /// </summary>
-        /// <param name="value">a chosen value of enum <see cref="BlurryDialogButton"/></param>
+        /// <param name="value">a chosen value of enum <see cref="BlurryDialogButton" /></param>
         private void SetButtonSet(BlurryDialogButton value)
         {
             switch (value)
@@ -311,6 +340,8 @@ namespace BlurryControls.Controls
                     YesButton.Visibility = Visibility.Collapsed;
                     NoButton.Visibility = Visibility.Collapsed;
                     CancelButton.Visibility = Visibility.Collapsed;
+
+                    ButtonGrid.Visibility = Visibility.Visible;
                     break;
                 case BlurryDialogButton.OkCancel:
                     OkButton.Visibility = Visibility.Visible;
@@ -318,6 +349,8 @@ namespace BlurryControls.Controls
 
                     YesButton.Visibility = Visibility.Collapsed;
                     NoButton.Visibility = Visibility.Collapsed;
+
+                    ButtonGrid.Visibility = Visibility.Visible;
                     break;
                 case BlurryDialogButton.YesNo:
                     YesButton.Visibility = Visibility.Visible;
@@ -325,6 +358,8 @@ namespace BlurryControls.Controls
 
                     OkButton.Visibility = Visibility.Collapsed;
                     CancelButton.Visibility = Visibility.Collapsed;
+
+                    ButtonGrid.Visibility = Visibility.Visible;
                     break;
                 case BlurryDialogButton.YesNoCancel:
                     YesButton.Visibility = Visibility.Visible;
@@ -332,6 +367,8 @@ namespace BlurryControls.Controls
                     CancelButton.Visibility = Visibility.Visible;
 
                     OkButton.Visibility = Visibility.Collapsed;
+
+                    ButtonGrid.Visibility = Visibility.Visible;
                     break;
                 case BlurryDialogButton.None:
                     OkButton.Visibility = Visibility.Collapsed;
@@ -347,10 +384,13 @@ namespace BlurryControls.Controls
         }
 
         /// <summary>
-        /// raises an event of type <see cref="BlurryDialogResultEventHandler"/> when the YesButton was clicked
+        ///     raises an event of type <see cref="BlurryDialogResultEventHandler" /> when the YesButton was clicked
         /// </summary>
-        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow"/></param>
-        /// <param name="e">a preset argument list which is provided when an action is performed of type <see cref="BlurryDialogResultArgs"/></param>
+        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow" /></param>
+        /// <param name="e">
+        ///     a preset argument list which is provided when an action is performed of type
+        ///     <see cref="BlurryDialogResultArgs" />
+        /// </param>
         private void YesButton_OnClick(object sender, RoutedEventArgs e)
         {
             var resultArguments = new BlurryDialogResultArgs {Result = BlurryDialogResult.Yes};
@@ -358,64 +398,77 @@ namespace BlurryControls.Controls
         }
 
         /// <summary>
-        /// raises an event of type <see cref="BlurryDialogResultEventHandler"/> when the NoButton was clicked
+        ///     raises an event of type <see cref="BlurryDialogResultEventHandler" /> when the NoButton was clicked
         /// </summary>
-        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow"/></param>
-        /// <param name="e">a preset argument list which is provided when an action is performed of type <see cref="BlurryDialogResultArgs"/></param>
+        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow" /></param>
+        /// <param name="e">
+        ///     a preset argument list which is provided when an action is performed of type
+        ///     <see cref="BlurryDialogResultArgs" />
+        /// </param>
         private void NoButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var resultArguments = new BlurryDialogResultArgs { Result = BlurryDialogResult.No };
+            var resultArguments = new BlurryDialogResultArgs {Result = BlurryDialogResult.No};
             ResultAquired?.Invoke(this, resultArguments);
         }
 
 
         /// <summary>
-        /// raises an event of type <see cref="BlurryDialogResultEventHandler"/> when the OkButton was clicked
+        ///     raises an event of type <see cref="BlurryDialogResultEventHandler" /> when the OkButton was clicked
         /// </summary>
-        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow"/></param>
-        /// <param name="e">a preset argument list which is provided when an action is performed of type <see cref="BlurryDialogResultArgs"/></param>
+        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow" /></param>
+        /// <param name="e">
+        ///     a preset argument list which is provided when an action is performed of type
+        ///     <see cref="BlurryDialogResultArgs" />
+        /// </param>
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var resultArguments = new BlurryDialogResultArgs { Result = BlurryDialogResult.Ok };
+            var resultArguments = new BlurryDialogResultArgs {Result = BlurryDialogResult.Ok};
             ResultAquired?.Invoke(this, resultArguments);
         }
 
 
         /// <summary>
-        /// raises an event of type <see cref="BlurryDialogResultEventHandler"/> when the CancelButton was clicked
+        ///     raises an event of type <see cref="BlurryDialogResultEventHandler" /> when the CancelButton was clicked
         /// </summary>
-        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow"/></param>
-        /// <param name="e">a preset argument list which is provided when an action is performed of type <see cref="BlurryDialogResultArgs"/></param>
+        /// <param name="sender">the event raising control of type <see cref="BlurryDialogWindow" /></param>
+        /// <param name="e">
+        ///     a preset argument list which is provided when an action is performed of type
+        ///     <see cref="BlurryDialogResultArgs" />
+        /// </param>
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
         {
-            var resultArguments = new BlurryDialogResultArgs { Result = BlurryDialogResult.Cancel };
+            var resultArguments = new BlurryDialogResultArgs {Result = BlurryDialogResult.Cancel};
             ResultAquired?.Invoke(this, resultArguments);
         }
 
         /// <summary>
-        /// apply handlers to all custom buttons
+        ///     apply handlers to all custom buttons
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ApplyCustomDialogButtonCloseOnClickEvents(object sender, RoutedEventArgs e)
+        private void InitializeCustomDialogButtons(object sender, RoutedEventArgs e)
         {
             if (CustomDialogButtons == null || CustomDialogButtons.Count == 0) return;
+            Button = BlurryDialogButton.None;
+            ButtonGrid.Visibility = Visibility.Visible;
+
             foreach (var customButton in CustomDialogButtons.OfType<Button>())
                 customButton.Click += CustomButtonCloseOnClick;
+
             CustomButtonPanel.Visibility = Visibility.Visible;
         }
 
         /// <summary>
-        /// close dialog when any button is pressed
+        ///     close dialog when any button is pressed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="routedEventArgs"></param>
         private void CustomButtonCloseOnClick(object sender, RoutedEventArgs routedEventArgs)
         {
-            var resultArguments = new BlurryDialogResultArgs { Result = BlurryDialogResult.None };
+            var resultArguments = new BlurryDialogResultArgs {Result = BlurryDialogResult.None};
             ResultAquired?.Invoke(this, resultArguments);
 
-            var customButton = (Button)sender;
+            var customButton = (Button) sender;
             customButton.Click -= CustomButtonCloseOnClick;
 
             Close();
