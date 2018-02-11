@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace BlurryControls.Example.Control
@@ -8,7 +7,7 @@ namespace BlurryControls.Example.Control
     /// <summary>
     /// Interaction logic for BlurryUserControl.xaml
     /// </summary>
-    public partial class BlurryUserControl : UserControl
+    public partial class BlurryUserControl
     {
         private readonly DispatcherTimer _timeDispatcherTimer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(1)};
 

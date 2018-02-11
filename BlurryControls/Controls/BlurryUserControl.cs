@@ -12,14 +12,13 @@ using BlurryControls.Internals;
 namespace BlurryControls.Controls
 {
     /// <summary>
-    /// UserControl which appears blurry over a given <see cref="BlurContainer"/>
+    ///     UserControl which appears blurry over a given <see cref="BlurContainer" />
     /// </summary>
     //based on: https://stackoverflow.com/a/27447817/6649611 (2017/12)
-
     public class BlurryUserControl : UserControl
     {
         #region Fields
-        
+
         private Rectangle _blur;
 
         private bool _inDrag;
@@ -27,82 +26,87 @@ namespace BlurryControls.Controls
         private Size _containerSize;
         private Point _difference;
 
+        private const bool ShowUglyCurser = false;
+
         #endregion
 
         #region Dependecy Properties
 
         public static readonly DependencyProperty BlurContainerProperty = DependencyProperty.Register(
-            "BlurContainer", typeof(UIElement), typeof(BlurryUserControl), new PropertyMetadata(default(UIElement), OnBlurContainerChanged));
+            "BlurContainer", typeof(UIElement), typeof(BlurryUserControl),
+            new PropertyMetadata(default(UIElement), OnBlurContainerChanged));
 
-        private static void OnBlurContainerChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        private static void OnBlurContainerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var flipControl = (BlurryUserControl)dependencyObject;
-            flipControl.UpdateVisual();
+            var blurryUserControl = (BlurryUserControl) d;
+            blurryUserControl.UpdateVisual();
         }
 
         /// <summary>
-        /// represents the underlying element that will be blured
+        ///     represents the underlying element that will be blured
         /// </summary>
         public UIElement BlurContainer
         {
-            get => (UIElement)GetValue(BlurContainerProperty);
+            get => (UIElement) GetValue(BlurContainerProperty);
             set => SetValue(BlurContainerProperty, value);
         }
 
         public static readonly DependencyProperty BlurRadiusProperty = DependencyProperty.Register(
             "BlurRadius", typeof(int), typeof(BlurryUserControl), new PropertyMetadata(10, OnBlurRadiusChanged));
 
-        private static void OnBlurRadiusChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        private static void OnBlurRadiusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var flipControl = (BlurryUserControl)dependencyObject;
-            flipControl.UpdateVisual();
+            var blurryUserControl = (BlurryUserControl) d;
+            blurryUserControl.UpdateVisual();
         }
 
         /// <summary>
-        /// impact of the blur
+        ///     impact of the blur
         /// </summary>
         public int BlurRadius
         {
-            get => (int)GetValue(BlurRadiusProperty);
+            get => (int) GetValue(BlurRadiusProperty);
             set => SetValue(BlurRadiusProperty, value);
         }
 
         public static readonly DependencyProperty RenderingBiasProperty = DependencyProperty.Register(
-            "RenderingBias", typeof(RenderingBias), typeof(BlurryUserControl), new PropertyMetadata(RenderingBias.Quality, OnRenderingBiasChanged));
+            "RenderingBias", typeof(RenderingBias), typeof(BlurryUserControl),
+            new PropertyMetadata(RenderingBias.Quality, OnRenderingBiasChanged));
 
-        private static void OnRenderingBiasChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        private static void OnRenderingBiasChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var flipControl = (BlurryUserControl)dependencyObject;
-            flipControl.UpdateVisual();
+            var blurryUserControl = (BlurryUserControl) d;
+            blurryUserControl.UpdateVisual();
         }
 
         /// <summary>
-        /// can be changed to RenderingBias.Performance when facing performance issues
+        ///     can be changed to RenderingBias.Performance when facing performance issues
         /// </summary>
         public RenderingBias RenderingBias
         {
-            get => (RenderingBias)GetValue(RenderingBiasProperty);
+            get => (RenderingBias) GetValue(RenderingBiasProperty);
             set => SetValue(RenderingBiasProperty, value);
         }
 
         private static readonly DependencyProperty BrushProperty = DependencyProperty.Register(
             "Brush", typeof(VisualBrush), typeof(BlurryUserControl), new PropertyMetadata());
 
-        
+
         private VisualBrush Brush
         {
-            get => (VisualBrush)GetValue(BrushProperty);
+            get => (VisualBrush) GetValue(BrushProperty);
             set => SetValue(BrushProperty, value);
         }
 
         public static readonly DependencyProperty DragMoveEnabledProperty = DependencyProperty.Register(
-            "DragMoveEnabled", typeof(bool), typeof(BlurryUserControl), new PropertyMetadata(false, OnDragMoveEnabledChanged));
+            "DragMoveEnabled", typeof(bool), typeof(BlurryUserControl),
+            new PropertyMetadata(false, OnDragMoveEnabledChanged));
 
-        private static void OnDragMoveEnabledChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs args)
+        private static void OnDragMoveEnabledChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var flipControl = (BlurryUserControl)dependencyObject;
-            if ((bool) args.NewValue) flipControl.ApplyDragHandles();
-            else flipControl.RemoveDragHandles();
+            var blurryUserControl = (BlurryUserControl) d;
+            if ((bool) e.NewValue) blurryUserControl.ApplyDragHandles();
+            else blurryUserControl.RemoveDragHandles();
         }
 
         public bool DragMoveEnabled
@@ -140,11 +144,11 @@ namespace BlurryControls.Controls
         public override void OnApplyTemplate()
         {
             //initialize visual parts
-            _blur = (Rectangle)GetTemplateChild("Blur");
+            _blur = (Rectangle) GetTemplateChild("Blur");
 
             _blur?.SetBinding(Shape.FillProperty,
-                new Binding { Source = this, Path = new PropertyPath(BrushProperty) });
-            
+                new Binding {Source = this, Path = new PropertyPath(BrushProperty)});
+
             base.OnApplyTemplate();
         }
 
@@ -174,7 +178,10 @@ namespace BlurryControls.Controls
 
         private void OnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
         {
-            Cursor = DragCursor.Grab.GetCursor();
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+#pragma warning disable 162
+            if (ShowUglyCurser) Cursor = DragCursor.Grab.GetCursor();
+#pragma warning restore 162
         }
 
         private void OnMouseMove(object sender, MouseEventArgs args)
@@ -212,7 +219,10 @@ namespace BlurryControls.Controls
             _inDrag = true;
             args.Handled = true;
 
-            Cursor = DragCursor.Grabbing.GetCursor();
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+#pragma warning disable 162
+            if (ShowUglyCurser) Cursor = DragCursor.Grabbing.GetCursor();
+#pragma warning restore 162
         }
 
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
@@ -222,7 +232,10 @@ namespace BlurryControls.Controls
             _inDrag = false;
             args.Handled = true;
 
-            Cursor = DragCursor.Grab.GetCursor();
+            // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+#pragma warning disable 162
+            if (ShowUglyCurser) Cursor = DragCursor.Grab.GetCursor();
+#pragma warning restore 162
         }
 
         #endregion
@@ -254,7 +267,7 @@ namespace BlurryControls.Controls
 
             if (BlurContainer != null && _blur != null)
             {
-                Brush = new VisualBrush(BlurContainer) { ViewboxUnits = BrushMappingMode.Absolute };
+                Brush = new VisualBrush(BlurContainer) {ViewboxUnits = BrushMappingMode.Absolute};
 
                 BlurContainer.LayoutUpdated += OnContainerLayoutUpdated;
                 RefreshBounds();

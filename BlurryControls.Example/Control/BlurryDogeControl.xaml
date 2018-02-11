@@ -20,12 +20,12 @@
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Center"
                                  Source="../Resources/TestImage/doge.jpeg"
-                                 BlurRadius="50"/>
-            <Slider Minimum="0"
+                                 BlurRadius="{Binding Value, ElementName=BlurSlider}"/>
+            <Slider x:Name="BlurSlider"
+                    Minimum="0"
                     Maximum="100"
                     Value="50"
-                    Width="{StaticResource ExampleSize}"
-                    ValueChanged="RangeBase_OnValueChanged"/>
+                    Width="{StaticResource ExampleSize}"/>
         </StackPanel>
     </Grid>
 </UserControl>

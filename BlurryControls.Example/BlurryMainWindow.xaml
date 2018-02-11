@@ -9,7 +9,7 @@
                        mc:Ignorable="d"
                        Icon="pack://application:,,,/BlurryControls;component/Resources/Icons/256/BlurryWpfWindow.png"
                        Width="800" Height="600" 
-                       Background="DodgerBlue" Strength="0.1"
+                       Background="{x:Null}" Strength="0.1"
                        BorderBrush="White" BorderThickness="1"
                        WindowStartupLocation="CenterScreen"
                        Title="I am a blurry window">

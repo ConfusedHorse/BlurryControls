@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace BlurryControls.Example.Control
 {
@@ -11,11 +10,6 @@ namespace BlurryControls.Example.Control
         public BlurryDogeControl()
         {
             InitializeComponent();
-        }
-
-        private void RangeBase_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            BlurryDoge.BlurRadius = e.NewValue;
         }
     }
 }
