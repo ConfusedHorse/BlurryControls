@@ -165,8 +165,12 @@
     <Resource Include="Resources\Icons\256\BlurryWpfWindow.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Cursors\grab.cur" />
-    <Resource Include="Resources\Cursors\grabbing.cur" />
+    <Resource Include="Resources\Icons\Cursors\grab.cur" />
+    <Resource Include="Resources\Icons\Cursors\grabbing.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Colors\rgbMatrix1000.png" />
+    <Resource Include="Resources\Icons\Colors\rgbMatrixActualColors.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
