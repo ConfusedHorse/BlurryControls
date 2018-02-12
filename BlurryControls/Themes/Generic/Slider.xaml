@@ -94,12 +94,10 @@
             </Grid.RowDefinitions>
             <TickBar x:Name="TopTick"
                      SnapsToDevicePixels="True"
+                     Fill="{TemplateBinding Foreground}"
                      Placement="Top"
                      Height="4"
                      Visibility="Collapsed">
-                <TickBar.Fill>
-                    <SolidColorBrush Color="{StaticResource GeneralStrongerBackgroundColor}" />
-                </TickBar.Fill>
             </TickBar>
             <Rectangle x:Name="TrackBackground"
                        Opacity="{StaticResource IdleOpacity}"
@@ -122,8 +120,8 @@
                 </Track.IncreaseRepeatButton>
             </Track>
             <TickBar x:Name="BottomTick"
-                     SnapsToDevicePixels="True"
                      Grid.Row="2"
+                     SnapsToDevicePixels="True"
                      Fill="{TemplateBinding Foreground}"
                      Placement="Bottom"
                      Height="4"
@@ -149,6 +147,16 @@
                                          Storyboard.TargetProperty="Opacity"
                                          FillBehavior="HoldEnd"
                                          Duration="0:0:0.5" />
+                        <DoubleAnimation To="1.0"
+                                         Storyboard.TargetName="TopTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
+                                         Duration="0:0:0.5" />
+                        <DoubleAnimation To="1.0"
+                                         Storyboard.TargetName="BottomTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
+                                         Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -160,6 +168,16 @@
                                          Storyboard.TargetName="TrackBackground"
                                          Storyboard.TargetProperty="Opacity"
                                          FillBehavior="Stop"
+                                         Duration="0:0:0.5" />
+                        <DoubleAnimation To="{StaticResource IdleOpacity}"
+                                         Storyboard.TargetName="TopTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
+                                         Duration="0:0:0.5" />
+                        <DoubleAnimation To="{StaticResource IdleOpacity}"
+                                         Storyboard.TargetName="BottomTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
                                          Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
@@ -187,12 +205,10 @@
             </Grid.ColumnDefinitions>
             <TickBar x:Name="TopTick"
                      SnapsToDevicePixels="True"
+                     Fill="{TemplateBinding Foreground}"
                      Placement="Left"
                      Width="4"
                      Visibility="Collapsed">
-                <TickBar.Fill>
-                    <SolidColorBrush Color="{StaticResource GeneralStrongerBackgroundColor}" />
-                </TickBar.Fill>
             </TickBar>
             <Rectangle x:Name="TrackBackground"
                        Opacity="{StaticResource IdleOpacity}"
@@ -215,8 +231,8 @@
                 </Track.IncreaseRepeatButton>
             </Track>
             <TickBar x:Name="BottomTick"
-                     SnapsToDevicePixels="True"
                      Grid.Column="2"
+                     SnapsToDevicePixels="True"
                      Fill="{TemplateBinding Foreground}"
                      Placement="Right"
                      Width="4"
@@ -242,6 +258,16 @@
                                          Storyboard.TargetProperty="Opacity"
                                          FillBehavior="HoldEnd"
                                          Duration="0:0:0.5" />
+                        <DoubleAnimation To="1.0"
+                                         Storyboard.TargetName="TopTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
+                                         Duration="0:0:0.5" />
+                        <DoubleAnimation To="1.0"
+                                         Storyboard.TargetName="BottomTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
+                                         Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
@@ -253,6 +279,16 @@
                                          Storyboard.TargetName="TrackBackground"
                                          Storyboard.TargetProperty="Opacity"
                                          FillBehavior="Stop"
+                                         Duration="0:0:0.5" />
+                        <DoubleAnimation To="{StaticResource IdleOpacity}"
+                                         Storyboard.TargetName="TopTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
+                                         Duration="0:0:0.5" />
+                        <DoubleAnimation To="{StaticResource IdleOpacity}"
+                                         Storyboard.TargetName="BottomTick"
+                                         Storyboard.TargetProperty="Opacity"
+                                         FillBehavior="HoldEnd"
                                          Duration="0:0:0.5" />
                     </Storyboard>
                 </BeginStoryboard>
