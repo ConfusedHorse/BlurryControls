@@ -9,7 +9,6 @@
                        mc:Ignorable="d"
                        Icon="pack://application:,,,/BlurryControls;component/Resources/Icons/256/BlurryWpfWindow.png"
                        Width="800" Height="600" 
-                       Background="{x:Null}" Strength="0.1"
                        BorderBrush="White" BorderThickness="1"
                        WindowStartupLocation="CenterScreen"
                        Title="I am a blurry window">
@@ -30,16 +29,13 @@
         <!-- sample control with basic components -->
         <TabControl Margin="5"
                     TabStripPlacement="Left">
+            <TabItem Header="Blurry Essentials">
+                <control:BlurryContentControl />
+            </TabItem>
             <TabItem Header="BlurryUserControl">
                 <control:BlurryUserControl/>
             </TabItem>
             <TabItem Header="Disabled" IsEnabled="False"/>
-            <TabItem Header="Tray Invoker">
-                <control:BlurryContentControl />
-            </TabItem>
-            <TabItem Header="Animation">
-                <control:BlurryBackgroundAnimationControl/>
-            </TabItem>
             <TabItem Header="Blurry Doge">
                 <control:BlurryDogeControl />
             </TabItem>
