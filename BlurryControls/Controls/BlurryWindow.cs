@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -62,8 +61,8 @@ namespace BlurryControls.Controls
         private static void OnBackgroundChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var blurryWindow = (BlurryWindow) d;
-            if (!Equals(blurryWindow.Background, e.NewValue)) blurryWindow.InitializeBackground();
-            blurryWindow._menuBarColor = blurryWindow.Background.OfStrength(0d).Color;
+            if (!Equals(blurryWindow.PrivateBackground, e.NewValue)) blurryWindow.InitializeBackground();
+            blurryWindow._menuBarColor = blurryWindow.PrivateBackground.OfStrength(0d).Color;
 
             if (blurryWindow._menuBar == null) return;
             blurryWindow._menuBar.Background = blurryWindow._menuBarColor.GetBrush();
@@ -76,6 +75,15 @@ namespace BlurryControls.Controls
         {
             get => (SolidColorBrush) GetValue(BackgroundProperty);
             set => SetValue(BackgroundProperty, value);
+        }
+
+        internal static readonly DependencyProperty PrivateBackgroundProperty = DependencyProperty.Register(
+            "PrivateBackground", typeof(SolidColorBrush), typeof(BlurryWindow), new PropertyMetadata(default(SolidColorBrush)));
+
+        internal SolidColorBrush PrivateBackground
+        {
+            get => (SolidColorBrush) GetValue(PrivateBackgroundProperty);
+            set => SetValue(PrivateBackgroundProperty, value);
         }
 
         public static readonly DependencyProperty IsResizableProperty = DependencyProperty.Register(
@@ -244,12 +252,12 @@ namespace BlurryControls.Controls
             if (_customBackground)
             {
                 SystemParameters.StaticPropertyChanged -= SystemParametersOnStaticPropertyChanged;
-                Background = Background.OfStrength(Strength);
+                PrivateBackground = Background.OfStrength(Strength);
             }
             else
             {
                 SystemParameters.StaticPropertyChanged += SystemParametersOnStaticPropertyChanged;
-                Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+                PrivateBackground = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
             }
         }
 
@@ -258,8 +266,8 @@ namespace BlurryControls.Controls
         {
             if (e.PropertyName != "WindowGlassBrush") return;
 
-            Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
-            _menuBarColor = Background.OfStrength(0d).Color;
+            PrivateBackground = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            _menuBarColor = PrivateBackground.OfStrength(0d).Color;
             _menuBar.Background = _menuBarColor.GetBrush();
         }
 
@@ -268,7 +276,7 @@ namespace BlurryControls.Controls
             var colorTargetPath = new PropertyPath("(Panel.Background).(SolidColorBrush.Color)");
             var menuBarMouseEnterAnimation = new ColorAnimation
             {
-                To = Background.GetColor(),
+                To = PrivateBackground.GetColor(),
                 FillBehavior = FillBehavior.HoldEnd,
                 Duration = new Duration(TimeSpan.FromMilliseconds(500))
             };
