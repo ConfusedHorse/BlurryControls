@@ -8,13 +8,21 @@ namespace BlurryControls.Helpers
 {
     internal static class IconHelper
     {
+        #region Fields
+
+        private const string PackagePrefix = @"pack://application:,,,/BlurryControls;component/Resources/Icons/";
+
+        #endregion
+
         #region Dialog
 
+        private const string Dialog = @"064/";
+
         //icon paths for BlurryDialogWindow presentation
-        private const string RelativeQuestionIconPath = @"pack://application:,,,/BlurryControls;component/Resources/Icons/064/question.png";
-        private const string RelativeInformationIconPath = @"pack://application:,,,/BlurryControls;component/Resources/Icons/064/information.png";
-        private const string RelativeWarningIconPath = @"pack://application:,,,/BlurryControls;component/Resources/Icons/064/warning.png";
-        private const string RelativeErrorIconPath = @"pack://application:,,,/BlurryControls;component/Resources/Icons/064/error.png";
+        private const string RelativeQuestionIcon = @"question.png";
+        private const string RelativeInformationIcon = @"information.png";
+        private const string RelativeWarningIcon = @"warning.png";
+        private const string RelativeErrorIcon = @"error.png";
 
         /// <summary>
         /// returns a <see cref="BitmapImage"/> which is provided by a viable input <see cref="BlurryDialogIcon"/> value
@@ -31,13 +39,13 @@ namespace BlurryControls.Helpers
                 case BlurryDialogIcon.None:
                     return null;
                 case BlurryDialogIcon.Question:
-                    return RelativeQuestionIconPath.GetImageSource();
+                    return RelativeQuestionIcon.GetImageSource(Dialog);
                 case BlurryDialogIcon.Information:
-                    return RelativeInformationIconPath.GetImageSource();
+                    return RelativeInformationIcon.GetImageSource(Dialog);
                 case BlurryDialogIcon.Warning:
-                    return RelativeWarningIconPath.GetImageSource();
+                    return RelativeWarningIcon.GetImageSource(Dialog);
                 case BlurryDialogIcon.Error:
-                    return RelativeErrorIconPath.GetImageSource();
+                    return RelativeErrorIcon.GetImageSource(Dialog);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(icon), icon, null);
             }
@@ -47,8 +55,10 @@ namespace BlurryControls.Helpers
 
         #region Cursor
 
-        private const string GrabCursorPath = @"pack://application:,,,/BlurryControls;component/Resources/Cursors/grab.cur";
-        private const string GrabbingCursorPath = @"pack://application:,,,/BlurryControls;component/Resources/Cursors/grabbing.cur";
+        private const string Cursors = @"Cursors/";
+
+        private const string GrabCursor = @"grab.cur";
+        private const string GrabbingCursor = @"grabbing.cur";
 
         public static Cursor GetCursor(this DragCursor cursor)
         {
@@ -56,12 +66,12 @@ namespace BlurryControls.Helpers
             {
                 case DragCursor.Grab:
                     return new Cursor(
-                        Application.GetResourceStream(new Uri(GrabCursorPath))?.Stream ??
+                        Application.GetResourceStream(GrabCursor.GetImagePath(Cursors).ToUri())?.Stream ??
                         throw new InvalidOperationException()
                     );
                 case DragCursor.Grabbing:
                     return new Cursor(
-                        Application.GetResourceStream(new Uri(GrabbingCursorPath))?.Stream ??
+                        Application.GetResourceStream(GrabbingCursor.GetImagePath(Cursors).ToUri())?.Stream ??
                         throw new InvalidOperationException()
                     );
                 default:
@@ -71,14 +81,35 @@ namespace BlurryControls.Helpers
 
         #endregion
 
+        #region Private Methods
+
         /// <summary>
         /// returns a new instance of a <see cref="BitmapImage"/> with the given icon path as <see cref="string"/>
         /// </summary>
-        /// <param name="packageSource">given icon path as <see cref="string"/></param>
-        /// <returns>a new instance of a <see cref="BitmapImage"/> with the given icon path as <see cref="string"/></returns>
-        private static BitmapImage GetImageSource(this string packageSource)
+        /// <param name="identifier">given image path as <see cref="string"/></param>
+        /// <param name="directory">name of the directory in the package"/></param>
+        /// <param name="packagePrefix">path to the package the image is found in</param>
+        /// <returns></returns>
+        private static BitmapImage GetImageSource(this string identifier, string directory, string packagePrefix = PackagePrefix)
         {
-            return new BitmapImage(new Uri(packageSource));
+            return GetImagePath(identifier, directory, packagePrefix).ToUri().ToBitmap();
         }
+
+        private static string GetImagePath(this string identifier, string directory, string packagePrefix = PackagePrefix)
+        {
+            return $"{packagePrefix}{directory}{identifier}";
+        }
+
+        private static BitmapImage ToBitmap(this Uri uri)
+        {
+            return new BitmapImage(uri);
+        }
+
+        private static Uri ToUri(this string uri)
+        {
+            return new Uri(uri);
+        }
+
+        #endregion
     }
 }
