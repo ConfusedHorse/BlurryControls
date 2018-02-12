@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Brushes.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Constants.xaml" />
         <ResourceDictionary Source="pack://application:,,,/BlurryControls;component/Themes/Generic/Text.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
@@ -34,7 +35,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
-                    <Border Name="Border" >
+                    <Border Name="Border"
+                            Background="{StaticResource GeneralWeakBackgroundBrush}">
                         <Grid Margin="2.5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" SharedSizeGroup="Icon"/>
@@ -88,20 +90,58 @@
                         <Trigger Property="Icon" Value="{x:Null}">
                             <Setter TargetName="Icon" Property="Visibility" Value="Hidden"/>
                         </Trigger>
+                        
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
                         </Trigger>
+                        
                         <Trigger Property="IsCheckable" Value="True">
                             <Setter TargetName="Check" Property="Visibility" Value="Visible"/>
                             <Setter TargetName="Icon" Property="Visibility" Value="Hidden"/>
                         </Trigger>
-                        <Trigger Property="IsHighlighted" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource InvertedTransparentSystemWindowGlassColor}"/>
+                        
+                        <!--<Trigger Property="IsHighlighted" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="{StaticResource TransparentSystemWindowGlassColor}"/>
+                        </Trigger>-->
+                        
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="UIElement.Effect" TargetName="Border">
+                                <Setter.Value>
+                                    <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
+
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="Icon" Value="0.5"/>
-                            <Setter Property="Opacity" TargetName="Header" Value="0.5"/>
+                            <Setter Property="Effect" TargetName="Border">
+                                <Setter.Value>
+                                    <BlurEffect Radius="{StaticResource DisabledBlurRadius}"/>
+                                </Setter.Value>
+                            </Setter>
+                            <!--<Setter Property="Opacity" TargetName="Border" Value="0.5"/>-->
                         </Trigger>
+                        
+                        <EventTrigger RoutedEvent="Border.MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard TargetName="Border">
+                                    <ColorAnimation To="{StaticResource WindowButtonFocusColor}"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    FillBehavior="HoldEnd"
+                                                    Duration="0:0:0.5" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+
+                        <EventTrigger RoutedEvent="Border.MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard TargetName="Border">
+                                    <ColorAnimation To="{StaticResource WindowButtonBackgroundColor}"
+                                                    Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                    FillBehavior="Stop"
+                                                    Duration="0:0:0.5" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
