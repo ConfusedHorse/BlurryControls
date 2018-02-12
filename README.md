@@ -5,7 +5,7 @@ Please consider that this library runs on Windows 10 only! On Windows 8.1 or old
 
 If you have suggestions or questions, feel free to contact me. :)
 
-![A screenshot of the example project](https://i.imgur.com/XjKjmdK.jpg)
+![A screenshot of the example project](https://i.imgur.com/QksmG7Q.png)
 
 It is availlable on NuGet via: `PM> Install-Package BlurryControls`
 
