@@ -81,6 +81,14 @@ namespace BlurryControls.Helpers
 
         #endregion
 
+        #region Color Matrix
+
+        private const string Color = @"Colors/";
+
+        public static BitmapImage ReferenceColors => "rgbMatrixActualColors.png".GetImageSource(Color);
+
+        #endregion
+
         #region Private Methods
 
         /// <summary>
