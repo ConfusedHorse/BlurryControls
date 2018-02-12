@@ -1,7 +1,6 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
-using BlurryControls.DialogFactory;
-using BlurryControls.Internals;
+using System.Windows.Media;
+using BlurryControls.Controls;
 
 namespace BlurryControls.Example.Control
 {
@@ -9,7 +8,7 @@ namespace BlurryControls.Example.Control
     /// Interaction logic for BlurryContentControl.xaml
     /// Contains some simple logic to demonstrate the BlurryWindow control
     /// </summary>
-    public partial class BlurryContentControl : UserControl
+    public partial class BlurryContentControl
     {
         public BlurryContentControl()
         {
@@ -18,17 +17,19 @@ namespace BlurryControls.Example.Control
 
         private void SampleInvokeButton_OnClick(object sender, RoutedEventArgs e)
         {
-            //show a sample dialog
-            var mainWindow = Application.Current.MainWindow;
-            var result = BlurryMessageBox.Show(mainWindow,
-                "By pressing OK a sample TrayControl will show up for the duration of 5 seconds, or until you click somewhere else.",
-                "This is a MessageBox!", BlurryDialogButton.Ok, BlurryDialogIcon.Information);
-            // show a sample tray control when ok is clicked
-            if (result == BlurryDialogResult.Ok)
-            {
-                var tray = new InvokedTrayWindow();
-                tray.Show();
-            }
+            new InvokedTrayWindow().Show();
+        }
+
+        private void BlurryColorPicker_OnColorChanged(object sender, Color color)
+        {
+            if (Application.Current.MainWindow is BlurryWindow mainWindow)
+                mainWindow.Background = new SolidColorBrush(color);
+        }
+
+        private void ResetBackground_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow is BlurryWindow mainWindow)
+                mainWindow.Background = null;
         }
     }
 }
