@@ -52,6 +52,9 @@
       <DependentUpon>BlurryDialogWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\BlurryUserControl.cs" />
+    <Compile Include="Controls\BlurryColorPicker.xaml.cs">
+      <DependentUpon>BlurryColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DialogFactory\BlurBehindMessageBox.cs" />
     <Compile Include="Helpers\BlurryHelper.cs" />
     <Compile Include="Helpers\SizeHelper.cs" />
@@ -87,6 +90,10 @@
     <Page Include="Controls\BlurryDialogWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\BlurryColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic\BlurryUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>
