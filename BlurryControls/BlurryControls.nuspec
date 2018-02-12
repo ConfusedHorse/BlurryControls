@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>BlurryControls</id>
-    <version>1.0.21</version>
+    <version>1.0.22</version>
     <title>BlurryControls</title>
     <authors>Jörg Flechsig</authors>
     <owners>Jörg Flechsig</owners>
@@ -14,7 +14,12 @@
 		BlurryControls library provides a variety of controls with a blurry effect known from the Microsoft AeroGlass/Acrylic design
 For more information please have a look at the Wiki at https://github.com/ConfusedHorse/BlurryControls/wiki
 	</description>
-    <releaseNotes>(bugfix on) new messageBox overloads (1.0.20)</releaseNotes>
+    <releaseNotes>BlurryMessageBox fallback values
+	improved BlurryUserControl
+	fixed TabControl appearance
+	BlurryDialog, BlurBehindDialog, TrayWindow now sync background with MainWindow
+	adder Slider styles
+	all properties can now be changed at runtime</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>blurry wpf control window blur aero acrylic</tags>
   </metadata>
