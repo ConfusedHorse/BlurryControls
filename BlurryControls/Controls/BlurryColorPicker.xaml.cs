@@ -115,7 +115,7 @@ namespace BlurryControls.Controls
         private void RgbMatrixCanvas_OnMouseEnter(object sender, MouseEventArgs e)
         {
             _isMouseDown = Mouse.LeftButton == MouseButtonState.Pressed;
-            Mouse.OverrideCursor = Cursors.None;
+            Cursor = Cursors.None;
 
             YLine.Visibility = Visibility.Visible;
             XLine.Visibility = Visibility.Visible;
@@ -127,7 +127,7 @@ namespace BlurryControls.Controls
         private void RgbMatrixCanvas_OnMouseLeave(object sender, MouseEventArgs e)
         {
             _isMouseDown = false;
-            Mouse.OverrideCursor = Cursors.Arrow;
+            Cursor = Cursors.Arrow;
 
             YLine.Visibility = Visibility.Collapsed;
             XLine.Visibility = Visibility.Collapsed;
