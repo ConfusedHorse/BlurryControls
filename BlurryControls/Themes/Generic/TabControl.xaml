@@ -32,12 +32,14 @@
                                       BorderThickness="0"
                                       Grid.Column="0"
                                       Grid.Row="0"
+                                      FocusVisualStyle="{x:Null}"
                                       SnapsToDevicePixels="True">
                             <TabPanel x:Name="HeaderTabPanelLeftRight" 
                                       IsItemsHost="True"
                                       Panel.ZIndex="1"
                                       KeyboardNavigation.TabIndex="1"
-                                      SnapsToDevicePixels="True"/>
+                                      SnapsToDevicePixels="True"
+                                      FocusVisualStyle="{x:Null}"/>
                         </ScrollViewer>
 
                         <TabPanel x:Name="HeaderTabPanelTopBottom" 
@@ -47,23 +49,27 @@
                                   Grid.Row="0"
                                   IsItemsHost="True"
                                   Panel.ZIndex="1"
+                                  FocusVisualStyle="{x:Null}"
                                   KeyboardNavigation.TabIndex="1" />
 
                         <Grid x:Name="ContentPanel"
                               KeyboardNavigation.TabIndex="2"
                               KeyboardNavigation.TabNavigation="Local"
                               KeyboardNavigation.DirectionalNavigation="Contained"
+                              Focusable="False"
                               Grid.Column="0"
                               Grid.Row="1">
                             <Border Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Focusable="False">
                                 <ContentPresenter Content="{TemplateBinding SelectedContent}"
                                                   ContentTemplate="{TemplateBinding SelectedContentTemplate}"
                                                   ContentStringFormat="{TemplateBinding SelectedContentStringFormat}"
                                                   ContentSource="SelectedContent"
                                                   Name="PART_SelectedContentHost"
                                                   Margin="2"
+                                                  Focusable="False"
                                                   SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
                             </Border>
                         </Grid>
@@ -139,6 +145,7 @@
     <Style x:Key="TabItemContentBorderStyle" TargetType="{x:Type Border}">
         <Setter Property="BorderBrush" Value="{StaticResource GeneralBackgroundBrush}" />
         <Setter Property="Background" Value="{StaticResource GeneralStrongerBackgroundBrush}" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderThickness" Value="0" />
         <Style.Triggers>

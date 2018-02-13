@@ -13,7 +13,7 @@
 
     <!-- style for a transparent rectangle -->
     <Style x:Key="WindowBorderGrab" TargetType="Rectangle">
-        <Setter Property="Focusable" Value="False" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Fill" Value="Transparent" />
     </Style>
 
