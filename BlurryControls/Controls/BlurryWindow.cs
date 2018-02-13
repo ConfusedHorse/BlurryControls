@@ -128,10 +128,10 @@ namespace BlurryControls.Controls
         {
             var blurryWindow = (BlurryWindow) d;
 
-            if (blurryWindow.Background == null) return; //just in case :D
-            var backgroundColor = blurryWindow.Background.Color.OfStrength(blurryWindow.Strength).Color;
-            blurryWindow.Background = new SolidColorBrush(backgroundColor);
-            blurryWindow._menuBarColor = blurryWindow.Background.OfStrength(0d).Color;
+            if (blurryWindow.PrivateBackground == null) return; //just in case :D
+            var backgroundColor = blurryWindow.PrivateBackground.Color.OfStrength(blurryWindow.Strength).Color;
+            blurryWindow.PrivateBackground = new SolidColorBrush(backgroundColor);
+            blurryWindow._menuBarColor = blurryWindow.PrivateBackground.OfStrength(0d).Color;
 
             if (blurryWindow._menuBar == null) return;
             blurryWindow._menuBar.Background = blurryWindow._menuBarColor.GetBrush();
