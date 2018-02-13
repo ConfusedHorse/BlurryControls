@@ -51,6 +51,7 @@
     <Compile Include="Controls\BlurryDialogWindow.xaml.cs">
       <DependentUpon>BlurryDialogWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\BlurrySlider.cs" />
     <Compile Include="Controls\BlurryUserControl.cs" />
     <Compile Include="Controls\BlurryColorPicker.xaml.cs">
       <DependentUpon>BlurryColorPicker.xaml</DependentUpon>
