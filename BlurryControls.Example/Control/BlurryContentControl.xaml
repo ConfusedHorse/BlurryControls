@@ -14,19 +14,18 @@
                         Margin="5">
                 <TextBlock Text="{Binding Value, ElementName=StrengthSlider, Mode=OneWay, StringFormat='Strength: ({0:N2})'}"
                            Margin="5"/>
-                <Slider x:Name="StrengthSlider" 
-                        Minimum="0.0"
-                        Maximum="1.0"
-                        AutoToolTipPlacement="BottomRight" 
-                        AutoToolTipPrecision="2"
-                        TickFrequency="0.05"
-                        TickPlacement="BottomRight"
-                        Foreground="White"
-                        Value="{Binding Strength, 
-                                    RelativeSource={RelativeSource FindAncestor, 
-                                                                   AncestorType=controls:BlurryWindow},
-                                    Mode=TwoWay}"
-                        Margin="5"/>
+                <controls:BlurrySlider x:Name="StrengthSlider" 
+                                       Minimum="0.0"
+                                       Maximum="1.0"
+                                       AutoToolTipPlacement="BottomRight" 
+                                       AutoToolTipPrecision="2"
+                                       TickFrequency="0.05"
+                                       TickPlacement="BottomRight"
+                                       IsMoveToPointEnabled="True"
+                                       Foreground="White"
+                                       Value="{Binding Strength, RelativeSource={RelativeSource FindAncestor, 
+                                                            AncestorType=controls:BlurryWindow}, Mode=TwoWay}"
+                                       Margin="5"/>
             </StackPanel>
 
             <StackPanel Orientation="Vertical"
