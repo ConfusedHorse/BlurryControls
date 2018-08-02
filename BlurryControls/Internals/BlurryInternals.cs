@@ -20,11 +20,11 @@ namespace BlurryControls.Internals
     //see https://github.com/riverar/sample-win10-aeroglass (2016/08)
     internal enum AccentState
     {
-        ACCENT_DISABLED = 0,
-        ACCENT_ENABLE_GRADIENT = 1,
-        ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-        ACCENT_ENABLE_BLURBEHIND = 3,
-        ACCENT_INVALID_STATE = 4
+        AccentDisabled = 0,
+        AccentEnableGradient = 1,
+        AccentEnableTransparentgradient = 2,
+        AccentEnableBlurbehind = 3,
+        AccentInvalidState = 4
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -47,14 +47,14 @@ namespace BlurryControls.Internals
     internal enum WindowCompositionAttribute
     {
         // ...
-        WCA_ACCENT_POLICY = 19
+        WcaAccentPolicy = 19
         // ...
     }
 
     //following (partial) enums are used to enable the aeroglass effect using Windows7/8 
     //see https://coldjackle.wordpress.com/2012/07/17/c-aero-glass/ (2016/10)
     [StructLayout(LayoutKind.Sequential)]
-    internal struct MARGINS
+    internal struct Margins
     {
         public int cxLeftWidth;      // width of left border that retains its size
         public int cxRightWidth;     // width of right border that retains its size

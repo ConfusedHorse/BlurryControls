@@ -11,63 +11,62 @@ namespace BlurryControls.Helpers
             https://codekong.wordpress.com/2010/11/10/custom-window-style-and-accounting-for-the-taskbar/
         */
 
-        public enum ABEdge
+        public enum AbEdge
         {
-            ABE_LEFT = 0,
-            ABE_TOP = 1,
-            ABE_RIGHT = 2,
-            ABE_BOTTOM = 3
+            AbeLeft = 0,
+            AbeTop = 1,
+            AbeRight = 2,
+            AbeBottom = 3
         }
 
-        public enum ABMsg
+        public enum AbMsg
         {
-            ABM_NEW = 0,
-            ABM_REMOVE = 1,
-            ABM_QUERYPOS = 2,
-            ABM_SETPOS = 3,
-            ABM_GETSTATE = 4,
-            ABM_GETTASKBARPOS = 5,
-            ABM_ACTIVATE = 6,
-            ABM_GETAUTOHIDEBAR = 7,
-            ABM_SETAUTOHIDEBAR = 8,
-            ABM_WINDOWPOSCHANGED = 9,
-            ABM_SETSTATE = 10
+            AbmNew = 0,
+            AbmRemove = 1,
+            AbmQuerypos = 2,
+            AbmSetpos = 3,
+            AbmGetstate = 4,
+            AbmGettaskbarpos = 5,
+            AbmActivate = 6,
+            AbmGetautohidebar = 7,
+            AbmSetautohidebar = 8,
+            AbmWindowposchanged = 9,
+            AbmSetstate = 10
         }
 
-        private const int MONITOR_DEFAULTTONEAREST = 0x00000002;
+        private const int MonitorDefaulttOnNearest = 0x00000002;
 
-        private static MINMAXINFO AdjustWorkingAreaForAutoHide(IntPtr monitorContainingApplication, MINMAXINFO mmi)
+        private static Minmaxinfo AdjustWorkingAreaForAutoHide(IntPtr monitorContainingApplication, Minmaxinfo mmi)
         {
             var hwnd = FindWindow("Shell_TrayWnd", null);
-            if (hwnd == null) return mmi;
-            var monitorWithTaskbarOnIt = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+            var monitorWithTaskbarOnIt = MonitorFromWindow(hwnd, MonitorDefaulttOnNearest);
             if (!monitorContainingApplication.Equals(monitorWithTaskbarOnIt)) return mmi;
-            var abd = new APPBARDATA();
+            var abd = new Appbardata();
             abd.cbSize = Marshal.SizeOf(abd);
             abd.hWnd = hwnd;
-            SHAppBarMessage((int) ABMsg.ABM_GETTASKBARPOS, ref abd);
+            SHAppBarMessage((int) AbMsg.AbmGettaskbarpos, ref abd);
             var uEdge = GetEdge(abd.rc);
-            var autoHide = Convert.ToBoolean(SHAppBarMessage((int) ABMsg.ABM_GETSTATE, ref abd));
+            var autoHide = Convert.ToBoolean(SHAppBarMessage((int) AbMsg.AbmGetstate, ref abd));
 
             if (!autoHide) return mmi;
 
             switch (uEdge)
             {
-                case (int) ABEdge.ABE_LEFT:
+                case (int) AbEdge.AbeLeft:
                     mmi.ptMaxPosition.x += 2;
                     mmi.ptMaxTrackSize.x -= 2;
                     mmi.ptMaxSize.x -= 2;
                     break;
-                case (int) ABEdge.ABE_RIGHT:
+                case (int) AbEdge.AbeRight:
                     mmi.ptMaxSize.x -= 2;
                     mmi.ptMaxTrackSize.x -= 2;
                     break;
-                case (int) ABEdge.ABE_TOP:
+                case (int) AbEdge.AbeTop:
                     mmi.ptMaxPosition.y += 2;
                     mmi.ptMaxTrackSize.y -= 2;
                     mmi.ptMaxSize.y -= 2;
                     break;
-                case (int) ABEdge.ABE_BOTTOM:
+                case (int) AbEdge.AbeBottom:
                     mmi.ptMaxSize.y -= 2;
                     mmi.ptMaxTrackSize.y -= 2;
                     break;
@@ -77,17 +76,17 @@ namespace BlurryControls.Helpers
             return mmi;
         }
 
-        private static int GetEdge(RECT rc)
+        private static int GetEdge(Rect rc)
         {
             var uEdge = -1;
             if (rc.top == rc.left && rc.bottom > rc.right)
-                uEdge = (int) ABEdge.ABE_LEFT;
+                uEdge = (int) AbEdge.AbeLeft;
             else if (rc.top == rc.left && rc.bottom < rc.right)
-                uEdge = (int) ABEdge.ABE_TOP;
+                uEdge = (int) AbEdge.AbeTop;
             else if (rc.top > rc.left)
-                uEdge = (int) ABEdge.ABE_BOTTOM;
+                uEdge = (int) AbEdge.AbeBottom;
             else
-                uEdge = (int) ABEdge.ABE_RIGHT;
+                uEdge = (int) AbEdge.AbeRight;
             return uEdge;
         }
 
@@ -112,12 +111,12 @@ namespace BlurryControls.Helpers
 
         private static void WmGetMinMaxInfo(IntPtr hwnd, IntPtr lParam)
         {
-            var mmi = (MINMAXINFO) Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
-            var monitorContainingApplication = MonitorFromWindow(hwnd, MONITOR_DEFAULTTONEAREST);
+            var mmi = (Minmaxinfo) Marshal.PtrToStructure(lParam, typeof(Minmaxinfo));
+            var monitorContainingApplication = MonitorFromWindow(hwnd, MonitorDefaulttOnNearest);
 
             if (monitorContainingApplication != IntPtr.Zero)
             {
-                var monitorInfo = new MONITORINFO();
+                var monitorInfo = new Monitorinfo();
                 GetMonitorInfo(monitorContainingApplication, monitorInfo);
                 var rcWorkArea = monitorInfo.rcWork;
                 var rcMonitorArea = monitorInfo.rcMonitor;
@@ -135,42 +134,42 @@ namespace BlurryControls.Helpers
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct APPBARDATA
+        public struct Appbardata
         {
             public int cbSize;
             public IntPtr hWnd;
             public int uCallbackMessage;
             public int uEdge;
-            public RECT rc;
+            public Rect rc;
             public bool lParam;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct MINMAXINFO
+        public struct Minmaxinfo
         {
-            public POINT ptReserved;
-            public POINT ptMaxSize;
-            public POINT ptMaxPosition;
-            public POINT ptMinTrackSize;
-            public POINT ptMaxTrackSize;
+            public Point ptReserved;
+            public Point ptMaxSize;
+            public Point ptMaxPosition;
+            public Point ptMinTrackSize;
+            public Point ptMaxTrackSize;
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public class MONITORINFO
+        public class Monitorinfo
         {
-            public int cbSize = Marshal.SizeOf(typeof(MONITORINFO));
-            public RECT rcMonitor = new RECT();
-            public RECT rcWork = new RECT();
+            public int cbSize = Marshal.SizeOf(typeof(Monitorinfo));
+            public Rect rcMonitor = new Rect();
+            public Rect rcWork = new Rect();
             public int dwFlags = 0;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct POINT
+        public struct Point
         {
             public int x;
             public int y;
 
-            public POINT(int x, int y)
+            public Point(int x, int y)
             {
                 this.x = x;
                 this.y = y;
@@ -178,7 +177,7 @@ namespace BlurryControls.Helpers
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 0)]
-        public struct RECT
+        public struct Rect
         {
             public int left;
             public int top;
@@ -189,13 +188,13 @@ namespace BlurryControls.Helpers
         #region DLLImports
 
         [DllImport("shell32", CallingConvention = CallingConvention.StdCall)]
-        public static extern int SHAppBarMessage(int dwMessage, ref APPBARDATA pData);
+        public static extern int SHAppBarMessage(int dwMessage, ref Appbardata pData);
 
         [DllImport("user32", SetLastError = true)]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32")]
-        internal static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
+        internal static extern bool GetMonitorInfo(IntPtr hMonitor, Monitorinfo lpmi);
 
         [DllImport("user32")]
         internal static extern IntPtr MonitorFromWindow(IntPtr handle, int flags);
