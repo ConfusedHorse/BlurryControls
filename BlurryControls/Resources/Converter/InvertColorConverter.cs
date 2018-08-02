@@ -11,8 +11,7 @@ namespace BlurryControls.Resources.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var type = value?.GetType();
-            double strength;
-            var success = double.TryParse(parameter.ToString(), out strength);
+            var success = double.TryParse(parameter?.ToString(), out var strength);
             if (!success) strength = 1.0d;
 
             if (type == typeof(Brush)) return ((Brush)value).Invert().OfStrength(strength);

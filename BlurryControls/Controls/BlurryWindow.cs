@@ -236,7 +236,7 @@ namespace BlurryControls.Controls
                     resizeRectangle.PreviewMouseLeftButtonDown += WindowResize;
 
             //apply left click event to the window icon (only accepts double click)
-            _titleImage.MouseLeftButtonDown += TitleImage_OnMouseLeftButtonDown;
+            if (_titleImage != null) _titleImage.MouseLeftButtonDown += TitleImage_OnMouseLeftButtonDown;
 
             base.OnApplyTemplate();
         }

@@ -30,9 +30,6 @@ namespace BlurryControls.Helpers
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
 
-        [DllImport("DwmApi.dll")]
-        internal static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS pMarInset);
-
         /// <summary>
         /// this method uses the SetWindowCompositionAttribute to apply an AeroGlass effect to the window
         /// </summary>
@@ -45,7 +42,7 @@ namespace BlurryControls.Helpers
 
             var accent = new AccentPolicy
             {
-                AccentState = enable ? AccentState.ACCENT_ENABLE_BLURBEHIND : AccentState.ACCENT_DISABLED
+                AccentState = enable ? AccentState.AccentEnableBlurbehind : AccentState.AccentDisabled
             };
 
             var accentStructSize = Marshal.SizeOf(accent);
@@ -55,7 +52,7 @@ namespace BlurryControls.Helpers
 
             var data = new WindowCompositionAttributeData
             {
-                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                Attribute = WindowCompositionAttribute.WcaAccentPolicy,
                 SizeOfData = accentStructSize,
                 Data = accentPtr
             };
