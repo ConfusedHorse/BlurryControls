@@ -39,7 +39,7 @@ namespace BlurryControls.Controls
         private static void OnBlurContainerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var blurryUserControl = (BlurryUserControl) d;
-            blurryUserControl.UpdateVisual();
+            blurryUserControl.UpdateVisual(e.OldValue as UIElement);
         }
 
         /// <summary>
@@ -261,9 +261,10 @@ namespace BlurryControls.Controls
             };
         }
 
-        private void UpdateVisual()
+        private void UpdateVisual(UIElement oldBlurContainer = null)
         {
-            BlurContainer.LayoutUpdated -= OnContainerLayoutUpdated;
+            if (oldBlurContainer != null)
+                oldBlurContainer.LayoutUpdated -= OnContainerLayoutUpdated;
 
             if (BlurContainer != null && _blur != null)
             {
