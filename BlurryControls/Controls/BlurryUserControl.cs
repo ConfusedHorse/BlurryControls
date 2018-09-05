@@ -25,7 +25,9 @@ namespace BlurryControls.Controls
         private Point _anchorPoint;
         private Size _containerSize;
         private Point _difference;
-
+        private double _scaleX;
+        private double _scaleY;
+        
         private const bool ShowUglyCurser = false;
 
         #endregion
@@ -190,23 +192,24 @@ namespace BlurryControls.Controls
 
             // offset change
             var currentPoint = args.GetPosition(null);
+            var currentTranslation = RenderTransform as TranslateTransform ?? new TranslateTransform(0, 0);
             var movement = currentPoint - _anchorPoint;
 
             // horizontal change
-            var newX = Margin.Left + movement.X;
+            var newX = currentTranslation.X + movement.X;
             var maxX = _containerSize.Width - Width + BorderThickness.Right;
-            var thresholdX = _difference.X + movement.X;
+            var thresholdX = _difference.X + movement.X + BlurRadius;
 
             // vertical change
-            var newY = Margin.Top + movement.Y;
+            var newY = currentTranslation.Y + movement.Y;
             var maxY = _containerSize.Height - Height + BorderThickness.Bottom;
-            var thresholdY = _difference.Y + movement.Y;
+            var thresholdY = _difference.Y + movement.Y + BlurRadius;
 
             // determine new offset
-            var left = thresholdX > BorderThickness.Left ? thresholdX < maxX ? newX : Margin.Left : Margin.Left;
-            var top = thresholdY > BorderThickness.Top ? thresholdY < maxY ? newY : Margin.Top : Margin.Top;
+            var left = thresholdX > BorderThickness.Left ? thresholdX < maxX ? newX : currentTranslation.X : currentTranslation.X;
+            var top = thresholdY > BorderThickness.Top ? thresholdY < maxY ? newY : currentTranslation.Y : currentTranslation.Y;
 
-            Margin = new Thickness(left, top, -left, -top);
+            RenderTransform = new TranslateTransform(left, top);
             _anchorPoint = currentPoint;
             args.Handled = true;
         }
@@ -246,7 +249,12 @@ namespace BlurryControls.Controls
         {
             if (_blur == null || BlurContainer == null || Brush == null) return;
             _difference = _blur.TranslatePoint(new Point(), BlurContainer);
-            Brush.Viewbox = new Rect(_difference, _blur.RenderSize);
+            _scaleX = 1 + 2 * BlurRadius / RenderSize.Width;
+            _scaleY = 1 + 2 * BlurRadius / RenderSize.Height;
+            var renderSize = new Size(ActualWidth * _scaleX, ActualHeight * _scaleY);
+
+            Brush.Viewbox = new Rect(_difference, renderSize);
+
             _containerSize = BlurContainer.RenderSize;
         }
 
@@ -259,6 +267,8 @@ namespace BlurryControls.Controls
                 KernelType = KernelType.Gaussian,
                 RenderingBias = RenderingBias
             };
+
+            _blur.RenderTransform = new MatrixTransform(_scaleX, 0, 0, _scaleY, -BlurRadius, -BlurRadius);
         }
 
         private void UpdateVisual(UIElement oldBlurContainer = null)

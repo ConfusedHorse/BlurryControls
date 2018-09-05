@@ -9,8 +9,10 @@
                 <ControlTemplate TargetType="{x:Type controls:BlurryUserControl}">
                     <Border BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <Rectangle x:Name="Blur"/>
+                        <Grid ClipToBounds="True">
+                            <Rectangle x:Name="Blur"
+                                       Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type controls:BlurryUserControl}}}"
+                                       Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type controls:BlurryUserControl}}}"/>
                             <Rectangle Fill="{TemplateBinding Background}"/>
                             <AdornerDecorator>
                                 <ContentPresenter/>
