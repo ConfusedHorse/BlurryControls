@@ -1,73 +1,97 @@
 ﻿<UserControl x:Class="BlurryControls.Example.Control.BlurryUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:BlurryControls.Controls;assembly=BlurryControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="450">
+             mc:Ignorable="d"
+             d:DesignHeight="500" d:DesignWidth="700">
     <Grid>
         <Grid x:Name="BlurContainer">
-            <Image x:Name="PartiallyBluredDoge" 
+            <Image x:Name="PartiallyBluredDoge"
                    Stretch="UniformToFill"
-                   Source="../Resources/TestImage/wallpaper_mikael_gustafsson.png"/>
+                   Source="../Resources/TestImage/wallpaper_mikael_gustafsson.png" />
         </Grid>
 
         <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
-        <controls:BlurryUserControl VerticalAlignment="Center" 
-                                    HorizontalAlignment="Center"
-                                    Height="150" Width="250"
+        <controls:BlurryUserControl Height="200" Width="250"
                                     BorderBrush="White"
                                     Background="Transparent"
                                     BorderThickness="1"
                                     DragMoveEnabled="True"
                                     Panel.ZIndex="100"
-                                    BlurContainer="{Binding ElementName=BlurContainer}">
+                                    BlurContainer="{Binding ElementName=BlurContainer}"
+                                    BlurRadius="45"
+                                    Magnification="0.75">
             <Grid>
-                <TextBlock Margin="5"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="60" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Margin="5"
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"
                            FontSize="15"
                            Text="Drag me around to see how the BlurryUserControl works!"
-                           TextWrapping="Wrap"/>
-                
-                <StackPanel Orientation="Vertical"
+                           TextWrapping="Wrap" />
+
+                <StackPanel Grid.Row="1"
+                            Orientation="Vertical"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Stretch">
                     <TextBlock Margin="5 0"
                                FontSize="15"
-                               Text="Adjust the BlurRadius:"/>
-                    <Slider Margin="5" 
-                            Value="{Binding RelativeSource={RelativeSource AncestorType=controls:BlurryUserControl}, Path=BlurRadius, Mode=TwoWay}"
+                               Text="Adjust the Magnification:" />
+                    <Slider Margin="5"
+                            Value="{Binding Magnification, RelativeSource={RelativeSource AncestorType={x:Type controls:BlurryUserControl}}}"
                             Minimum="0"
-                            Maximum="30"/>
+                            Maximum="2" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="2"
+                            Orientation="Vertical"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Stretch">
+                    <TextBlock Margin="5 0"
+                               FontSize="15"
+                               Text="Adjust the BlurRadius:" />
+                    <Slider Margin="5"
+                            Value="{Binding BlurRadius, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type controls:BlurryUserControl}}}"
+                            TickFrequency="5"
+                            TickPlacement="Both"
+                            IsSnapToTickEnabled="True"
+                            Minimum="0"
+                            Maximum="50" />
                 </StackPanel>
             </Grid>
         </controls:BlurryUserControl>
 
         <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
-        <controls:BlurryUserControl VerticalAlignment="Top" 
+        <controls:BlurryUserControl VerticalAlignment="Top"
                                     HorizontalAlignment="Stretch"
                                     Height="55"
                                     BlurContainer="{Binding ElementName=BlurContainer}">
-            <TextBlock Margin="10" 
+            <TextBlock Margin="10"
                        TextAlignment="Right"
                        VerticalAlignment="Center"
                        Text="Here's a blurry overlay!"
-                       FontSize="25"/>
+                       FontSize="25" />
         </controls:BlurryUserControl>
-        
+
         <!--the BlurryUserControl must not be child of the defined BlurContainer!-->
-        <controls:BlurryUserControl VerticalAlignment="Bottom" 
-                                    HorizontalAlignment="Left"
+        <controls:BlurryUserControl VerticalAlignment="Bottom"
+                                    HorizontalAlignment="Right"
                                     Height="75"
                                     BlurContainer="{Binding ElementName=BlurContainer}">
-            <TextBlock x:Name="TimeTextBlock" 
-                       Margin="10" 
+            <TextBlock x:Name="TimeTextBlock"
+                       Margin="10"
                        TextAlignment="Left"
                        VerticalAlignment="Center"
                        FontSize="50"
-                       Loaded="TimeTextBlock_OnLoaded"/>
+                       Loaded="TimeTextBlock_OnLoaded" />
         </controls:BlurryUserControl>
     </Grid>
 </UserControl>

@@ -24,6 +24,7 @@ namespace BlurryControls.Example.Control
 
         private void TimeTextBlock_OnLoaded(object sender, RoutedEventArgs e)
         {
+            TimeTextBlock.Text = DateTime.Now.ToLongTimeString();
             _timeDispatcherTimer.Start();
         }
     }
