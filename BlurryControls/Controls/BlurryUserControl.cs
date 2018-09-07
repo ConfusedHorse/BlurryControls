@@ -90,10 +90,27 @@ namespace BlurryControls.Controls
             set => SetValue(RenderingBiasProperty, value);
         }
 
+        public static readonly DependencyProperty MagnificationProperty = DependencyProperty.Register(
+            "Magnification", typeof(double), typeof(BlurryUserControl), new PropertyMetadata(1.0d, OnMagnificationChanged));
+
+        private static void OnMagnificationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var blurryUserControl = (BlurryUserControl)d;
+            blurryUserControl.UpdateVisual();
+        }
+
+        /// <summary>
+        ///     magnify the area beneath the control to reduce bleed near borders of the <see cref="BlurContainer"/>
+        /// </summary>
+        public double Magnification
+        {
+            get => (double)GetValue(MagnificationProperty);
+            set => SetValue(MagnificationProperty, value);
+        }
+
         private static readonly DependencyProperty BrushProperty = DependencyProperty.Register(
             "Brush", typeof(VisualBrush), typeof(BlurryUserControl), new PropertyMetadata());
-
-
+        
         private VisualBrush Brush
         {
             get => (VisualBrush) GetValue(BrushProperty);
@@ -198,12 +215,12 @@ namespace BlurryControls.Controls
             // horizontal change
             var newX = currentTranslation.X + movement.X;
             var maxX = _containerSize.Width - Width + BorderThickness.Right;
-            var thresholdX = _difference.X + movement.X + BlurRadius;
+            var thresholdX = _difference.X + movement.X + BlurRadius * Magnification;
 
             // vertical change
             var newY = currentTranslation.Y + movement.Y;
             var maxY = _containerSize.Height - Height + BorderThickness.Bottom;
-            var thresholdY = _difference.Y + movement.Y + BlurRadius;
+            var thresholdY = _difference.Y + movement.Y + BlurRadius * Magnification;
 
             // determine new offset
             var left = thresholdX > BorderThickness.Left ? thresholdX < maxX ? newX : currentTranslation.X : currentTranslation.X;
@@ -249,10 +266,10 @@ namespace BlurryControls.Controls
         {
             if (_blur == null || BlurContainer == null || Brush == null) return;
             _difference = _blur.TranslatePoint(new Point(), BlurContainer);
-            _scaleX = 1 + 2 * BlurRadius / RenderSize.Width;
-            _scaleY = 1 + 2 * BlurRadius / RenderSize.Height;
-            var renderSize = new Size(ActualWidth * _scaleX, ActualHeight * _scaleY);
+            _scaleX = 1 + 2 * BlurRadius * Magnification / RenderSize.Width;
+            _scaleY = 1 + 2 * BlurRadius * Magnification / RenderSize.Height;
 
+            var renderSize = new Size(RenderSize.Width * _scaleX, RenderSize.Height * _scaleY);
             Brush.Viewbox = new Rect(_difference, renderSize);
 
             _containerSize = BlurContainer.RenderSize;
@@ -268,7 +285,7 @@ namespace BlurryControls.Controls
                 RenderingBias = RenderingBias
             };
 
-            _blur.RenderTransform = new MatrixTransform(_scaleX, 0, 0, _scaleY, -BlurRadius, -BlurRadius);
+            _blur.RenderTransform = new MatrixTransform(_scaleX, 0, 0, _scaleY, -BlurRadius * Magnification, -BlurRadius * Magnification);
         }
 
         private void UpdateVisual(UIElement oldBlurContainer = null)
@@ -278,7 +295,11 @@ namespace BlurryControls.Controls
 
             if (BlurContainer != null && _blur != null)
             {
-                Brush = new VisualBrush(BlurContainer) {ViewboxUnits = BrushMappingMode.Absolute};
+                Brush = new VisualBrush(BlurContainer)
+                {
+                    ViewboxUnits = BrushMappingMode.Absolute,
+                    Stretch = Stretch.None
+                };
 
                 BlurContainer.LayoutUpdated += OnContainerLayoutUpdated;
                 RefreshBounds();
