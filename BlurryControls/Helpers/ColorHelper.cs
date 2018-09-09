@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media;
+using BlurryControls.Controls;
 
 namespace BlurryControls.Helpers
 {
@@ -65,7 +66,7 @@ namespace BlurryControls.Helpers
 
         #endregion colors
 
-        #region color functions
+        #region Color Functions
 
         /// <summary>
         /// returns the currently selected <see cref="SystemParameters.WindowGlassColor"/> with chosen opacity
@@ -186,6 +187,12 @@ namespace BlurryControls.Helpers
             return new SolidColorBrush(color);
         }
 
-        #endregion color functions
+        #endregion Color Functions
+
+        #region Strength
+
+        public static double GetStrength(Window owner = null) => ((owner ?? Application.Current.MainWindow) as BlurryWindow)?.Strength ?? 0.5;
+
+        #endregion Strength
     }
 }

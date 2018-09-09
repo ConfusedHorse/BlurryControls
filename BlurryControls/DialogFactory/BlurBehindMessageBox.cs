@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using BlurryControls.Controls;
+using BlurryControls.Helpers;
 using BlurryControls.Internals;
 
 namespace BlurryControls.DialogFactory
@@ -10,7 +11,6 @@ namespace BlurryControls.DialogFactory
     /// </summary>
     public static class BlurBehindMessageBox
     {
-        private const double Strength = 0.5;
         private const int BlurDuration = 300;
         private const int UnblurDuration = 250;
         private const int BlurRadius = 15;
@@ -23,7 +23,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="messageBoxText">A <see cref="string"/> that specifies the text to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string messageBoxText, double strength = Strength)
+        public static BlurryDialogResult Show(string messageBoxText, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -33,7 +33,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.Ok,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -57,7 +57,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string messageBoxText, string caption, double strength = Strength)
+        public static BlurryDialogResult Show(string messageBoxText, string caption, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -67,7 +67,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.Ok,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -92,7 +92,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="messageBoxText">A <see cref="string"/> that specifies the text to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string messageBoxText, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string messageBoxText, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -102,7 +102,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.Ok,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -128,7 +128,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="button">A <see cref="BlurryDialogButton"/> value that specifies which button or buttons to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, double strength = Strength)
+        public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -138,7 +138,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = button,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -164,7 +164,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="caption">A <see cref="string"/> that specifies the title bar caption to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -174,7 +174,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = BlurryDialogButton.Ok,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -201,7 +201,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="icon">A <see cref="BlurryDialogIcon"/> value that specifies the icon to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double strength = Strength)
+        public static BlurryDialogResult Show(string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -211,7 +211,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = button,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -238,7 +238,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="button">A <see cref="BlurryDialogButton"/> value that specifies which button or buttons to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -248,7 +248,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = button,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -276,7 +276,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="icon">A <see cref="BlurryDialogIcon"/> value that specifies the icon to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, BlurryDialogButton button, BlurryDialogIcon icon, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -286,7 +286,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 Button = button,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -315,7 +315,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string caption, FrameworkElement content, double strength = Strength)
+        public static BlurryDialogResult Show(string caption, FrameworkElement content, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -325,7 +325,7 @@ namespace BlurryControls.DialogFactory
                 CustomContent = content,
                 Button = BlurryDialogButton.Ok,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -351,7 +351,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="button">A <see cref="BlurryDialogButton"/> value that specifies which button or buttons to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
+        public static BlurryDialogResult Show(string caption, FrameworkElement content, BlurryDialogButton button, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -361,7 +361,7 @@ namespace BlurryControls.DialogFactory
                 CustomContent = content,
                 Button = button,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -387,7 +387,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="customDialogButtons"> A <see cref="ButtonCollection"/> shown instead of the conventional dialog buttons.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string messageBoxText, string caption, ButtonCollection customDialogButtons, double strength = Strength)
+        public static BlurryDialogResult Show(string messageBoxText, string caption, ButtonCollection customDialogButtons, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -397,7 +397,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 CustomDialogButtons = customDialogButtons,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -423,7 +423,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="customDialogButtons"> A <see cref="ButtonCollection"/> shown instead of the conventional dialog buttons.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
+        public static BlurryDialogResult Show(string caption, FrameworkElement content, ButtonCollection customDialogButtons, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -433,7 +433,7 @@ namespace BlurryControls.DialogFactory
                 CustomContent = content,
                 CustomDialogButtons = customDialogButtons,
                 Owner = Application.Current.MainWindow,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -459,7 +459,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="content">A <see cref="FrameworkElement"/> that specifies the content to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -469,7 +469,7 @@ namespace BlurryControls.DialogFactory
                 CustomContent = content,
                 Button = BlurryDialogButton.Ok,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -496,7 +496,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="button">A <see cref="BlurryDialogButton"/> value that specifies which button or buttons to display.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, BlurryDialogButton button, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, BlurryDialogButton button, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -506,7 +506,7 @@ namespace BlurryControls.DialogFactory
                 CustomContent = content,
                 Button = button,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -533,7 +533,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="customDialogButtons"> A <see cref="ButtonCollection"/> shown instead of the conventional dialog buttons.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, ButtonCollection customDialogButtons, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string messageBoxText, string caption, ButtonCollection customDialogButtons, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -543,7 +543,7 @@ namespace BlurryControls.DialogFactory
                 DialogMessage = messageBoxText,
                 CustomDialogButtons = customDialogButtons,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
@@ -570,7 +570,7 @@ namespace BlurryControls.DialogFactory
         /// <param name="customDialogButtons"> A <see cref="ButtonCollection"/> shown instead of the conventional dialog buttons.</param>
         /// <param name="strength"> Determines the opacity of the window which is set to 0.75 by default and may not exceed 1</param>
         /// <returns>A <see cref="BlurryDialogResult"/> value that specifies which message box button is clicked by the user.</returns>
-        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, ButtonCollection customDialogButtons, double strength = Strength)
+        public static BlurryDialogResult Show(Window owner, string caption, FrameworkElement content, ButtonCollection customDialogButtons, double? strength = null)
         {
             var result = BlurryDialogResult.None;
             var dialog = new BlurBehindDialogWindow
@@ -580,7 +580,7 @@ namespace BlurryControls.DialogFactory
                 CustomContent = content,
                 CustomDialogButtons = customDialogButtons,
                 Owner = owner,
-                Strength = strength,
+                Strength = strength ?? ColorHelper.GetStrength(),
                 BlurDuration = BlurDuration,
                 UnblurDuration = UnblurDuration,
                 BlurRadius = BlurRadius
