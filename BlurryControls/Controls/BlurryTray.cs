@@ -46,10 +46,10 @@ namespace BlurryControls.Controls
 
             _customBackground = Background != null;
             //use system accent color for window (is overwritten if Background is set)
+            var strength = Strength ?? ColorHelper.GetStrength();
             Background = !_customBackground
-                ? ((BlurryWindow) Application.Current.MainWindow)?.Background?.OfStrength(Strength) ??
-                  ColorHelper.SystemWindowGlassBrushOfStrength(Strength)
-                : Background.OfStrength(Strength);
+                ? ColorHelper.GetColor().OfStrength(strength)
+                : Background.OfStrength(strength);
         }
 
         #endregion
@@ -65,7 +65,7 @@ namespace BlurryControls.Controls
         #region Dependency Properties
 
         public static readonly DependencyProperty StrengthProperty = DependencyProperty.Register(
-            "Strength", typeof(double), typeof(BlurryTray), new PropertyMetadata(0.75, OnStrengthChanged));
+            "Strength", typeof(double?), typeof(BlurryTray), new PropertyMetadata(null, OnStrengthChanged));
 
         private static void OnStrengthChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -82,9 +82,9 @@ namespace BlurryControls.Controls
         ///     the strength property determines the opacity of the window controls
         ///     it is set to 0.75 by default and may not exceed 1
         /// </summary>
-        public double Strength
+        public double? Strength
         {
-            get => (double) GetValue(StrengthProperty);
+            get => (double?) GetValue(StrengthProperty);
             set => SetValue(StrengthProperty, (value >= 1 ? 1d : value) <= 0 ? 0d : value);
         }
 
@@ -220,7 +220,8 @@ namespace BlurryControls.Controls
         {
             if (e.PropertyName != "WindowGlassBrush") return;
 
-            Background = ColorHelper.SystemWindowGlassBrushOfStrength(Strength);
+            var strength = Strength ?? ColorHelper.GetStrength();
+            Background = ColorHelper.SystemWindowGlassBrushOfStrength(strength);
         }
 
         // termination animation

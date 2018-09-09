@@ -189,10 +189,15 @@ namespace BlurryControls.Helpers
 
         #endregion Color Functions
 
-        #region Strength
+        #region Utility
 
-        public static double GetStrength(Window owner = null) => ((owner ?? Application.Current.MainWindow) as BlurryWindow)?.Strength ?? 0.5;
+        private static BlurryWindow MainWindow => Application.Current.MainWindow as BlurryWindow;
 
-        #endregion Strength
+        public static double GetStrength(Window owner = null) => (owner as BlurryWindow ?? MainWindow)?.Strength ?? 0.5;
+
+        public static SolidColorBrush GetColor(Window owner = null) =>
+            owner?.Background as SolidColorBrush ?? MainWindow?.Background ?? SystemWindowGlassColorBrush;
+
+        #endregion Utility
     }
 }
