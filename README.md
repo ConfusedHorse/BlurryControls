@@ -7,6 +7,6 @@
 The BlurryControls library is meant to give your application a blurry look as it is known from the _AeroGlass_ design.
 Please consider that this library runs on Windows 10 only! On Windows 8.1 or older operating systems the application may just appear transparent without any effect. The blurry look is not to be confused with the Acrylic Material appearance of UWP applications ([example project](https://github.com/ConfusedHorse/AcrylicControls)).
 
-If you have suggestions or questions, feel free to contact me. :)
+This project is looking for a maintainer.
 
 ![A screenshot of the example project](https://i.imgur.com/QksmG7Q.png)
